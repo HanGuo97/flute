@@ -1,0 +1,10 @@
+[build-system]
+requires = [
+    "setuptools",
+    "torch",
+    "ninja",
+    "jaxtyping",
+    "matplotlib",
+    "transformers",
+]
+build-backend = "setuptools.build_meta"

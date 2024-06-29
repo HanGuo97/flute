@@ -1,0 +1,7 @@
+ninja
+jaxtyping
+matplotlib
+transformers
+
+bitblas
+bitsandbytes
