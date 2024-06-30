@@ -219,6 +219,9 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
+                    case 4096:
+                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -349,6 +352,9 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
+                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        break;
+                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -483,6 +489,9 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
+                    case 4096:
+                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -613,6 +622,9 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
+                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        break;
+                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -754,6 +766,9 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
                         break;
+                    case 4096:
+                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -884,6 +899,9 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
+                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        break;
+                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -1018,6 +1036,9 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
                         break;
+                    case 4096:
+                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -1148,6 +1169,9 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
+                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        break;
+                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -1296,6 +1320,9 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
+                    case 4096:
+                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -1426,6 +1453,9 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
+                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        break;
+                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -1560,6 +1590,9 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
+                    case 4096:
+                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -1690,6 +1723,9 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
+                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        break;
+                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -1831,6 +1867,9 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
+                    case 4096:
+                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -1961,6 +2000,9 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
+                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        break;
+                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -2095,6 +2137,9 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
+                    case 4096:
+                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -2225,6 +2270,9 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
+                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        break;
+                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
                     default:
