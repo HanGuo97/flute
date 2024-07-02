@@ -5,6 +5,9 @@ from typing import List, Dict
 from . import packbits_utils
 from . import NUM_SMS
 from . import TEMPLATE_CONFIGS
+from . import qgemm_simple
+
+_WORKSPACES = {}
 
 
 # 2 / 4
@@ -38,6 +41,17 @@ def make_workspace_streamk(device: torch.device) -> torch.Tensor:
     workspace_size_partials = blocks_max * threads_max * accum_size_max
     workspace_size_barriers = barrier_size * blocks_max
     return torch.zeros(workspace_size_partials + workspace_size_barriers, dtype=torch.uint8, device=device)
+
+
+# this function 4/4
+def get_workspace_streamk(device: torch.device) -> torch.Tensor:
+    if device.type != "cuda":
+        raise ValueError("Only CUDA devices are supported.")
+
+    if device not in _WORKSPACES.keys():
+        _WORKSPACES[device] = make_workspace_streamk(device)
+
+    return _WORKSPACES[device]
 
 
 def _pack_4bit(W: torch.Tensor, tile_P: int) -> torch.Tensor:
@@ -308,3 +322,57 @@ def is_template_supported(
     if (tiles < template_config["blocks"]):
         return False
     return True
+
+
+def reconstruct(
+    weight: torch.Tensor,
+    scales: torch.Tensor,
+    tables: torch.Tensor,
+    tables2: torch.Tensor,
+    workspace: torch.Tensor,
+    num_bits: int,
+    group_size: int,
+) -> torch.Tensor:
+    # we reconstruct the tensor using the fact that
+    # `W.T = I @ W.T` and thus using the `qgemm` routine
+    inputs = torch.eye(
+        weight.shape[1],
+        dtype=scales.dtype,
+        device=scales.device)
+    weight_reconstructed = qgemm_simple(
+        inputs,
+        weight,
+        scales,
+        tables,
+        tables2,
+        workspace,
+        num_bits,
+        group_size)
+    return weight_reconstructed.T
+
+
+def unpack(
+    weight: torch.Tensor,
+    scales: torch.Tensor,
+    workspace: torch.Tensor,
+    num_bits: int,
+    group_size: int,
+) -> torch.Tensor:
+
+    # the scales needs to be just ones
+    scales = torch.ones_like(scales)
+    # the tables need to return the original values
+    tables = torch.arange(
+        2 ** num_bits,
+        dtype=scales.dtype,
+        device=scales.device)
+    tables2 = make_qmap2_from_qmap(tables)
+
+    return reconstruct(
+        weight=weight,
+        scales=scales,
+        tables=tables,
+        tables2=tables2,
+        workspace=workspace,
+        num_bits=num_bits,
+        group_size=group_size)

@@ -11,8 +11,6 @@ import flute
 import flute.utils
 import flute.nf_utils
 
-_WORKSPACE = flute.utils.make_workspace_streamk(torch.device("cuda"))
-
 
 # 2/4
 @torch.no_grad()
@@ -113,6 +111,8 @@ class FluteLinear(torch.nn.Module):
         factory_kwargs = {"device": device, "dtype": dtype}
         if dtype not in [torch.float16]:
             raise NotImplementedError
+        if not isinstance(device, torch.device):
+            raise NotImplementedError
         if bias:
             raise NotImplementedError
 
@@ -132,7 +132,7 @@ class FluteLinear(torch.nn.Module):
         self.num_bits = num_bits
         self.group_size = group_size
         # scratch space used by the kernel
-        self.workspace = _WORKSPACE
+        self.workspace = flute.utils.get_workspace_streamk(device)
 
         self.register_buffer("weight", torch.empty((P, K), dtype=torch.int16, device=device))
         self.register_buffer("scales", torch.ones((N, G), dtype=dtype, device=device))
