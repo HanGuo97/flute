@@ -12,7 +12,66 @@ cd flute
 pip install -e .
 ```
 
-# vLLM Integrations
+# Usages
+
+## HuggingFace
+
+### Command Line API
+
+```bash
+python -m flute.integrations \
+    --pretrained_model_name_or_path meta-llama/Meta-Llama-3-70B-Instruct \
+    --save_directory Meta-Llama-3-70B-Instruct-NF4 \
+    --num_bits 4 \
+    --group_size 128
+```
+
+### Python API
+```python
+
+import os
+import json
+from transformers import (
+    LlamaForCausalLM,
+    AutoModelForCausalLM)
+
+import flute
+import flute.utils
+import flute.integrations
+
+model = AutoModelForCausalLM.from_pretrained(
+    pretrained_model_name_or_path,
+    device_map="cpu",
+    torch_dtype="auto")
+
+if isinstance(model, LlamaForCausalLM):
+    flute.integrations.prepare_model_flute(
+        module=model.model.layers,
+        num_bits=num_bits,
+        group_size=group_size,
+        fake=False)
+else:
+    # more models to come
+    raise NotImplementedError
+
+# save the model
+model.save_pretrained(save_directory)
+
+# save the config
+config = {
+    "num_sms": flute.NUM_SMS,
+    "num_bits": num_bits,
+    "group_size": group_size,
+}
+config_path = os.path.join(
+    save_directory,
+    "flute_config.json")
+with open(config_path, "w") as f:
+    json.dump(config, f)
+
+```
+
+### vLLM
 
 1. Install the forked version of vLLM
 ```bash
