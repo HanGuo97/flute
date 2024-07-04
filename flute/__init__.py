@@ -59,11 +59,11 @@ if os.environ.get("FLUTE_ABLATIONS", "0") == "1":
     click.secho(f"[FLUTE]: Abalations enabled", fg="yellow")
     TEMPLATE_CONFIGS_PATH = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
-        "csrc/qgemm_kernel_raw_generated_configs.ablations.pth")
+        "data/qgemm_kernel_raw_generated_configs.ablations.pth")
 else:
     TEMPLATE_CONFIGS_PATH = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
-        "csrc/qgemm_kernel_raw_generated_configs.pth")
+        "data/qgemm_kernel_raw_generated_configs.pth")
 
 if os.path.exists(TEMPLATE_CONFIGS_PATH):
     TEMPLATE_CONFIGS = torch.load(TEMPLATE_CONFIGS_PATH)
@@ -76,10 +76,10 @@ else:
 # Load the tuned configs
 TEMPLATE_TUNED_WITH_M_CONFIGS_PATH = os.path.join(
     os.path.dirname(os.path.abspath(__file__)),
-    "../experiments/qgemm_kernel_raw_tuned_configs.pth")
+    "data/qgemm_kernel_raw_tuned_configs.pth")
 TEMPLATE_TUNED_WITHOUT_M_CONFIGS_PATH = os.path.join(
     os.path.dirname(os.path.abspath(__file__)),
-    "../experiments/qgemm_kernel_raw_tuned_configs.no-M.pth")
+    "data/qgemm_kernel_raw_tuned_configs.no-M.pth")
 
 if os.path.exists(TEMPLATE_TUNED_WITH_M_CONFIGS_PATH):
     TEMPLATE_TUNED_WITH_M_CONFIGS = torch.load(TEMPLATE_TUNED_WITH_M_CONFIGS_PATH)

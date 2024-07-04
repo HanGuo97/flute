@@ -88,9 +88,9 @@ def generate_nested_switch(
 
 def codegen_tuned(no_M_specialization: bool = False) -> None:
     file_dir = os.path.dirname(os.path.abspath(__file__))
-    out_path = os.path.join(file_dir, "csrc/qgemm_kernel_generated.cu")
-    cfg_path = os.path.join(file_dir, "csrc/qgemm_kernel_raw_generated_configs.pth")
-    tuned_path = os.path.join(file_dir, "../experiments/qgemm_kernel_raw_tuned_configs.pth")
+    out_path = os.path.join(file_dir, "data/qgemm_kernel_generated.cu")
+    cfg_path = os.path.join(file_dir, "data/qgemm_kernel_raw_generated_configs.pth")
+    tuned_path = os.path.join(file_dir, "data/qgemm_kernel_raw_tuned_configs.pth")
 
     configs = torch.load(cfg_path)
     templates_with_M = torch.load(tuned_path)
@@ -156,7 +156,7 @@ def codegen_tuned(no_M_specialization: bool = False) -> None:
                 code.append(code_append)
                 code.append("\n")
 
-    save_path = os.path.join(file_dir, "../experiments/qgemm_kernel_raw_tuned_configs.no-M.pth")
+    save_path = os.path.join(file_dir, "data/qgemm_kernel_raw_tuned_configs.no-M.pth")
     torch.save(templates_without_M, save_path)
     with open(out_path, "w") as f:
         f.write("".join(code))
@@ -240,8 +240,8 @@ def codegen_raw() -> None:
         prefix="    ")
 
     file_dir = os.path.dirname(os.path.abspath(__file__))
-    out_path = os.path.join(file_dir, "csrc/qgemm_kernel_raw_generated.cu")
-    cfg_path = os.path.join(file_dir, "csrc/qgemm_kernel_raw_generated_configs.pth")
+    out_path = os.path.join(file_dir, "data/qgemm_kernel_raw_generated.cu")
+    cfg_path = os.path.join(file_dir, "data/qgemm_kernel_raw_generated_configs.pth")
 
     code = []
     with open(out_path) as f:
@@ -347,8 +347,8 @@ def codegen_ablations() -> None:
         prefix="    ")
 
     file_dir = os.path.dirname(os.path.abspath(__file__))
-    out_path = os.path.join(file_dir, "csrc/qgemm_kernel_raw_generated.cu")
-    cfg_path = os.path.join(file_dir, "csrc/qgemm_kernel_raw_generated_configs.ablations.pth")
+    out_path = os.path.join(file_dir, "data/qgemm_kernel_raw_generated.cu")
+    cfg_path = os.path.join(file_dir, "data/qgemm_kernel_raw_generated_configs.ablations.pth")
 
     code = []
     with open(out_path) as f:

@@ -25,6 +25,9 @@ def prepare_model_flute(
         for name, child in _module.named_children():
             if isinstance(child, torch.nn.Linear):
 
+                if child.weight.dtype not in [torch.float16, torch.bfloat16]:
+                    raise NotImplementedError
+
                 if fake is True:
                     # we primarily use the fake quantization to
                     # check the outputs of the quantized model
@@ -32,11 +35,11 @@ def prepare_model_flute(
                         W=child.weight.to(device="cuda"),
                         num_bits=num_bits,
                         group_size=group_size,
-                        dtype=torch.float16)
+                        dtype=child.weight.dtype)
                     # we use assignment instead of in-place copy to
                     # make sure there are no type casting operations.
                     child.weight = torch.nn.Parameter(
-                        new_weight,
+                        new_weight.to(device=child.weight.device),
                         requires_grad=False)
                     continue
 
@@ -50,7 +53,7 @@ def prepare_model_flute(
                         group_size=group_size,
                         bias=(child.bias is not None),
                         device=child.weight.device,
-                        dtype=torch.float16))
+                        dtype=child.weight.dtype))
 
                 template_id = flute.TEMPLATE_TUNED_WITHOUT_M_CONFIGS[(
                     flute.NUM_SMS,
@@ -109,7 +112,7 @@ class FluteLinear(torch.nn.Module):
     ) -> None:
 
         factory_kwargs = {"device": device, "dtype": dtype}
-        if dtype not in [torch.float16]:
+        if dtype not in [torch.float16, torch.bfloat16]:
             raise NotImplementedError
         if not isinstance(device, torch.device):
             raise NotImplementedError
@@ -168,7 +171,7 @@ def quantize_hf_model(
 ) -> None:
     model = AutoModelForCausalLM.from_pretrained(
         pretrained_model_name_or_path,
-        device_map="auto",
+        device_map="cpu",
         torch_dtype="auto")
 
     if isinstance(model, LlamaForCausalLM):

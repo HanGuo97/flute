@@ -46,7 +46,7 @@ def make_workspace_streamk(device: torch.device) -> torch.Tensor:
 # this function 4/4
 def get_workspace_streamk(device: torch.device) -> torch.Tensor:
     if device.type != "cuda":
-        raise ValueError("Only CUDA devices are supported.")
+        warnings.warn(f"Only CUDA devices are supported, but got: {device} ({device.type})")
 
     if device not in _WORKSPACES.keys():
         _WORKSPACES[device] = make_workspace_streamk(device)

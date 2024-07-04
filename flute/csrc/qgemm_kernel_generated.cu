@@ -219,9 +219,6 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
-                    case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
-                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -352,9 +349,6 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
-                        break;
-                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -489,9 +483,6 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
-                    case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
-                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -622,9 +613,6 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
-                        break;
-                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -766,9 +754,6 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
                         break;
-                    case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
-                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -899,9 +884,6 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
-                        break;
-                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -1036,9 +1018,6 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
                         break;
-                    case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
-                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -1169,9 +1148,6 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
-                        break;
-                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -1320,9 +1296,6 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
-                    case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
-                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -1453,9 +1426,6 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
-                        break;
-                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -1590,9 +1560,6 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
-                    case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
-                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -1723,9 +1690,6 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
-                        break;
-                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -1867,9 +1831,6 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
-                    case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
-                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -2000,9 +1961,6 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
-                        break;
-                    case 4096:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
                     default:
@@ -2137,9 +2095,6 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
-                    case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
-                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -2272,9 +2227,6 @@ _qgemm(int M,
                     case 8192:
                         RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
                         break;
-                    case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
-                        break;
                     default:
                         AT_ERROR("Unsupported K value");
                     }
@@ -2330,28 +2282,52 @@ _qgemm(int M,
         const cudaStream_t           stream)
 
 
-INSTANTIATE_TEMPLATE(84 , cute::half_t, cute::uint16_t, __half2, 2, 32);
-INSTANTIATE_TEMPLATE(84 , cute::half_t, cute::uint16_t, __half2, 2, 64);
-INSTANTIATE_TEMPLATE(84 , cute::half_t, cute::uint16_t, __half2, 2, 128);
-INSTANTIATE_TEMPLATE(84 , cute::half_t, cute::uint16_t, __half2, 2, 256);
-INSTANTIATE_TEMPLATE(84 , cute::half_t, cute::uint16_t, __half2, 3, 32);
-INSTANTIATE_TEMPLATE(84 , cute::half_t, cute::uint16_t, __half2, 3, 64);
-INSTANTIATE_TEMPLATE(84 , cute::half_t, cute::uint16_t, __half2, 3, 128);
-INSTANTIATE_TEMPLATE(84 , cute::half_t, cute::uint16_t, __half2, 3, 256);
-INSTANTIATE_TEMPLATE(84 , cute::half_t, cute::uint16_t, __half2, 4, 32);
-INSTANTIATE_TEMPLATE(84 , cute::half_t, cute::uint16_t, __half2, 4, 64);
-INSTANTIATE_TEMPLATE(84 , cute::half_t, cute::uint16_t, __half2, 4, 128);
-INSTANTIATE_TEMPLATE(84 , cute::half_t, cute::uint16_t, __half2, 4, 256);
-INSTANTIATE_TEMPLATE(108, cute::half_t, cute::uint16_t, __half2, 2, 32);
-INSTANTIATE_TEMPLATE(108, cute::half_t, cute::uint16_t, __half2, 2, 64);
-INSTANTIATE_TEMPLATE(108, cute::half_t, cute::uint16_t, __half2, 2, 128);
-INSTANTIATE_TEMPLATE(108, cute::half_t, cute::uint16_t, __half2, 2, 256);
-INSTANTIATE_TEMPLATE(108, cute::half_t, cute::uint16_t, __half2, 3, 32);
-INSTANTIATE_TEMPLATE(108, cute::half_t, cute::uint16_t, __half2, 3, 64);
-INSTANTIATE_TEMPLATE(108, cute::half_t, cute::uint16_t, __half2, 3, 128);
-INSTANTIATE_TEMPLATE(108, cute::half_t, cute::uint16_t, __half2, 3, 256);
-INSTANTIATE_TEMPLATE(108, cute::half_t, cute::uint16_t, __half2, 4, 32);
-INSTANTIATE_TEMPLATE(108, cute::half_t, cute::uint16_t, __half2, 4, 64);
-INSTANTIATE_TEMPLATE(108, cute::half_t, cute::uint16_t, __half2, 4, 128);
-INSTANTIATE_TEMPLATE(108, cute::half_t, cute::uint16_t, __half2, 4, 256);
+INSTANTIATE_TEMPLATE(84 , cute::half_t    , cute::uint16_t, __half2       , 2, 32);
+INSTANTIATE_TEMPLATE(84 , cute::half_t    , cute::uint16_t, __half2       , 2, 64);
+INSTANTIATE_TEMPLATE(84 , cute::half_t    , cute::uint16_t, __half2       , 2, 128);
+INSTANTIATE_TEMPLATE(84 , cute::half_t    , cute::uint16_t, __half2       , 2, 256);
+INSTANTIATE_TEMPLATE(84 , cute::half_t    , cute::uint16_t, __half2       , 3, 32);
+INSTANTIATE_TEMPLATE(84 , cute::half_t    , cute::uint16_t, __half2       , 3, 64);
+INSTANTIATE_TEMPLATE(84 , cute::half_t    , cute::uint16_t, __half2       , 3, 128);
+INSTANTIATE_TEMPLATE(84 , cute::half_t    , cute::uint16_t, __half2       , 3, 256);
+INSTANTIATE_TEMPLATE(84 , cute::half_t    , cute::uint16_t, __half2       , 4, 32);
+INSTANTIATE_TEMPLATE(84 , cute::half_t    , cute::uint16_t, __half2       , 4, 64);
+INSTANTIATE_TEMPLATE(84 , cute::half_t    , cute::uint16_t, __half2       , 4, 128);
+INSTANTIATE_TEMPLATE(84 , cute::half_t    , cute::uint16_t, __half2       , 4, 256);
+INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 2, 32);
+INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 2, 64);
+INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 2, 128);
+INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 2, 256);
+INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 3, 32);
+INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 3, 64);
+INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 3, 128);
+INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 3, 256);
+INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 4, 32);
+INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 4, 64);
+INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 4, 128);
+INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 4, 256);
 
+INSTANTIATE_TEMPLATE(84 , cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 32);
+INSTANTIATE_TEMPLATE(84 , cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 64);
+INSTANTIATE_TEMPLATE(84 , cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 128);
+INSTANTIATE_TEMPLATE(84 , cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 256);
+INSTANTIATE_TEMPLATE(84 , cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 32);
+INSTANTIATE_TEMPLATE(84 , cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 64);
+INSTANTIATE_TEMPLATE(84 , cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 128);
+INSTANTIATE_TEMPLATE(84 , cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 256);
+INSTANTIATE_TEMPLATE(84 , cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 32);
+INSTANTIATE_TEMPLATE(84 , cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 64);
+INSTANTIATE_TEMPLATE(84 , cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 128);
+INSTANTIATE_TEMPLATE(84 , cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 256);
+INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 32);
+INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 64);
+INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 128);
+INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 256);
+INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 32);
+INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 64);
+INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 128);
+INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 256);
+INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 32);
+INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 64);
+INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 128);
+INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 256);
