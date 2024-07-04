@@ -330,7 +330,7 @@ struct GemmConfig {
     using MmaOp     = conditional_t<is_same_v<T, half_t> == true, MmaOpFP16, MmaOpBF16>;
     using MmaTraits = MMA_Traits<MmaOp>;
     using MmaAtom   = MMA_Atom<MmaTraits>;
-    CUTE_STATIC_ASSERT(is_same_v<T, half_t> == true || AccumulationMode == AccumulationModeEnum::High);  // BF16 does not low-precision accumulation
+    CUTE_STATIC_ASSERT(is_same_v<T, half_t> == true || AccumulationMode != AccumulationModeEnum::Low);  // BF16 does not low-precision accumulation
 
     // We can increase the size of the computation via
     // 1. adding more threads (`kMmaThr*`)

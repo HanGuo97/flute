@@ -88,7 +88,7 @@ def generate_nested_switch(
 
 def codegen_tuned(no_M_specialization: bool = False) -> None:
     file_dir = os.path.dirname(os.path.abspath(__file__))
-    out_path = os.path.join(file_dir, "data/qgemm_kernel_generated.cu")
+    out_path = os.path.join(file_dir, "csrc/qgemm_kernel_generated.cu")
     cfg_path = os.path.join(file_dir, "data/qgemm_kernel_raw_generated_configs.pth")
     tuned_path = os.path.join(file_dir, "data/qgemm_kernel_raw_tuned_configs.pth")
 
@@ -240,7 +240,7 @@ def codegen_raw() -> None:
         prefix="    ")
 
     file_dir = os.path.dirname(os.path.abspath(__file__))
-    out_path = os.path.join(file_dir, "data/qgemm_kernel_raw_generated.cu")
+    out_path = os.path.join(file_dir, "csrc/qgemm_kernel_raw_generated.cu")
     cfg_path = os.path.join(file_dir, "data/qgemm_kernel_raw_generated_configs.pth")
 
     code = []
@@ -347,7 +347,7 @@ def codegen_ablations() -> None:
         prefix="    ")
 
     file_dir = os.path.dirname(os.path.abspath(__file__))
-    out_path = os.path.join(file_dir, "data/qgemm_kernel_raw_generated.cu")
+    out_path = os.path.join(file_dir, "csrc/qgemm_kernel_raw_generated.cu")
     cfg_path = os.path.join(file_dir, "data/qgemm_kernel_raw_generated_configs.ablations.pth")
 
     code = []
