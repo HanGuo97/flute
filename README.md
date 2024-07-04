@@ -14,12 +14,10 @@ pip install -e .
 
 # Usages
 
-## HuggingFace
-
 ### Command Line API
 
 ```bash
-python -m flute.integrations \
+python -m flute.integrations.base \
     --pretrained_model_name_or_path meta-llama/Meta-Llama-3-70B-Instruct \
     --save_directory Meta-Llama-3-70B-Instruct-NF4 \
     --num_bits 4 \
@@ -28,16 +26,10 @@ python -m flute.integrations \
 
 ### Python API
 ```python
-
-import os
-import json
 from transformers import (
     LlamaForCausalLM,
     AutoModelForCausalLM)
-
-import flute
-import flute.utils
-import flute.integrations
+import flute.integrations.base
 
 model = AutoModelForCausalLM.from_pretrained(
     pretrained_model_name_or_path,
@@ -45,7 +37,7 @@ model = AutoModelForCausalLM.from_pretrained(
     torch_dtype="auto")
 
 if isinstance(model, LlamaForCausalLM):
-    flute.integrations.prepare_model_flute(
+    flute.integrations.base.prepare_model_flute(
         module=model.model.layers,
         num_bits=num_bits,
         group_size=group_size,
@@ -53,34 +45,19 @@ if isinstance(model, LlamaForCausalLM):
 else:
     # more models to come
     raise NotImplementedError
-
-# save the model
-model.save_pretrained(save_directory)
-
-# save the config
-config = {
-    "num_sms": flute.NUM_SMS,
-    "num_bits": num_bits,
-    "group_size": group_size,
-}
-config_path = os.path.join(
-    save_directory,
-    "flute_config.json")
-with open(config_path, "w") as f:
-    json.dump(config, f)
-
 ```
 
-### vLLM
+### vLLM Integration
 
-1. Install the forked version of vLLM
+1. Add `flute` to the [list](https://github.com/HanGuo97/vllm/blob/flute-integration/vllm/model_executor/layers/quantization/__init__.py#L37) of supported quantization methods.
+
+Alternatively, install the forked version of vLLM
 ```bash
 git clone https://github.com/HanGuo97/vllm
 cd vllm
 pip install -e .  # This may take 5-10 minutes.
 ```
 
-Alternatively, simply copy this [file](https://github.com/HanGuo97/vllm/blob/flute-integration/vllm/model_executor/layers/quantization/flute.py) into existing (editable) vLLM installation, and [add](https://github.com/HanGuo97/vllm/blob/flute-integration/vllm/model_executor/layers/quantization/__init__.py#L37) it to the list of supported quantization methods.
 
 2. Specify the quantization method
 ```bash
