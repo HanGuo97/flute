@@ -73,7 +73,7 @@ else:
 
 ### vLLM Integration
 
-1. Using the monkey-patched entry-point
+**Method 1 (Recommended):** Using the monkey-patched entry-point
 
 ```diff
 - python -m vllm.entrypoints.openai.api_server \
@@ -84,7 +84,7 @@ else:
 +    --quantization flute
 ```
 
-2. Alternatively, install the forked version of vLLM. 
+**Method 2:** Alternatively, install the forked version of vLLM. 
 ```bash
 git clone https://github.com/HanGuo97/vllm
 cd vllm
