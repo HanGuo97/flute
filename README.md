@@ -12,6 +12,30 @@ cd flute
 pip install -e .
 ```
 
+# Compatibility
+
+### Kernel
+| Description      | Supported (via pip) | Supported (build from source) | Unsupported |
+| ----------- | ----------- | ----------- | ----------- |
+| Input dtypes   | `torch.float16` `torch.bfloat16` |  | `torch.float32` |
+| Bits | `NF4` `NF3` | `NF2` `INT4` `INT3` `INT2` | |
+| Group Sizes | `32` `64` `128` `256` | | |
+| GPUs | `A100` `A6000` | `RTX 4090` `H100 (unoptimized)` | `V100` |
+
+### Models
+
+> [!WARNING]
+> As of the current release, the kernel is shape-specialized due to legacy reasons (i.e., we tune tile sizes etc for each matrix shape). Please see the below chart for the supported use cases, as different platform and tensor parallel size changes the matrix shapes. We plan to add supports for a broad range of shapes in the near future. In the meantime, please let us know if you have any specific models in mind and we are happy to add support for them.
+
+| Model      | 1 GPU (+ Pipeline Parallel) | 2 GPUs (Tensor Parallel) | 4 GPUs (Tensor Parallel) | Link |
+| ----------- | ----------- | ----------- | ----------- | ----------- | 
+| LLaMA-3 (8B) | ✅ | ❓ | ❓ | TBD |
+| LLaMA-3 (70B) | ✅ | ✅ | ✅ | TBD |
+| Gemma-2 (9B) | ✅ | ❓ | ❓ | TBD |
+| Gemma-2 (27B) | ✅ | ✅ | ✅ | TBD |
+
+
+
 # Usages
 
 ### Command Line API
