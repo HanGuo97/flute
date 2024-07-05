@@ -49,22 +49,20 @@ else:
 
 ### vLLM Integration
 
-1. Add `flute` to the [list](https://github.com/HanGuo97/vllm/blob/flute-integration/vllm/model_executor/layers/quantization/__init__.py#L37) of supported quantization methods.
+1. Using the monkey-patched entry-point
 
-Alternatively, install the forked version of vLLM
+```diff
+- python -m vllm.entrypoints.openai.api_server \
++ python -m flute.integrations.vllm vllm.entrypoints.openai.api_server \
+    --model [MODEL] \
+    --tokenizer [TOKENIZER] \
+    --tensor-parallel-size [TP_SIZE] \
++    --quantization flute
+```
+
+2. Alternatively, install the forked version of vLLM. 
 ```bash
 git clone https://github.com/HanGuo97/vllm
 cd vllm
 pip install -e .  # This may take 5-10 minutes.
-```
-
-
-2. Specify the quantization method
-```bash
-python -m vllm.entrypoints.openai.api_server \
-    --model [MODEL] \
-    --tokenizer [TOKENIZER] \
-    --tensor-parallel-size [TP_SIZE] \
-    --quantization flute \
-    --dtype half
 ```
