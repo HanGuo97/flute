@@ -81,7 +81,7 @@ else:
     --model [MODEL] \
     --tokenizer [TOKENIZER] \
     --tensor-parallel-size [TP_SIZE] \
-+    --quantization flute
++   --quantization flute
 ```
 
 **Method 2:** Alternatively, install the forked version of vLLM. 
