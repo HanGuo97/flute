@@ -8,6 +8,9 @@
 #include "cutlass/fast_math.h"
 #include "cutlass/block_striped.h"
 
+// custom extensions to make `BlockStripedReduce` work with `nv_bfloat162`
+#include "cutlass_extensions_bf16.h"
+
 // debugging helpers
 #define TS_DEBUG 0  // 1
 #define TS_DEBUG_THR 0  // 255

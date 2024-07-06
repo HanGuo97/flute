@@ -350,13 +350,13 @@ qgemm_raw_simple(const at::Tensor& input,
                 return;
             }
         )
-        AT_DISPATCH_CASE(
-            at::ScalarType::BFloat16,
-            [&]() {
-                RUN_QGEMM_RAW_SWITCH_NUM_BITS_AND_GROUP_SIZE(cute::bfloat16_t);
-                return;
-            }
-        )
+        // AT_DISPATCH_CASE(
+        //     at::ScalarType::BFloat16,
+        //     [&]() {
+        //         RUN_QGEMM_RAW_SWITCH_NUM_BITS_AND_GROUP_SIZE(cute::bfloat16_t);
+        //         return;
+        //     }
+        // )
     );
 
 }
