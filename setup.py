@@ -53,6 +53,7 @@ setup(
     name=LIBRARY_NAME,
     version="0.0.1",
     packages=find_packages(),
+    include_package_data=True,
     ext_modules=get_extensions(),
     install_requires=["torch"],
     cmdclass={"build_ext": BuildExtension},
