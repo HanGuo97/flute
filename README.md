@@ -1,45 +1,47 @@
-# Installation
 
-- **PyPI**
+# Getting Started
+
+Install FLUTE with pip or [from source](#build-from-source):
 ```bash
 pip install -i https://test.pypi.org/simple/ flute
 ```
 
-- **From source**
-```bash
-git clone https://github.com/HanGuo97/flute
-cd flute
-pip install -e .
+[FLUTE-quantized models](#models) can be directly served using exisiting frameworks such as vLLM.
+
+```diff
+- python -m vllm.entrypoints.openai.api_server \
++ python -m flute.integrations.vllm vllm.entrypoints.openai.api_server \
+    --model [MODEL] \
+    --tokenizer [TOKENIZER] \
+    --tensor-parallel-size [TP_SIZE] \
++   --quantization flute
 ```
 
-# Compatibility
+# Kernel Compatibility
 
-### Kernel
-| Description      | Supported (via pip) | Supported (build from source) | Unsupported |
-| ----------- | ----------- | ----------- | ----------- |
-| Input dtypes   | `torch.float16` `torch.bfloat16` |  | `torch.float32` |
-| Bits | `NF4` `NF3` | `NF2` `INT4` `INT3` `INT2` | |
-| Group Sizes | `32` `64` `128` `256` | | |
-| GPUs | `A100` `A6000` | `RTX 4090` `H100 (unoptimized)` | `V100` |
+| Description      | Supported (via pip) | Supported (build from source) |
+| ----------- | ----------- | ----------- |
+| Input dtypes   | `torch.float16` `torch.bfloat16` |  |
+| Bits | `4bit` `3bit` | `2bit` |
+| Group Sizes | `32` `64` `128` `256` | ❓ |
+| GPUs | `A100` `A6000` | `RTX 4090` `H100` (unoptimized) |
 
-### Models
+# Models
 
 > [!WARNING]
 > As of the current release, the kernel is shape-specialized due to legacy reasons (i.e., we tune tile sizes etc for each matrix shape). Please see the below chart for the supported use cases, as different platform and tensor parallel size changes the matrix shapes. We plan to add supports for a broad range of shapes in the near future. In the meantime, please let us know if you have any specific models in mind and we are happy to add support for them.
 
-| Model      | 1 GPU (+ Pipeline Parallel) | 2 GPUs (Tensor Parallel) | 4 GPUs (Tensor Parallel) | Link |
-| ----------- | ----------- | ----------- | ----------- | ----------- | 
-| LLaMA-3 (8B) | ✅ | ❓ | ❓ | TBD |
-| LLaMA-3 (70B) | ✅ | ✅ | ✅ | TBD |
-| Gemma-2 (9B) | ✅ | ❓ | ❓ | TBD |
-| Gemma-2 (27B) | ✅ | ✅ | ✅ | TBD |
+| Model      | Single GPU / Pipeline Parallel | Tensor Parallel | Link |
+| ----------- | ----------- | ----------- | ----------- | 
+| LLaMA-3 (8B) | ✅ | | TBD |
+| LLaMA-3 (70B) | ✅ | 2 or 4 GPUs  | TBD |
+| Gemma-2 (9B) | ✅ |  | TBD |
+| Gemma-2 (27B) | ✅ | 2 or 4 GPUs  | TBD |
 
 
+### Quantizing Your Own Models
 
-# Usages
-
-### Command Line API
-
+We provide two APIs to quantize a custom models. The easist way is to use the command line interface,
 ```bash
 python -m flute.integrations.base \
     --pretrained_model_name_or_path meta-llama/Meta-Llama-3-70B-Instruct \
@@ -47,8 +49,8 @@ python -m flute.integrations.base \
     --num_bits 4 \
     --group_size 128
 ```
+The CLI essentially wraps around the following Python API,
 
-### Python API
 ```python
 from transformers import (
     LlamaForCausalLM,
@@ -71,20 +73,18 @@ else:
     raise NotImplementedError
 ```
 
-### vLLM Integration
+# Build From Source
 
-**Method 1 (Recommended):** Using the monkey-patched entry-point
-
-```diff
-- python -m vllm.entrypoints.openai.api_server \
-+ python -m flute.integrations.vllm vllm.entrypoints.openai.api_server \
-    --model [MODEL] \
-    --tokenizer [TOKENIZER] \
-    --tensor-parallel-size [TP_SIZE] \
-+   --quantization flute
+```bash
+git clone https://github.com/HanGuo97/flute
+cd flute
+pip install -e .
 ```
 
-**Method 2:** Alternatively, install the forked version of vLLM. 
+# Integrations
+### Alternative vLLM Integration
+
+For users who prefer a non-monkey-patch solution, we also provide a forked version of vLLM. 
 ```bash
 git clone https://github.com/HanGuo97/vllm
 cd vllm
