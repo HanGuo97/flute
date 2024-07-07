@@ -81,6 +81,8 @@ cd flute
 pip install -e .
 ```
 
+**Note:** the build process requires having the local CUDA version (`nvcc --version`) match PyTorch's CUDA. In the unlikely situation in which the build process throws an error related to CUDA version mismatch, even if they should match, try adding `--no-build-isolation`.
+
 # Integrations
 ### Alternative vLLM Integration
 
