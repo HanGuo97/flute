@@ -2,6 +2,8 @@ import os
 import torch
 import click
 from typing import Callable, cast
+from vllm.platforms import current_platform
+
 from . import _C
 from . import ops
 
@@ -35,8 +37,9 @@ QGEMM_RAW_SIMPLE_TYPE = Callable[
     None,
 ]
 
-
-TORCH_CURRENT_DEVICE_CC = torch.cuda.get_device_capability()
+# we use this instead of `torch.cuda.get_device_capability()` so that
+# it works better with multiprocessing (which vLLM uses)
+TORCH_CURRENT_DEVICE_CC = current_platform.get_device_capability()
 
 if TORCH_CURRENT_DEVICE_CC == (8, 6):
     click.secho(f"[FLUTE]: Using A6000 with CC={TORCH_CURRENT_DEVICE_CC}", fg="green")

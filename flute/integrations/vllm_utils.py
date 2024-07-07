@@ -18,6 +18,25 @@ import flute
 import flute.utils
 
 
+class PackFactor(object):
+
+    def __init__(self, pack_bits: int, num_bits: int) -> None:
+        if num_bits not in [2, 3, 4]:
+            raise ValueError
+        self.pack_bits = pack_bits
+        self.num_bits = num_bits
+
+    def __rfloordiv__(self, other: int) -> int:
+        if not isinstance(other, int):
+            raise TypeError
+        # the sole purpose of this class is to change the ordering
+        # of the operands, so that it works with 3-bits. That is,
+        # instead of using `other // (pack_bits // num_bits)`,
+        # we use `(other // pack_bits) * num_bits`. The former
+        # does not work with 3-bits, while the latter does.
+        return divide(other, self.pack_bits) * self.num_bits
+
+
 class FluteConfig(QuantizationConfig):
     """Config class for FLUTE Quantization."""
 
@@ -28,12 +47,10 @@ class FluteConfig(QuantizationConfig):
     ) -> None:
         if num_bits not in [2, 3, 4]:
             raise ValueError
-        if num_bits == 3:
-            raise NotImplementedError
 
         self.num_bits = num_bits
         self.group_size = group_size
-        self.pack_factor = int(16 / num_bits)
+        self.pack_factor = PackFactor(pack_bits=16, num_bits=num_bits)
 
     def __repr__(self) -> str:
         return f"FluteConfig(num_bits={self.num_bits}, group_size={self.group_size})"

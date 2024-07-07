@@ -7,7 +7,12 @@ from . import vllm_utils
 
 
 def patch_vllm() -> None:
+    import vllm.envs as envs
     from vllm.model_executor.layers.quantization import QUANTIZATION_METHODS
+
+    if envs.VLLM_WORKER_MULTIPROC_METHOD != "fork":
+        raise NotImplementedError("FLUTE monkey patching only supports fork method for multiprocessing")
+
     # click.secho(f"vLLM supported quantization methods: {QUANTIZATION_METHODS.keys()}", fg="green")
     if "flute" in QUANTIZATION_METHODS.keys():
         raise ValueError("flute quantization method is already supported in vLLM")
