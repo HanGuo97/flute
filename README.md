@@ -26,6 +26,8 @@ pip install -i https://test.pypi.org/simple/ flute
 | Group Sizes | `32` `64` `128` `256` | ❓ |
 | GPUs | `A100` `A6000` | `RTX 4090` `H100` (unoptimized) |
 
+**Note:** In the current release, we tuned the kernel templates for `torch.float16` only, and we noticed `torch.bfloat16` is slower than `torch.float16`. This likely because of lack of tuning, and that Ampere GPUs lack a hardware acceleration for `bfloat16` [atomic-add](https://github.com/HanGuo97/flute/blob/main/flute/csrc/cutlass_extensions_bf16.h#L27).
+
 # Models
 
 > [!WARNING]
