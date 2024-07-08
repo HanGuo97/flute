@@ -305,9 +305,9 @@ class FluteLinearMethod(LinearMethodBase):
             Q_unpacked.shape[0],   # N
             Q_unpacked.shape[1])]  # K
         Q_repacked = flute.utils.pack(
-            Q_unpacked.T.contiguous(),
+            Q_unpacked.T.contiguous().to(device="cpu"),
             num_bits=layer.num_bits,
-            template_ids=[template_id])
+            template_ids=[template_id]).to(device=layer.weight.device)
 
         if not all([
             Q_repacked.shape == layer.weight.shape,

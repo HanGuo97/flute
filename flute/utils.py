@@ -134,8 +134,7 @@ def _pack_2bit(W: torch.Tensor, tile_P: int) -> torch.Tensor:
 
 def _pack_3bit(W: torch.Tensor, tile_P: int) -> torch.Tensor:
     if tile_P != 32:
-        warnings.warn(f"Temporarily setting `tile_P={tile_P}` to `tile_P = 32`")
-        tile_P = 32
+        raise NotImplementedError
 
     num_bits = 3
     chunk_size_0 = 2
