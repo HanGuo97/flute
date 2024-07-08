@@ -167,12 +167,13 @@ def quantize_hf_model(
     save_directory: str,
     num_bits: int,
     group_size: int,
+    torch_dtype: str,
     fake: bool,
 ) -> None:
     model = AutoModelForCausalLM.from_pretrained(
         pretrained_model_name_or_path,
         device_map="cpu",
-        torch_dtype="auto")
+        torch_dtype=torch_dtype)
 
     if isinstance(model, LlamaForCausalLM):
         prepare_model_flute(
@@ -205,6 +206,7 @@ if __name__ == "__main__":
     parser.add_argument("--save_directory", type=str)
     parser.add_argument("--num_bits", type=int)
     parser.add_argument("--group_size", type=int)
+    parser.add_argument("--torch_dtype", type=str, default="auto")
     parser.add_argument("--fake", action="store_true")
     args = parser.parse_args()
 
@@ -213,4 +215,5 @@ if __name__ == "__main__":
         save_directory=args.save_directory,
         num_bits=args.num_bits,
         group_size=args.group_size,
+        torch_dtype=args.torch_dtype,
         fake=args.fake)
