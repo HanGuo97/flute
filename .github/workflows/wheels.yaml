@@ -4,9 +4,13 @@
 name: Create Release
 
 on:
-  push:
-    tags:
-      - v*
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        type: boolean
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+        required: false
+        default: false
 
 jobs:
   wheel:
@@ -16,11 +20,16 @@ jobs:
     strategy:
       matrix:
           os: ['ubuntu-20.04']
-          python-version: ['3.8', '3.9', '3.10', '3.11']
+          python-version: ['3.8']
           pytorch-version: ['2.3.1']
-          cuda-version: ['11.8', '12.1']
+          cuda-version: ['11.8']
 
     steps:
+      # Enable tmate debugging of manually-triggered workflows if the input option was provided
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+
       - name: Checkout
         uses: actions/checkout@v4
 
