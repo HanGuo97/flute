@@ -1,3 +1,12 @@
+<p align="center">
+    <img src="assets/flute-icon.png" alt="" width="40%" align="top" style="border-radius: 10px; padding-left: 120px; padding-right: 120px; background-color: white;">
+</p>
+
+<p align="center">
+  <em><strong>FLUTE</strong>: Flexible Lookup Table Engine for LUT-quantized LLMs <br></em>
+</p>
+
+
 
 # Getting Started
 
