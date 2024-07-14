@@ -1,10 +1,11 @@
 import math
 import torch
 import warnings
-from typing import List, Dict
+from typing import List, Dict, Optional
 from . import packbits_utils
 from . import NUM_SMS
 from . import TEMPLATE_CONFIGS
+from . import TEMPLATE_TUNED_WITHOUT_M_CONFIGS
 from . import qgemm_simple
 
 _WORKSPACES = {}
@@ -255,8 +256,24 @@ def _pack_3bit(W: torch.Tensor, tile_P: int) -> torch.Tensor:
 def pack(
     W: torch.Tensor,
     num_bits: int,
-    template_ids: List[int],
+    group_size: Optional[int] = None,
+    template_ids: Optional[List[int]] = None,
 ) -> torch.Tensor:
+
+    if W.ndim != 2:
+        raise NotImplementedError
+
+    if template_ids is None:
+        if group_size is None:
+            raise ValueError("Either `group_size` or `template_ids` must be provided")
+
+        K, N = W.shape
+        template_id = TEMPLATE_TUNED_WITHOUT_M_CONFIGS[(
+            NUM_SMS,
+            num_bits,
+            group_size,
+            N, K)]
+        template_ids = [template_id]
 
     # the packing is specialized to `tile_P`, which could
     # be different for different templates. We check that

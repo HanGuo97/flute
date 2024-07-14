@@ -4,6 +4,7 @@ import torch
 import argparse
 from transformers import (
     LlamaForCausalLM,
+    Gemma2ForCausalLM,
     AutoModelForCausalLM)
 from typing import Optional
 
@@ -175,7 +176,7 @@ def quantize_hf_model(
         device_map="cpu",
         torch_dtype=torch_dtype)
 
-    if isinstance(model, LlamaForCausalLM):
+    if isinstance(model, (LlamaForCausalLM, Gemma2ForCausalLM)):
         prepare_model_flute(
             module=model.model.layers,
             num_bits=num_bits,
