@@ -35,11 +35,15 @@ pip install -i https://test.pypi.org/simple/ flute
 | Group Sizes | `32` `64` `128` `256` | ❓ |
 | GPUs | `A100` `A6000` | `RTX 4090` `H100` (unoptimized) |
 
-**Note:** In the current release, we tuned the kernel templates for `torch.float16` only, and we noticed `torch.bfloat16` is slower than `torch.float16`. This likely because of lack of tuning, and that Ampere GPUs lack a hardware acceleration for `bfloat16` [vectorized atomic-add](https://github.com/HanGuo97/flute/blob/main/flute/csrc/cutlass_extensions_bf16.h#L27).
+> [!WARNING]
+> In the current release, we tuned the kernel templates for `torch.float16` only, and we noticed `torch.bfloat16` is slower than `torch.float16`. This likely because of lack of tuning, and that Ampere GPUs lack a hardware acceleration for `bfloat16` [vectorized atomic-add](https://github.com/HanGuo97/flute/blob/main/flute/csrc/cutlass_extensions_bf16.h#L27).
+
+> [!WARNING]
+> We noticed several numerically unstable situations using `bits=4, group-size=256, GPU=A100`. This is relatively rare (8 of 9360 test cases failed), but we suggest avoiding this particular use case for now. 
 
 # Models
 
-> [!WARNING]
+> [!NOTE]
 > As of the current release, the kernel is shape-specialized due to legacy reasons (i.e., we tune tile sizes etc for each matrix shape). Please see the below chart for the supported use cases, as different platform and tensor parallel size changes the matrix shapes. We plan to add supports for a broad range of shapes in the near future. In the meantime, please let us know if you have any specific models in mind and we are happy to add support for them.
 
 | Model      | Single GPU / Pipeline Parallel | Tensor Parallel | Link |
