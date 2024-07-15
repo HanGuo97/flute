@@ -62,8 +62,8 @@ pip install (soon!)
 
 | Model      | Single GPU / Pipeline Parallel | Tensor Parallel | Link |
 | ----------- | ----------- | ----------- | ----------- | 
-| LLaMA-3 (8B) | ✅ | | TBD |
-| LLaMA-3 (70B) | ✅ | 2 or 4 GPUs  | TBD |
+| LLaMA-3 (8B) | ✅ | | [NF (Learned)](https://huggingface.co/radi-cho/Meta-Llama-3-8B-FLUTE) |
+| LLaMA-3 (70B) | ✅ | 2 or 4 GPUs  | [NF (Learned)](https://huggingface.co/radi-cho/Meta-Llama-3-70B-FLUTE) |
 | Gemma-2 (9B) | ✅ |  | TBD |
 | Gemma-2 (27B) | ✅ | 2 or 4 GPUs  | TBD |
 
