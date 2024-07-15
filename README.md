@@ -26,7 +26,7 @@
 
 Install FLUTE with pip or [from source](#build-from-source):
 ```bash
-pip install -i https://test.pypi.org/simple/ flute
+pip install (soon!)
 ```
 
 [FLUTE-quantized models](#models) can be directly served using exisiting frameworks such as vLLM.
