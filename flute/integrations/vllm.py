@@ -15,7 +15,12 @@ def patch_vllm() -> None:
 
     # click.secho(f"vLLM supported quantization methods: {QUANTIZATION_METHODS.keys()}", fg="green")
     if "flute" in QUANTIZATION_METHODS.keys():
-        raise ValueError("flute quantization method is already supported in vLLM")
+        if QUANTIZATION_METHODS["flute"] is vllm_utils.FluteConfig:
+            click.secho("flute quantization method is already supported in vLLM", fg="yellow")
+            return
+
+        raise ValueError("flute quantization method is already registered with a different config")
+
     QUANTIZATION_METHODS["flute"] = vllm_utils.FluteConfig
     # click.secho(f"vLLM supports quantization methods: {QUANTIZATION_METHODS.keys()}", fg="green")
 
