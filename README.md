@@ -7,6 +7,20 @@
 </p>
 
 
+# Benchmarks
+
+<p align="center">
+  <img src="assets/20240715-microbenchmarks.png" height="350" />
+    <img src="assets/20240714-vllm-2.png" height="350" />
+</p>
+
+<p align="center">
+  <img src="assets/20240707-bits-and-group-size.png" width="1000" /> 
+</p>
+
+
+
+
 
 # Getting Started
 
