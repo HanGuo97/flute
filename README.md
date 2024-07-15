@@ -83,6 +83,7 @@ The CLI essentially wraps around the following Python API,
 ```python
 from transformers import (
     LlamaForCausalLM,
+    Gemma2ForCausalLM,
     AutoModelForCausalLM)
 import flute.integrations.base
 
@@ -91,7 +92,7 @@ model = AutoModelForCausalLM.from_pretrained(
     device_map="cpu",
     torch_dtype="auto")
 
-if isinstance(model, LlamaForCausalLM):
+if isinstance(model, (LlamaForCausalLM, Gemma2ForCausalLM)):
     flute.integrations.base.prepare_model_flute(
         module=model.model.layers,
         num_bits=num_bits,
