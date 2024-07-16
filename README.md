@@ -139,6 +139,21 @@ Soon!
 
 # Build From Source
 
+1. Clone the CUTLASS library.
+
+```bash
+# Unfortunately, the path is hard-coded as of now. If you install CUTLASS
+# in a different directory, please make sure the corresponding path in
+# `setup.py` is updated.
+cd /workspace
+
+git clone https://github.com/NVIDIA/cutlass.git
+cd cutlass
+git checkout v3.4.1
+```
+
+2. Build.
+
 ```bash
 git clone https://github.com/HanGuo97/flute
 cd flute
