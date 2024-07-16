@@ -40,6 +40,14 @@ pip install (soon!)
 +   --quantization flute
 ```
 
+For example, the following commmand runs the FLUTE-quantized LLaMA-3 (8B) on a single GPU.
+
+```bash
+python -m flute.integrations.vllm vllm.entrypoints.openai.api_server \
+    --model radi-cho/Meta-Llama-3-8B-FLUTE \
+    --quantization flute
+```
+
 # Kernel Compatibility
 
 | Description      | Supported (via pip) | Supported (build from source) |
