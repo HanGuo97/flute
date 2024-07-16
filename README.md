@@ -94,9 +94,12 @@ curl http://localhost:8000/v1/completions \
 | Gemma-2 (27B) | ✅ | 2 or 4 GPUs  | TBD |
 
 
-### Quantizing Your Own Models
+## Quantizing Your Own Models
 
-We provide two APIs to quantize a custom models. The easist way is to use the command line interface,
+We provide two APIs to quantize a custom models. The easist way is to use the command line interface.
+
+### Simple Normal Float Quantization
+
 ```bash
 python -m flute.integrations.base \
     --pretrained_model_name_or_path meta-llama/Meta-Llama-3-70B-Instruct \
@@ -104,6 +107,7 @@ python -m flute.integrations.base \
     --num_bits 4 \
     --group_size 128
 ```
+
 The CLI essentially wraps around the following Python API,
 
 ```python
@@ -128,6 +132,10 @@ else:
     # more models to come
     raise NotImplementedError
 ```
+
+### Learned Normal Float Quantization
+
+Soon!
 
 # Build From Source
 
