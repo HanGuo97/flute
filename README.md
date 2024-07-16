@@ -8,7 +8,7 @@
 
 <div align="center">
 
-  
+  ![GitHub License](https://img.shields.io/github/license/hanguo97/flute)
   <a href="https://arxiv.org/abs/2407.10960">![arXiv](https://img.shields.io/badge/arXiv-2407.10960-b31b1b.svg)</a>
 </div>
 
