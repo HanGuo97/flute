@@ -48,6 +48,18 @@ python -m flute.integrations.vllm vllm.entrypoints.openai.api_server \
     --quantization flute
 ```
 
+We can then query the vLLM server as usual.
+```bash
+curl http://localhost:8000/v1/completions \
+    -H "Content-Type: application/json" \
+    -d '{
+        "model": "radi-cho/Meta-Llama-3-8B-FLUTE",
+        "prompt": "San Francisco is a",
+        "max_tokens": 7,
+        "temperature": 0
+    }'
+```
+
 # Kernel Compatibility
 
 | Description      | Supported (via pip) | Supported (build from source) |
