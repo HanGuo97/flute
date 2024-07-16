@@ -160,7 +160,7 @@ pip install -e .  # This may take 5-10 minutes.
 # Citation
 To cite this repository:
 
-```
+```bibtex
 @misc{flute2024,
       title={Fast Matrix Multiplications for Lookup Table-Quantized LLMs}, 
       author={Han Guo and William Brandon and Radostin Cholakov and Jonathan Ragan-Kelley and Eric P. Xing and Yoon Kim},
