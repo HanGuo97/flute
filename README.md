@@ -6,6 +6,12 @@
   <em><strong>FLUTE</strong>: Flexible Lookup Table Engine for LUT-quantized LLMs <br></em>
 </p>
 
+<div align="center">
+
+  ![GitHub License](https://img.shields.io/github/license/hanguo97/flute)
+  <a href="https://arxiv.org/abs/2407.10960">![arXiv](https://img.shields.io/badge/arXiv-2407.10960-b31b1b.svg)</a>
+</div>
+
 
 # Benchmarks
 
@@ -141,4 +147,19 @@ For users who prefer a non-monkey-patch solution, we also provide a forked versi
 git clone https://github.com/HanGuo97/vllm
 cd vllm
 pip install -e .  # This may take 5-10 minutes.
+```
+
+# Citation
+To cite this repository:
+
+```
+@misc{flute2024,
+      title={Fast Matrix Multiplications for Lookup Table-Quantized LLMs}, 
+      author={Han Guo and William Brandon and Radostin Cholakov and Jonathan Ragan-Kelley and Eric P. Xing and Yoon Kim},
+      year={2024},
+      eprint={2407.10960},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2407.10960}, 
+}
 ```
