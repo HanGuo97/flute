@@ -160,6 +160,14 @@ qgemm_simple(const at::Tensor& input,
              const cute::int64_t group_size)
 {
 
+    // Set the device of this function, primarily used when
+    // we have multiple devices in the same process.
+    const at::cuda::OptionalCUDAGuard device_guard(device_of(input));
+
+    // Get the current CUDA stream, primarily used
+    // to make CUDA Graphs work.
+    const cudaStream_t stream = at::cuda::getCurrentCUDAStream();
+
     // Squash the batch dimensions of the input tensor with its
     // next-to-last dimensions.
     const auto input_sizes = input.sizes().vec();
@@ -172,11 +180,6 @@ qgemm_simple(const at::Tensor& input,
         at::TensorOptions()
             .dtype(input_2d.dtype())
             .device(input_2d.device()));
-
-    // Get the current CUDA stream, primarily used
-    // to make CUDA Graphs work.
-    const cudaStream_t stream = at::cuda::getCurrentCUDAStream();
-
 
 #define RUN_QGEMM(T, NUM_BITS, GROUP_SIZE)  \
     do {                                    \
@@ -276,6 +279,10 @@ qgemm_raw_simple(const at::Tensor& input,
                  const cute::int64_t group_size,
                  const cute::int64_t template_id)
 {
+
+    // Set the device of this function, primarily used when
+    // we have multiple devices in the same process.
+    const at::cuda::OptionalCUDAGuard device_guard(device_of(input));
 
     // Get the current CUDA stream, primarily used
     // to make CUDA Graphs work.
