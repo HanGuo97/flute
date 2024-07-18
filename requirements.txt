@@ -2,3 +2,5 @@ ninja
 jaxtyping
 matplotlib
 transformers
+accelerate
+vllm >= 0.5.1

@@ -1,16 +1,36 @@
 import os
 import json
 import torch
+import warnings
 import argparse
 from transformers import (
     LlamaForCausalLM,
     Gemma2ForCausalLM,
     AutoModelForCausalLM)
+from accelerate.hooks import (
+    ModelHook,
+    add_hook_to_module)
 from typing import Optional
 
 import flute
 import flute.utils
 import flute.nf_utils
+
+
+def get_accelerate_hook(name: str, module: torch.nn.Module, allow: bool) -> Optional[ModelHook]:
+
+    hook = getattr(module, "_hf_hook", None)
+    if hook is not None and allow is not True:
+        raise ValueError(f"`{name}` has accelerate `hook`")
+
+    if hasattr(module, "_old_forward") and allow is not True:
+        raise ValueError(f"`{name}` has accelerate `_old_forward`")
+
+    for child_name, child in module.named_children():
+        # we do not allow accelerate hooks in the children
+        get_accelerate_hook(f"{name}.{child_name}", child, allow=False)
+
+    return hook
 
 
 # 2/4
@@ -20,7 +40,10 @@ def prepare_model_flute(
     num_bits: int,
     group_size: int,
     fake: bool,
+    handle_hooks: bool = False,
 ) -> None:
+
+    warnings.warn(f"Quantization always happen on 1st GPU")
 
     def _replace_linear(_module: torch.nn.Module) -> None:
         for name, child in _module.named_children():
@@ -43,6 +66,19 @@ def prepare_model_flute(
                         new_weight.to(device=child.weight.device),
                         requires_grad=False)
                     continue
+
+                if handle_hooks is True:
+                    # as of now, we do not support PyTorch hooks
+                    # https://discuss.pytorch.org/t/how-to-check-where-the-hooks-are-in-the-model/120120
+                    if len(child._backward_hooks) != 0:
+                        raise NotImplementedError
+                    if len(child._forward_hooks) != 0:
+                        raise NotImplementedError
+                    if len(child._forward_pre_hooks) != 0:
+                        raise NotImplementedError
+
+                    # the replacement will remove the accelerate hooks
+                    maybe_hook = get_accelerate_hook(name, child, allow=True)
 
                 setattr(
                     _module,
@@ -81,6 +117,13 @@ def prepare_model_flute(
                 new_child.scales.copy_(scales)
                 new_child.tables.copy_(qmap)
                 new_child.tables2.copy_(qmap2)
+
+                # add the accelerate hook back
+                if handle_hooks is True:
+                    if maybe_hook is not None:
+                        add_hook_to_module(
+                            module=new_child,
+                            hook=maybe_hook)
 
             else:
                 _replace_linear(child)

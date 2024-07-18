@@ -1,6 +1,8 @@
 #!/bin/bash
 
-mkdir -p /workspace
+sudo mkdir -p /workspace
+sudo chmod -R 777 /workspace/
+
 cd /workspace
 
 git clone https://github.com/NVIDIA/cutlass.git
