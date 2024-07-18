@@ -35,7 +35,8 @@ Install FLUTE with pip or [from source](#build-from-source):
 pip install (soon!)
 ```
 
-[FLUTE-quantized models](#models) can be directly served using exisiting frameworks such as vLLM.
+## FLUTE + vLLM
+FLUTE-quantized models ([Model Zoo](#models)) can be directly served using exisiting frameworks such as vLLM.
 
 ```diff
 - python -m vllm.entrypoints.openai.api_server \
@@ -65,6 +66,23 @@ curl http://localhost:8000/v1/completions \
         "temperature": 0
     }'
 ```
+
+## FLUTE + HuggingFace
+FLUTE also runs out of the box with HuggingFace and its `accelerate` extension. This integration is mostly experimental and not optimized. Users sensitive to performance considerations should use the `vLLM` integration instead.
+
+The following example performs simple quantization to the dense model. After this, the model can be used as normal. (Support for loading pre-quantized model is coming soon!)
+
+```python
+import flute.integrations.base
+flute.integrations.base.prepare_model_flute(
+    module=model.model.layers,  # for LLaMA-3 and Gemma-2
+    num_bits=num_bits,
+    group_size=group_size,
+    fake=False,
+    handle_hooks=True)  # for `accelerate` hooks
+```
+
+
 
 # Kernel Compatibility
 
