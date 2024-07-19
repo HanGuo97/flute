@@ -32,7 +32,10 @@
 
 Install FLUTE with pip or [from source](#build-from-source):
 ```bash
-pip install (soon!)
+# For CUDA 12.1 & torch 2.3
+pip install flute -i https://flute-ai.github.io/whl/cu121
+# For CUDA 11.8 & torch 2.3
+pip install flute -i https://flute-ai.github.io/whl/cu118
 ```
 
 ## FLUTE + vLLM
