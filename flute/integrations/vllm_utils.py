@@ -1,6 +1,7 @@
 from typing import Any, Dict, List, Optional
 
 import torch
+import warnings
 from torch.nn.parameter import Parameter
 
 from vllm.model_executor.layers.linear import (
@@ -18,6 +19,7 @@ import flute
 import flute.utils
 
 
+# TODO: check this
 class PackFactor(object):
 
     def __init__(self, pack_bits: int, num_bits: int) -> None:
@@ -44,6 +46,7 @@ class FluteConfig(QuantizationConfig):
         self,
         num_bits: int,
         group_size: int,
+        num_sms_packed: int,
     ) -> None:
         if num_bits not in [2, 3, 4]:
             raise ValueError
@@ -51,9 +54,13 @@ class FluteConfig(QuantizationConfig):
         self.num_bits = num_bits
         self.group_size = group_size
         self.pack_factor = PackFactor(pack_bits=16, num_bits=num_bits)
+        self.num_sms_packed = num_sms_packed
 
     def __repr__(self) -> str:
-        return f"FluteConfig(num_bits={self.num_bits}, group_size={self.group_size})"
+        return (f"FluteConfig("
+                f"num_bits={self.num_bits}, "
+                f"group_size={self.group_size}, "
+                f"num_sms_packed={self.num_sms_packed})")
 
     @classmethod
     def get_name(cls) -> str:
@@ -73,15 +80,18 @@ class FluteConfig(QuantizationConfig):
 
     @classmethod
     def from_config(cls, config: Dict[str, Any]) -> "FluteConfig":
-        num_sms = cls.get_from_keys(config, ["num_sms"])
-        if num_sms != flute.NUM_SMS:
-            raise ValueError(
-                f"SMs mismatch: the model was quantized with "
-                f"{num_sms}, but running with {flute.NUM_SMS} SMs.")
-
         num_bits = cls.get_from_keys(config, ["num_bits"])
         group_size = cls.get_from_keys(config, ["group_size"])
-        return cls(num_bits=num_bits, group_size=group_size)
+        num_sms_packed = cls.get_from_keys(config, ["num_sms"])
+        if num_sms_packed != flute.NUM_SMS:
+            warnings.warn(
+                f"SMs mismatch: the model was quantized with "
+                f"{num_sms_packed}, but running with {flute.NUM_SMS} SMs.")
+
+        return cls(
+            num_bits=num_bits,
+            group_size=group_size,
+            num_sms_packed=num_sms_packed)
 
     def get_quant_method(
         self,
@@ -198,6 +208,7 @@ class FluteLinearMethod(LinearMethodBase):
 
         layer.num_bits = self.quant_config.num_bits
         layer.group_size = self.quant_config.group_size
+        layer.num_sms_packed = self.quant_config.num_sms_packed
         layer.workspace = flute.utils.get_workspace_streamk(weight.device)
 
         layer.register_parameter("weight", weight)
@@ -286,7 +297,8 @@ class FluteLinearMethod(LinearMethodBase):
                 scales=S_gathered,
                 workspace=layer.workspace,
                 num_bits=layer.num_bits,
-                group_size=layer.group_size)
+                group_size=layer.group_size,
+                num_sms_packed=layer.num_sms_packed)
 
             # re-shard
             Qs_unpacked.append(

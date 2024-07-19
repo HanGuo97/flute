@@ -7,6 +7,8 @@ from vllm.platforms import current_platform
 from . import _C
 from . import ops
 
+__version__ = "0.0.2"
+
 QGEMM_SIMPLE_TYPE = Callable[
     [
         torch.Tensor,
@@ -37,24 +39,35 @@ QGEMM_RAW_SIMPLE_TYPE = Callable[
     None,
 ]
 
+
 # we use this instead of `torch.cuda.get_device_capability()` so that
 # it works better with multiprocessing (which vLLM uses)
 TORCH_CURRENT_DEVICE_CC = current_platform.get_device_capability()
 
 if TORCH_CURRENT_DEVICE_CC == (8, 6):
     click.secho(f"[FLUTE]: Using A6000 with CC={TORCH_CURRENT_DEVICE_CC}", fg="green")
-    NUM_SMS          = 84
-    qgemm_simple     = cast(QGEMM_SIMPLE_TYPE    , torch.ops.flute.qgemm_simple_86)
-    qgemm_raw_simple = cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_86)
+    NUM_SMS = 84
 
 elif TORCH_CURRENT_DEVICE_CC == (8, 0):
     click.secho(f"[FLUTE]: Using A100 with CC={TORCH_CURRENT_DEVICE_CC}", fg="green")
-    NUM_SMS          = 108
-    qgemm_simple     = cast(QGEMM_SIMPLE_TYPE    , torch.ops.flute.qgemm_simple_80)
-    qgemm_raw_simple = cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_80)
+    NUM_SMS = 108
 
 else:
     raise NotImplementedError
+
+
+QGEMM_SIMPLE_DICT = {
+    84 : cast(QGEMM_SIMPLE_TYPE, torch.ops.flute.qgemm_simple_86),
+    108: cast(QGEMM_SIMPLE_TYPE, torch.ops.flute.qgemm_simple_80),
+}
+
+QGEMM_RAW_SIMPLE_DICT = {
+    84 : cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_86),
+    108: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_80),
+}
+
+qgemm_simple     = QGEMM_SIMPLE_DICT[NUM_SMS]
+qgemm_raw_simple = QGEMM_RAW_SIMPLE_DICT[NUM_SMS]
 
 
 # Load the template configs

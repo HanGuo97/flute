@@ -6,6 +6,7 @@ from . import packbits_utils
 from . import NUM_SMS
 from . import TEMPLATE_CONFIGS
 from . import TEMPLATE_TUNED_WITHOUT_M_CONFIGS
+from . import QGEMM_SIMPLE_DICT
 from . import qgemm_simple
 
 _WORKSPACES = {}
@@ -348,6 +349,7 @@ def reconstruct(
     workspace: torch.Tensor,
     num_bits: int,
     group_size: int,
+    num_sms: Optional[int] = None,
 ) -> torch.Tensor:
     # we reconstruct the tensor using the fact that
     # `W.T = I @ W.T` and thus using the `qgemm` routine
@@ -355,7 +357,13 @@ def reconstruct(
         weight.shape[1],
         dtype=scales.dtype,
         device=scales.device)
-    weight_reconstructed = qgemm_simple(
+
+    if num_sms is None:
+        _qgemm = qgemm_simple
+    else:
+        _qgemm = QGEMM_SIMPLE_DICT[num_sms]
+
+    weight_reconstructed = _qgemm(
         inputs,
         weight,
         scales,
@@ -373,6 +381,7 @@ def unpack(
     workspace: torch.Tensor,
     num_bits: int,
     group_size: int,
+    num_sms_packed: Optional[int] = None,
 ) -> torch.Tensor:
 
     # the scales needs to be just ones
@@ -391,4 +400,5 @@ def unpack(
         tables2=tables2,
         workspace=workspace,
         num_bits=num_bits,
-        group_size=group_size)
+        group_size=group_size,
+        num_sms=num_sms_packed)
