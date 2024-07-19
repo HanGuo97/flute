@@ -25,9 +25,11 @@ export TORCH_CUDA_ARCH_LIST="8.0 8.6"
 $python_executable -m build --no-isolation
 
 # https://pypi.org/project/cuda-ext-example/
+auditwheel show dist/*.whl
+
 auditwheel repair \
-    dist/flute-*.whl \
-    --plat manylinux_2_34_x86_64 \
+    dist/*.whl \
+    --plat manylinux_2_17_x86_64 \
     --exclude libc10.so \
     --exclude libc10_cuda.so \
     --exclude libtorch_cpu.so
