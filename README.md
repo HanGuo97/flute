@@ -181,29 +181,17 @@ cd flute
 pip install -e .
 ```
 
-**Note:** the build process requires having the local CUDA version (`nvcc --version`) match PyTorch's CUDA. In the unlikely situation in which the build process throws an error related to CUDA version mismatch, even if they should match, try adding `--no-build-isolation`.
+**Note:** the build process requires having the local CUDA version (`nvcc --version`) match PyTorch's CUDA. In situations in which the build process throws an error related to CUDA version mismatch, try adding `--no-build-isolation`.
 
-# Integrations
-### Alternative vLLM Integration
-
-For users who prefer a non-monkey-patch solution, we also provide a forked version of vLLM. 
-```bash
-git clone https://github.com/HanGuo97/vllm
-cd vllm
-pip install -e .  # This may take 5-10 minutes.
-```
 
 # Citation
 To cite this repository:
 
 ```bibtex
-@misc{flute2024,
-      title={Fast Matrix Multiplications for Lookup Table-Quantized LLMs}, 
-      author={Han Guo and William Brandon and Radostin Cholakov and Jonathan Ragan-Kelley and Eric P. Xing and Yoon Kim},
-      year={2024},
-      eprint={2407.10960},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2407.10960}, 
+@article{flute2024,
+  title={Fast Matrix Multiplications for Lookup Table-Quantized LLMs},
+  author={Guo, Han and Brandon, William and Cholakov, Radostin and Ragan-Kelley, Jonathan and Xing, Eric P and Kim, Yoon},
+  journal={arXiv preprint arXiv:2407.10960},
+  year={2024}
 }
 ```
