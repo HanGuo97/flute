@@ -104,12 +104,29 @@ def get_extensions() -> List:
     return ext_modules
 
 
+def get_requirements() -> List[str]:
+    """Get Python package dependencies from requirements.txt."""
+
+    def _read_requirements(filename: str) -> List[str]:
+        with open(get_path(filename)) as f:
+            requirements = f.read().strip().split("\n")
+        resolved_requirements = []
+        for line in requirements:
+            if line.startswith("-r "):
+                resolved_requirements += _read_requirements(line.split()[1])
+            else:
+                resolved_requirements.append(line)
+        return resolved_requirements
+
+    return _read_requirements("requirements.txt")
+
+
 setup(
     name=DISTRIBUTION_NAME,
     version=get_version(),
     packages=find_packages(),
     include_package_data=True,
     ext_modules=get_extensions(),
-    install_requires=["torch"],
+    install_requires=get_requirements(),
     cmdclass={"build_ext": BuildExtension},
 )
