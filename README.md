@@ -25,7 +25,7 @@
   <img src="assets/20240707-bits-and-group-size.png" width="710" /> 
 </p>
 
-# Motivation for Lookup table (LUT) quantization
+# Lookup table quantization
 
 - **Uniform quantization** converts full precision weights to lower-precision intervals of equal size.
 - **Non-uniform quantization** maps weights to potentially _unequal_ intervals.
