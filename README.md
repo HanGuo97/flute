@@ -25,7 +25,7 @@
   <img src="assets/20240707-bits-and-group-size.png" width="710" /> 
 </p>
 
-# Motivation
+# Motivation for Lookup table (LUT) quantization
 
 - **Uniform quantization** converts full precision weights to lower-precision intervals of equal size.
 - **Non-uniform quantization** maps weights to potentially _unequal_ intervals.
@@ -51,9 +51,6 @@ $$\widehat{\mathbf{W}} = \mathtt{tableLookup}(\mathbf{Q}, \mathtt{table}) \cdot 
 </td>
 </tr>
 </table>
-
-
-
 
 Examples of the lookup table suppored in FLUTE:
 
@@ -111,7 +108,11 @@ you could even learn it!
 </tr>
 </table>
 
+### New Models Powered by FLUTE
 
+As a proof of concept, we are releasing a few [models](#models) quantized using **Learned Normal Float (NFL)**. NFL is a simple extension to the `nf4` data format introduced in [QLoRA](https://arxiv.org/abs/2305.14314) with two key differences:
+- NFL uses data to calibrate the Gaussian parameterization (currently only the `std` parameter, which could be subsumed into the scales).
+- NFL supports bit widths beyond 4-bit.
 
 
 # Getting Started
