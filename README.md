@@ -9,6 +9,7 @@
 <div align="center">
 
   ![GitHub License](https://img.shields.io/github/license/HanGuo97/flute)
+  <a href="https://pypi.org/project/flute-kernel/">![Version](https://img.shields.io/pypi/v/flute-kernel)</a>
   <a href="https://arxiv.org/abs/2407.10960">![arXiv](https://img.shields.io/badge/arXiv-2407.10960-b31b1b.svg)</a>
 </div>
 
@@ -32,10 +33,10 @@
 
 Install FLUTE with pip or [from source](#build-from-source):
 ```bash
-# For CUDA 12.1 & torch 2.3
-pip install flute -i https://flute-ai.github.io/whl/cu121
-# For CUDA 11.8 & torch 2.3
-pip install flute -i https://flute-ai.github.io/whl/cu118
+# For CUDA 12.1
+pip install flute-kernel
+# For CUDA 11.8
+pip install flute-kernel -i https://flute-ai.github.io/whl/cu118
 ```
 
 ## FLUTE + vLLM
