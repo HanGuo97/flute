@@ -27,6 +27,11 @@
 
 # Motivation
 
+- **Uniform quantization** converts full precision weights to lower-precision intervals of equal size through rounding.
+- **Non-uniform quantization** generalizes uniform quantization by  mapping weights to potentially _unequal_ intervals.
+- **Lookup table (LUT) quantization** is a flexible variant of non-uniform quantization which can map intervals to arbitrary values via a lookup table.
+
+
 <table align="center">
 <tr>
 <th>Uniform (Integer) Quantization</th>
@@ -40,7 +45,66 @@ $$\widehat{\mathbf{W}} = \mathtt{float}(\mathbf{Q}) \cdot \mathbf{s}$$
 </td>
 <td align="center">
 
-$$\widehat{\mathbf{W}} = \mathtt{tableLookup}(\mathbf{Q}, \mathbf{T}) \cdot \mathbf{s}$$
+$$\widehat{\mathbf{W}} = \mathtt{tableLookup}(\mathbf{Q}, \mathtt{table}) \cdot \mathbf{s}$$
+
+</td>
+</tr>
+</table>
+
+
+
+
+Examples of the lookup table suppored in FLUTE:
+
+<table align="center">
+<tr>
+<th>Examples</th>
+<th>Notes</th>
+</tr>
+<tr>
+<td align="left">
+
+`int4`, `int3`, `int2`
+
+</td>
+<td align="left">
+
+recovers uniform/integer quantization
+
+</td>
+</tr>
+<tr>
+<td align="left">
+
+`fp4`, `fp3`, `fp2`
+
+</td>
+<td align="left">
+</td>
+</tr>
+<tr>
+<td align="left">
+
+`nf4`, `nf3`, `nf2`
+
+</td>
+<td align="left">
+
+generalizes the `nf4` data-format introduced in QLoRA
+
+</td>
+</tr>
+</td>
+</tr>
+<tr>
+<td align="left">
+
+any arbitrary table
+
+</td>
+<td align="left">
+
+you could even learn it!
 
 </td>
 </tr>
