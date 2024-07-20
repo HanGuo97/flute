@@ -31,7 +31,7 @@
 - **Non-uniform quantization** maps weights to potentially _unequal_ intervals.
 - **Lookup table (LUT) quantization** is a flexible variant of non-uniform quantization which can map intervals to arbitrary values via a lookup table.
 
-Specifically, let $\mathbf{Q}$ denote the quantized weight, $\mathbf{s}$ the (block-wise) scales, and $\widehat{\mathbf{W}}$ the de-quantized weight,
+Specifically, let $\mathbf{Q}$ denote the quantized weight, $\mathbf{s}$ the (group-wise) scales, and $\widehat{\mathbf{W}}$ the de-quantized weight,
 
 <table align="center">
 <tr>
