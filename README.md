@@ -13,6 +13,11 @@
   <a href="https://arxiv.org/abs/2407.10960">![arXiv](https://img.shields.io/badge/arXiv-2407.10960-b31b1b.svg)</a>
 </div>
 
+<div align="center">
+
+[[Introduction](#lookup-table-quantization)] [[Getting Started](#getting-started)] [[Model Zoo](#model-zoo)] [[Compatibility](#support-and-compatibility)] [[Benchmarks](#benchmarks)]
+
+</div>
 
 # Benchmarks
 
