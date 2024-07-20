@@ -242,9 +242,9 @@ Soon!
 
 Soon!
 
-### Gemma-2 Instruct (9B)
+### [Gemma-2 Instruct (9B)](https://huggingface.co/radi-cho/gemma-2-9b-FLUTE)
 
-Soon!
+`--model radi-cho/gemma-2-9b-FLUTE`
 
 ### Gemma-2 Instruct (27B)
 
