@@ -25,6 +25,26 @@
   <img src="assets/20240707-bits-and-group-size.png" width="710" /> 
 </p>
 
+# Motivation
+
+<table align="center">
+<tr>
+<th>Uniform (Integer) Quantization</th>
+<th>Lookup Table Quantization</th>
+</tr>
+<tr>
+<td align="center">
+
+$$\widehat{\mathbf{W}} = \mathtt{float}(\mathbf{Q}) \cdot \mathbf{s}$$
+
+</td>
+<td align="center">
+
+$$\widehat{\mathbf{W}} = \mathtt{tableLookup}(\mathbf{Q}, \mathbf{T}) \cdot \mathbf{s}$$
+
+</td>
+</tr>
+</table>
 
 
 
