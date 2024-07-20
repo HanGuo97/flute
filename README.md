@@ -31,6 +31,7 @@
 - **Non-uniform quantization** generalizes uniform quantization by  mapping weights to potentially _unequal_ intervals.
 - **Lookup table (LUT) quantization** is a flexible variant of non-uniform quantization which can map intervals to arbitrary values via a lookup table.
 
+Specifically, let $\mathbf{Q}$ denote the quantized weight, $\mathbf{s}$ the (block-wise) scales, and $\widehat{\mathbf{W}}$ the de-quantized weight,
 
 <table align="center">
 <tr>
