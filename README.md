@@ -46,6 +46,7 @@ FLUTE-quantized models ([Model Zoo](#models)) can be directly served using exisi
 - python -m vllm.entrypoints.openai.api_server \
 + python -m flute.integrations.vllm vllm.entrypoints.openai.api_server \
     --model [MODEL] \
+    --revision [REVISION] \
     --tokenizer [TOKENIZER] \
     --tensor-parallel-size [TP_SIZE] \
 +   --quantization flute
@@ -88,7 +89,9 @@ flute.integrations.base.prepare_model_flute(
 
 
 
-# Kernel Compatibility
+# Support and Compatibility
+
+## Kernel
 
 | Description      | Supported (via pip) | Supported (build from source) |
 | ----------- | ----------- | ----------- |
@@ -103,18 +106,58 @@ flute.integrations.base.prepare_model_flute(
 > [!WARNING]
 > We noticed several numerically unstable situations using `bits=4, group-size=256, GPU=A100`. This is relatively rare (8 of 9360 test cases failed), but we suggest avoiding this particular use case for now. 
 
-# Models
+## Models
 
 > [!NOTE]
 > As of the current release, the kernel is shape-specialized due to legacy reasons (i.e., we tune tile sizes etc for each matrix shape). Please see the below chart for the supported use cases, as different platform and tensor parallel size changes the matrix shapes. We plan to add supports for a broad range of shapes in the near future. In the meantime, please let us know if you have any specific models in mind and we are happy to add support for them.
 
-| Model      | Single GPU / Pipeline Parallel | Tensor Parallel | Link |
-| ----------- | ----------- | ----------- | ----------- | 
-| LLaMA-3 (8B) | ✅ | | [NF (Learned)](https://huggingface.co/radi-cho/Meta-Llama-3-8B-FLUTE) |
-| LLaMA-3 (70B) | ✅ | 2 or 4 GPUs  | [NF (Learned)](https://huggingface.co/radi-cho/Meta-Llama-3-70B-FLUTE) |
-| Gemma-2 (9B) | ✅ |  | TBD |
-| Gemma-2 (27B) | ✅ | 2 or 4 GPUs  | TBD |
+| Model      | Single GPU / Pipeline Parallel | Tensor Parallel |
+| ----------- | ----------- | ----------- |
+| LLaMA-3 (8B) | ✅ | |
+| LLaMA-3 (70B) | ✅ | 2 or 4 GPUs  |
+| Gemma-2 (9B) | ✅ |  |
+| Gemma-2 (27B) | ✅ | 2 or 4 GPUs  |
 
+# Model Zoo
+
+> [!NOTE]
+> The models we release here are trained on more data and hence different from those in the paper.
+
+### [LLaMA-3 (8B)](https://huggingface.co/radi-cho/Meta-Llama-3-8B-FLUTE)
+
+`--model radi-cho/Meta-Llama-3-8B-FLUTE`
+
+| LLaMA-3 8B  | `--revision` | Wiki | C4    | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
+| ----------- | ------------ | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
+| Unquantized |              | 6.1  | 9.2   | 79.9  | 80.1  | 50.4  | 60.2      | 72.8  | 68.6  |
+| W4G64       |              | 6.11 | 9.38  | 79.33 | 79.79 | 49.74 | 59.22     | 73.95 | 68.41 |
+| W3G64       | `nfl_w3g64`  | 7.13 | 11.06 | 78.78 | 76.22 | 44.37 | 56.69     | 70.32 | 65.28 |
+
+### [LLaMA-3 (70B)](https://huggingface.co/radi-cho/Meta-Llama-3-70B-FLUTE)
+
+`--model radi-cho/Meta-Llama-3-70B-FLUTE`
+
+Soon!
+
+### [LLaMA-3 Instruct (8B)](https://huggingface.co/radi-cho/Meta-Llama-3-8B-Instruct-FLUTE)
+
+`--model radi-cho/Meta-Llama-3-8B-Instruct-FLUTE`
+
+Soon!
+
+### [LLaMA-3 Instruct (70B)](https://huggingface.co/radi-cho/Meta-Llama-3-70B-Instruct-FLUTE)
+
+`--model radi-cho/Meta-Llama-3-70B-Instruct-FLUTE`
+
+Soon!
+
+### Gemma-2 Instruct (9B)
+
+Soon!
+
+### Gemma-2 Instruct (27B)
+
+Soon!
 
 ## Quantizing Your Own Models
 
