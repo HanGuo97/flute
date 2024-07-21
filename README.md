@@ -338,7 +338,7 @@ pip install -e .
 
 
 # Citation
-To cite this repository:
+If you find any of the models or code in this repo useful, please feel free to cite:
 
 ```bibtex
 @article{flute2024,
