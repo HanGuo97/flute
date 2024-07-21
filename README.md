@@ -15,7 +15,7 @@
 
 <div align="center">
 
-[[Introduction](#lookup-table-quantization)] [[Getting Started](#getting-started)] [[Model Zoo](#model-zoo)] [[Compatibility](#support-and-compatibility)] [[Benchmarks](#benchmarks)]
+[[Introduction](#lookup-table-quantization)] [[Benchmarks](#benchmarks)] [[Model Zoo](#model-zoo)] [[Getting Started](#getting-started)] [[Compatibility](#support-and-compatibility)] 
 
 </div>
 
@@ -160,7 +160,7 @@ As a proof of concept, we are releasing a few [models](#models) quantized using 
 | W3G64 | 4.90 | 10.86 |
 
 
-### [Gemma-2 Instruct (9B)](https://huggingface.co/radi-cho/gemma-2-9b-FLUTE)
+### [Gemma-2 (9B)](https://huggingface.co/radi-cho/gemma-2-9b-FLUTE)
 
 |             | Wiki | C4    | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
 | ----------- | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
@@ -168,10 +168,19 @@ As a proof of concept, we are releasing a few [models](#models) quantized using 
 | W4G64       | 6.49 | 10.35 | 81.28 | 86.24 | 59.30 | 60.40     | 75.30 | 72.50 |
 
 
-### Gemma-2 Instruct (27B)
+### Gemma-2 (27B)
 
 Soon!
 
+### [Gemma-2 Instruct (9B)](https://huggingface.co/radi-cho/gemma-2-9b-it-FLUTE)
+
+|             | Wiki | C4    |
+| ----------- | ---- | ----- |
+| W4G64       | 6.88 | 11.02 |
+
+### Gemma-2 Instruct (27B)
+
+Soon!
 
 # Getting Started
 
