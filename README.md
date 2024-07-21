@@ -121,6 +121,7 @@ For additional benchmarks, detailed breakdowns, and corresponding instruction-tu
   <img src="assets/intro-figure.jpg" />
 </p>
 
+
 ### LLaMA-3
 |               | Wiki | C4    | LLM Eval Avg.  |               | Wiki | C4   | LLM Eval Avg.  |
 | -----------   | ---- | ----- | -----          | -----------   | ---- | ---- | -----          |
@@ -134,7 +135,6 @@ For additional benchmarks, detailed breakdowns, and corresponding instruction-tu
 | -----------   | ---- | ----- | -----          | -----------   | ---- | ---- | -----          |
 | Gemma-2 (9B)  | 6.88 | 10.12 | 73.12          | Gemma-2 (27B) | 5.70 | 8.98 | 75.71          |
 | + W4G64       | 6.49 | 10.35 | 72.50          | + W4G64       | 5.69 | 9.31 | 74.11          |
-| + W3G64       | 7.06 | 11.14 | 70.02          | + W3G64       | TBD  | TBD  | TBD            |
 
 
 # Getting Started
@@ -276,7 +276,6 @@ flute.integrations.base.prepare_model_flute(
 | ----------- | ---- | ---- | ----- | ----- | ----- | --------- | ----- | ----- |
 | Unquantized | 5.70 | 8.98 | 83.24 | 87.84 | 62.88 | 65.35     | 79.24 | 75.71 |
 | W4G64       | 5.69 | 9.31 | 82.53 | 86.45 | 59.22 | 64.13     | 78.21 | 74.11 |
-| W3G64       | TBD  | TBD  | TBD   | TBD   | TBD   | TBD       | TBD   | TBD   |
 
 
 ### [Gemma-2 Instruct (9B)](https://huggingface.co/radi-cho/gemma-2-9b-it-FLUTE)
@@ -291,7 +290,6 @@ flute.integrations.base.prepare_model_flute(
 |       | Wiki | C4    |
 | ----- | ---- | ----- |
 | W4G64 | 5.91 | 9.71  |
-<!-- | W3G64 | TBD  | TBD   | -->
 
 
 ## Quantizing Your Own Models
