@@ -15,18 +15,24 @@
 
 <div align="center">
 
-[[Introduction](#lookup-table-quantization)] [[Benchmarks](#benchmarks)] [[Model Zoo](#model-zoo)] [[Getting Started](#getting-started)] [[Compatibility](#support-and-compatibility)] 
+[[Backgorund](#background)] [[Benchmarks](#benchmarks)] [[Getting Started](#getting-started)] [[Compatibility](#support-and-compatibility)] [[Model Zoo](#model-zoo)]
 
 </div>
 
 
-# Lookup table quantization
+# Installation
 
-- **Uniform quantization** converts full precision weights to lower-precision intervals of equal size.
-- **Non-uniform quantization** maps weights to potentially _unequal_ intervals.
-- **Lookup table (LUT) quantization** is a flexible variant of non-uniform quantization which can map intervals to arbitrary values via a lookup table.
+Install FLUTE with pip or [from source](#build-from-source):
+```bash
+# For CUDA 12.1
+pip install flute-kernel
+# For CUDA 11.8
+pip install flute-kernel -i https://flute-ai.github.io/whl/cu118
+```
+Head over to [Getting Started](#getting-started) and try it out!
 
-Specifically, let $\mathbf{Q}$ denote the quantized weight, $\mathbf{s}$ the (group-wise) scales, and $\widehat{\mathbf{W}}$ the de-quantized weight,
+# Background
+**Uniform quantization** converts full precision weights to lower-precision intervals of equal size. **Lookup table (LUT) quantization** is a flexible variant of non-uniform quantization which can map intervals to arbitrary values via a lookup table. 
 
 <table align="center">
 <tr>
@@ -47,7 +53,7 @@ $$\widehat{\mathbf{W}} = \mathtt{tableLookup}(\mathbf{Q}, \mathtt{table}) \cdot 
 </tr>
 </table>
 
-Examples of the lookup table suppored in FLUTE:
+where $\mathbf{Q}$ denote the quantized weight, $\mathbf{s}$ the (group-wise) scales, and $\widehat{\mathbf{W}}$ the de-quantized weight. Here are some examples of the lookup table suppored in FLUTE.
 
 <table align="center">
 <tr>
@@ -104,8 +110,7 @@ you could even learn it!
 </table>
 
 ### New Models Powered by FLUTE
-
-As a proof of concept, we are releasing a few [models](#models) quantized using **Learned Normal Float (NFL)**. NFL is a simple extension to the `nf4` data format introduced in [QLoRA](https://arxiv.org/abs/2305.14314) with two key differences:
+The flexibility of the kernel could lead to new quantization algorithms. As a proof of concept, we are releasing a few [models](#models) quantized using **Learned Normal Float (NFL)**. NFL is a simple extension to the `nf4` data format introduced in [QLoRA](https://arxiv.org/abs/2305.14314) with two key differences:
 - NFL uses data to calibrate the Gaussian parameterization (currently only the `std` parameter, which could be subsumed into the scales).
 - NFL supports bit widths beyond 4-bit.
 
@@ -118,14 +123,6 @@ As a proof of concept, we are releasing a few [models](#models) quantized using 
 
 
 # Getting Started
-
-Install FLUTE with pip or [from source](#build-from-source):
-```bash
-# For CUDA 12.1
-pip install flute-kernel
-# For CUDA 11.8
-pip install flute-kernel -i https://flute-ai.github.io/whl/cu118
-```
 
 ## FLUTE + vLLM
 FLUTE-quantized models ([Model Zoo](#models)) can be directly served using exisiting frameworks such as vLLM.
