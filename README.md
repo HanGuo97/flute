@@ -115,11 +115,27 @@ The flexibility of the kernel could lead to new quantization algorithms. As a pr
 - NFL supports bit widths beyond 4-bit.
 
 
-# Benchmarks
+# Benchmarks + Evaluations
 
 <p align="center">
   <img src="assets/intro-figure.jpg" />
 </p>
+
+
+|              | Wiki | C4    | LLM Eval Avg. |
+| -----------  | ---- | ----- | ------------ |
+| **LLaMA-3 (8B)** | 6.1  | 9.2   | 68.6  |
+| + W4G64      | 6.11 | 9.38  | 68.41 |
+| + W3G64      | 7.13 | 11.06 | 65.28 |
+| LLaMA-3 (70B) | 2.9  | 6.9  | 75.3  |
+| + W4G64       | 3.03 | 7.03 | 74.39 |
+| + W3G64       | 4.15 | 8.10 | 72.45 |
+| Gemma-2 (9B) | 6.88 | 10.12 | 73.12 |
+| + W4G64      | 6.49 | 10.35 | 72.50 |
+| + W3G64      | 7.06 | 11.14 | 70.02 |
+| Gemma-2 (27B)  | 5.70 | 8.98 | 75.71 |
+| + W4G64        | 5.69 | 9.31 | 74.11 |
+| + W3G64        | TBD  | TBD  | TBD   |
 
 
 # Getting Started
