@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="assets/flute-icon.png" alt="" width="40%" align="top" style="border-radius: 10px; padding-left: 120px; padding-right: 120px; background-color: white;">
+    <img src="assets/flute-logo.png" alt="" width="40%" align="top" style="border-radius: 10px; padding-left: 120px; padding-right: 120px; background-color: white;">
 </p>
 
 <p align="center">
