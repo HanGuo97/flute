@@ -22,12 +22,7 @@
 # Benchmarks
 
 <p align="center">
-  <img src="assets/20240715-microbenchmarks.png" height="250" />
-    <img src="assets/20240714-vllm-2.png" height="250" />
-</p>
-
-<p align="center">
-  <img src="assets/20240707-bits-and-group-size.png" width="710" /> 
+  <img src="assets/intro-figure.jpg" />
 </p>
 
 # Lookup table quantization
