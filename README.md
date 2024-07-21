@@ -115,27 +115,28 @@ The flexibility of the kernel could lead to new quantization algorithms. As a pr
 - NFL supports bit widths beyond 4-bit.
 
 
-# Benchmarks + Evaluations
+# Benchmarks
+
+For additional benchmarks, detailed breakdowns, and corresponding instruction-tuned models, please refer to the paper and the [model zoo](#model-zoo).
 
 <p align="center">
   <img src="assets/intro-figure.jpg" />
 </p>
 
+### LLaMA-3
+|               | Wiki | C4    | LLM Eval Avg.  |               | Wiki | C4   | LLM Eval Avg.  |
+| -----------   | ---- | ----- | -----          | -----------   | ---- | ---- | -----          |
+| LLaMA-3 (8B)  | 6.1  | 9.2   | 68.6           | LLaMA-3 (70B) | 2.9  | 6.9  | 75.3           |
+| + W4G64       | 6.11 | 9.38  | 68.41          | + W4G64       | 3.03 | 7.03 | 74.39          |
+| + W3G64       | 7.13 | 11.06 | 65.28          | + W3G64       | 4.15 | 8.10 | 72.45          |
 
-|              | Wiki | C4    | LLM Eval Avg. |
-| -----------  | ---- | ----- | ------------ |
-| **LLaMA-3 (8B)** | 6.1  | 9.2   | 68.6  |
-| + W4G64      | 6.11 | 9.38  | 68.41 |
-| + W3G64      | 7.13 | 11.06 | 65.28 |
-| LLaMA-3 (70B) | 2.9  | 6.9  | 75.3  |
-| + W4G64       | 3.03 | 7.03 | 74.39 |
-| + W3G64       | 4.15 | 8.10 | 72.45 |
-| Gemma-2 (9B) | 6.88 | 10.12 | 73.12 |
-| + W4G64      | 6.49 | 10.35 | 72.50 |
-| + W3G64      | 7.06 | 11.14 | 70.02 |
-| Gemma-2 (27B)  | 5.70 | 8.98 | 75.71 |
-| + W4G64        | 5.69 | 9.31 | 74.11 |
-| + W3G64        | TBD  | TBD  | TBD   |
+
+### Gemma-2
+|               | Wiki | C4    | LLM Eval Avg.  |               | Wiki | C4   | LLM Eval Avg.  |
+| -----------   | ---- | ----- | -----          | -----------   | ---- | ---- | -----          |
+| Gemma-2 (9B)  | 6.88 | 10.12 | 73.12          | Gemma-2 (27B) | 5.70 | 8.98 | 75.71          |
+| + W4G64       | 6.49 | 10.35 | 72.50          | + W4G64       | 5.69 | 9.31 | 74.11          |
+| + W3G64       | 7.06 | 11.14 | 70.02          | + W3G64       | TBD  | TBD  | TBD            |
 
 
 # Getting Started
@@ -268,21 +269,32 @@ flute.integrations.base.prepare_model_flute(
 | ----------- | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
 | Unquantized | 6.88 | 10.12 | 81.39 | 87.37 | 61.35 | 61.23     | 74.27 | 73.12 |
 | W4G64       | 6.49 | 10.35 | 81.28 | 86.24 | 59.30 | 60.40     | 75.30 | 72.50 |
+| W3G64       | 7.06 | 11.14 | 80.52 | 83.16 | 55.46 | 58.28     | 72.69 | 70.02 |
 
 
-### Gemma-2 (27B)
+### [Gemma-2 (27B)](https://huggingface.co/radi-cho/gemma-2-27b-FLUTE)
 
-Soon!
+|             | Wiki | C4   | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
+| ----------- | ---- | ---- | ----- | ----- | ----- | --------- | ----- | ----- |
+| Unquantized | 5.70 | 8.98 | 83.24 | 87.84 | 62.88 | 65.35     | 79.24 | 75.71 |
+| W4G64       | 5.69 | 9.31 | 82.53 | 86.45 | 59.22 | 64.13     | 78.21 | 74.11 |
+| W3G64       | TBD  | TBD  | TBD   | TBD   | TBD   | TBD       | TBD   | TBD   |
+
 
 ### [Gemma-2 Instruct (9B)](https://huggingface.co/radi-cho/gemma-2-9b-it-FLUTE)
 
 |             | Wiki | C4    |
 | ----------- | ---- | ----- |
 | W4G64       | 6.88 | 11.02 |
+| W3G64       | 7.35 | 11.72 |
 
-### Gemma-2 Instruct (27B)
+### [Gemma-2 Instruct (27B)](https://huggingface.co/radi-cho/gemma-2-27b-it-FLUTE)
 
-Soon!
+|       | Wiki | C4    |
+| ----- | ---- | ----- |
+| W4G64 | 5.91 | 9.71  |
+<!-- | W3G64 | TBD  | TBD   | -->
+
 
 ## Quantizing Your Own Models
 
