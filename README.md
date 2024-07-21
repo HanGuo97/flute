@@ -117,71 +117,6 @@ As a proof of concept, we are releasing a few [models](#models) quantized using 
 </p>
 
 
-# Model Zoo
-
-> [!NOTE]
-> The models we release here are trained on more data and hence different from those in the paper.
-
-> [!TIP]
-> The HuggingFace Hub links are for `W4G64` quantization by default. To use the `W3G64` quantization, add `--revision nfl_w3g64`.
-
-### [LLaMA-3 (8B)](https://huggingface.co/radi-cho/Meta-Llama-3-8B-FLUTE)
-
-
-|             | Wiki | C4    | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
-| ----------- | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
-| Unquantized | 6.1  | 9.2   | 79.9  | 80.1  | 50.4  | 60.2      | 72.8  | 68.6  |
-| W4G64       | 6.11 | 9.38  | 79.33 | 79.79 | 49.74 | 59.22     | 73.95 | 68.41 |
-| W3G64       | 7.13 | 11.06 | 78.78 | 76.22 | 44.37 | 56.69     | 70.32 | 65.28 |
-
-### [LLaMA-3 (70B)](https://huggingface.co/radi-cho/Meta-Llama-3-70B-FLUTE)
-
-
-|             | Wiki | C4   | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
-| ----------- | ---- | ---- | ----- | ----- | ----- | --------- | ----- | ----- |
-| Unquantized | 2.9  | 6.9  | 82.4  | 86.9  | 60.3  | 66.4      | 80.6  | 75.3  |
-| W4G64       | 3.03 | 7.03 | 82.15 | 85.98 | 57.85 | 66.17     | 79.79 | 74.39 |
-| W3G64       | 4.15 | 8.10 | 80.74 | 83.71 | 55.29 | 64.05     | 78.45 | 72.45 |
-
-
-### [LLaMA-3 Instruct (8B)](https://huggingface.co/radi-cho/Meta-Llama-3-8B-Instruct-FLUTE)
-
-|             | Wiki | C4    |
-| ----------- | ---- | ----- |
-| W4G64       | 6.78 | 10.61 |
-| W3G64       | 7.75 | 12.28 |
-
-
-### [LLaMA-3 Instruct (70B)](https://huggingface.co/radi-cho/Meta-Llama-3-70B-Instruct-FLUTE)
-
-|       | Wiki | C4    |
-| ----- | ---- | ----- |
-| W4G64 | 3.67 | 7.95  |
-| W3G64 | 4.90 | 10.86 |
-
-
-### [Gemma-2 (9B)](https://huggingface.co/radi-cho/gemma-2-9b-FLUTE)
-
-|             | Wiki | C4    | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
-| ----------- | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
-| Unquantized | 6.88 | 10.12 | 81.39 | 87.37 | 61.35 | 61.23     | 74.27 | 73.12 |
-| W4G64       | 6.49 | 10.35 | 81.28 | 86.24 | 59.30 | 60.40     | 75.30 | 72.50 |
-
-
-### Gemma-2 (27B)
-
-Soon!
-
-### [Gemma-2 Instruct (9B)](https://huggingface.co/radi-cho/gemma-2-9b-it-FLUTE)
-
-|             | Wiki | C4    |
-| ----------- | ---- | ----- |
-| W4G64       | 6.88 | 11.02 |
-
-### Gemma-2 Instruct (27B)
-
-Soon!
-
 # Getting Started
 
 Install FLUTE with pip or [from source](#build-from-source):
@@ -270,6 +205,71 @@ flute.integrations.base.prepare_model_flute(
 | Gemma-2 (9B) | ✅ |  |
 | Gemma-2 (27B) | ✅ | 2 or 4 GPUs  |
 
+
+# Model Zoo
+
+> [!NOTE]
+> The models we release here are trained on more data and hence different from those in the paper.
+
+> [!TIP]
+> The HuggingFace Hub links are for `W4G64` quantization by default. To use the `W3G64` quantization, add `--revision nfl_w3g64`.
+
+### [LLaMA-3 (8B)](https://huggingface.co/radi-cho/Meta-Llama-3-8B-FLUTE)
+
+
+|             | Wiki | C4    | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
+| ----------- | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
+| Unquantized | 6.1  | 9.2   | 79.9  | 80.1  | 50.4  | 60.2      | 72.8  | 68.6  |
+| W4G64       | 6.11 | 9.38  | 79.33 | 79.79 | 49.74 | 59.22     | 73.95 | 68.41 |
+| W3G64       | 7.13 | 11.06 | 78.78 | 76.22 | 44.37 | 56.69     | 70.32 | 65.28 |
+
+### [LLaMA-3 (70B)](https://huggingface.co/radi-cho/Meta-Llama-3-70B-FLUTE)
+
+
+|             | Wiki | C4   | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
+| ----------- | ---- | ---- | ----- | ----- | ----- | --------- | ----- | ----- |
+| Unquantized | 2.9  | 6.9  | 82.4  | 86.9  | 60.3  | 66.4      | 80.6  | 75.3  |
+| W4G64       | 3.03 | 7.03 | 82.15 | 85.98 | 57.85 | 66.17     | 79.79 | 74.39 |
+| W3G64       | 4.15 | 8.10 | 80.74 | 83.71 | 55.29 | 64.05     | 78.45 | 72.45 |
+
+
+### [LLaMA-3 Instruct (8B)](https://huggingface.co/radi-cho/Meta-Llama-3-8B-Instruct-FLUTE)
+
+|             | Wiki | C4    |
+| ----------- | ---- | ----- |
+| W4G64       | 6.78 | 10.61 |
+| W3G64       | 7.75 | 12.28 |
+
+
+### [LLaMA-3 Instruct (70B)](https://huggingface.co/radi-cho/Meta-Llama-3-70B-Instruct-FLUTE)
+
+|       | Wiki | C4    |
+| ----- | ---- | ----- |
+| W4G64 | 3.67 | 7.95  |
+| W3G64 | 4.90 | 10.86 |
+
+
+### [Gemma-2 (9B)](https://huggingface.co/radi-cho/gemma-2-9b-FLUTE)
+
+|             | Wiki | C4    | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
+| ----------- | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
+| Unquantized | 6.88 | 10.12 | 81.39 | 87.37 | 61.35 | 61.23     | 74.27 | 73.12 |
+| W4G64       | 6.49 | 10.35 | 81.28 | 86.24 | 59.30 | 60.40     | 75.30 | 72.50 |
+
+
+### Gemma-2 (27B)
+
+Soon!
+
+### [Gemma-2 Instruct (9B)](https://huggingface.co/radi-cho/gemma-2-9b-it-FLUTE)
+
+|             | Wiki | C4    |
+| ----------- | ---- | ----- |
+| W4G64       | 6.88 | 11.02 |
+
+### Gemma-2 Instruct (27B)
+
+Soon!
 
 ## Quantizing Your Own Models
 
