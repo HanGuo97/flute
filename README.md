@@ -123,7 +123,7 @@ For additional benchmarks, detailed breakdowns, and corresponding instruction-tu
 
 
 ### LLaMA-3
-|               | Wiki | C4    | LLM Eval Avg.  |               | Wiki | C4   | LLM Eval Avg.  |
+|               | Wiki PPL | C4 PPL    | LLM Eval Avg.  |               | Wiki PPL | C4 PPL   | LLM Eval Avg.  |
 | -----------   | ---- | ----- | -----          | -----------   | ---- | ---- | -----          |
 | LLaMA-3 (8B)  | 6.1  | 9.2   | 68.6           | LLaMA-3 (70B) | 2.9  | 6.9  | 75.3           |
 | + W4G64       | 6.11 | 9.38  | 68.41          | + W4G64       | 3.03 | 7.03 | 74.39          |
@@ -131,7 +131,7 @@ For additional benchmarks, detailed breakdowns, and corresponding instruction-tu
 
 
 ### Gemma-2
-|               | Wiki | C4    | LLM Eval Avg.  |               | Wiki | C4   | LLM Eval Avg.  |
+|               | Wiki PPL | C4 PPL    | LLM Eval Avg.  |               | Wiki PPL | C4 PPL   | LLM Eval Avg.  |
 | -----------   | ---- | ----- | -----          | -----------   | ---- | ---- | -----          |
 | Gemma-2 (9B)  | 6.88 | 10.12 | 73.12          | Gemma-2 (27B) | 5.70 | 8.98 | 75.71          |
 | + W4G64       | 6.49 | 10.35 | 72.50          | + W4G64       | 5.69 | 9.31 | 74.11          |
