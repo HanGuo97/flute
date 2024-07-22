@@ -110,7 +110,7 @@ you could even learn it!
 </table>
 
 ### New Models Powered by FLUTE
-The flexibility of the kernel could lead to new quantization algorithms. As a proof of concept, we are releasing a few [models](#models) quantized using **Learned Normal Float (NFL)** --- a simple extension to the `nf4` data format introduced in QLoRA.
+The flexibility of the kernel could lead to new quantization algorithms. As a proof of concept, we are releasing a few [models](#models) quantized using **Learned Normal Float (NFL)** --- a simple extension to the `nf4` data format introduced in QLoRA. NFL initialized the lookup table and the scales with those from NF quantization. Then, it uses calibration data to learn the scales via straight through estimation for for the gradient with respect to the scales.
 
 
 # Benchmarks
