@@ -126,15 +126,15 @@ For additional benchmarks, detailed breakdowns, and corresponding instruction-tu
 |               | Wiki PPL | C4 PPL    | LLM Eval Avg.  |               | Wiki PPL | C4 PPL   | LLM Eval Avg.  |
 | -----------   | ---- | ----- | -----          | -----------   | ---- | ---- | -----          |
 | LLaMA-3 (8B)  | 6.1  | 9.2   | 68.6           | LLaMA-3 (70B) | 2.9  | 6.9  | 75.3           |
-| + W4G64       | 6.11 | 9.38  | 68.41          | + W4G64       | 3.03 | 7.03 | 74.39          |
-| + W3G64       | 7.13 | 11.06 | 65.28          | + W3G64       | 4.15 | 8.10 | 72.45          |
+| + NFL W4G64       | 6.11 | 9.38  | 68.41          | + NFL W4G64       | 3.03 | 7.03 | 74.39          |
+| + NFL W3G64       | 7.13 | 11.06 | 65.28          | + NFL W3G64       | 4.15 | 8.10 | 72.45          |
 
 
 ### Gemma-2
 |               | Wiki PPL | C4 PPL    | LLM Eval Avg.  |               | Wiki PPL | C4 PPL   | LLM Eval Avg.  |
 | -----------   | ---- | ----- | -----          | -----------   | ---- | ---- | -----          |
 | Gemma-2 (9B)  | 6.88 | 10.12 | 73.12          | Gemma-2 (27B) | 5.70 | 8.98 | 75.71          |
-| + W4G64       | 6.49 | 10.35 | 72.50          | + W4G64       | 5.69 | 9.31 | 74.11          |
+| + NFL W4G64       | 6.49 | 10.35 | 72.50          | + NFL W4G64       | 5.69 | 9.31 | 74.11          |
 
 
 # Getting Started
@@ -224,15 +224,15 @@ flute.integrations.base.prepare_model_flute(
 > The models we release here are trained on more data and hence different from those in the paper.
 
 > [!TIP]
-> The HuggingFace Hub links are for `W4G64` quantization by default. To use the `W3G64` quantization, add `--revision nfl_w3g64`.
+> The HuggingFace Hub links are for `NFL W4G64` quantization by default. To use the `NFL W3G64` quantization, add `--revision nfl_w3g64`.
 
 ### [LLaMA-3 (8B)](https://huggingface.co/radi-cho/Meta-Llama-3-8B-FLUTE)
 
 |             | Wiki | C4    | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
 | ----------- | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
 | Unquantized | 6.1  | 9.2   | 79.9  | 80.1  | 50.4  | 60.2      | 72.8  | 68.6  |
-| W4G64       | 6.11 | 9.38  | 79.33 | 79.79 | 49.74 | 59.22     | 73.95 | 68.41 |
-| W3G64       | 7.13 | 11.06 | 78.78 | 76.22 | 44.37 | 56.69     | 70.32 | 65.28 |
+| NFL W4G64       | 6.11 | 9.38  | 79.33 | 79.79 | 49.74 | 59.22     | 73.95 | 68.41 |
+| NFL W3G64       | 7.13 | 11.06 | 78.78 | 76.22 | 44.37 | 56.69     | 70.32 | 65.28 |
 
 
 ### [LLaMA-3 (70B)](https://huggingface.co/radi-cho/Meta-Llama-3-70B-FLUTE)
@@ -240,24 +240,24 @@ flute.integrations.base.prepare_model_flute(
 |             | Wiki | C4   | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
 | ----------- | ---- | ---- | ----- | ----- | ----- | --------- | ----- | ----- |
 | Unquantized | 2.9  | 6.9  | 82.4  | 86.9  | 60.3  | 66.4      | 80.6  | 75.3  |
-| W4G64       | 3.03 | 7.03 | 82.15 | 85.98 | 57.85 | 66.17     | 79.79 | 74.39 |
-| W3G64       | 4.15 | 8.10 | 80.74 | 83.71 | 55.29 | 64.05     | 78.45 | 72.45 |
+| NFL W4G64       | 3.03 | 7.03 | 82.15 | 85.98 | 57.85 | 66.17     | 79.79 | 74.39 |
+| NFL W3G64       | 4.15 | 8.10 | 80.74 | 83.71 | 55.29 | 64.05     | 78.45 | 72.45 |
 
 
 ### [LLaMA-3 Instruct (8B)](https://huggingface.co/radi-cho/Meta-Llama-3-8B-Instruct-FLUTE)
 
 |             | Wiki | C4    |
 | ----------- | ---- | ----- |
-| W4G64       | 6.78 | 10.61 |
-| W3G64       | 7.75 | 12.28 |
+| NFL W4G64       | 6.78 | 10.61 |
+| NFL W3G64       | 7.75 | 12.28 |
 
 
 ### [LLaMA-3 Instruct (70B)](https://huggingface.co/radi-cho/Meta-Llama-3-70B-Instruct-FLUTE)
 
 |       | Wiki | C4    |
 | ----- | ---- | ----- |
-| W4G64 | 3.67 | 7.95  |
-| W3G64 | 4.90 | 10.86 |
+| NFL W4G64 | 3.67 | 7.95  |
+| NFL W3G64 | 4.90 | 10.86 |
 
 
 ### [Gemma-2 (9B)](https://huggingface.co/radi-cho/gemma-2-9b-FLUTE)
@@ -265,8 +265,8 @@ flute.integrations.base.prepare_model_flute(
 |             | Wiki | C4    | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
 | ----------- | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
 | Unquantized | 6.88 | 10.12 | 81.39 | 87.37 | 61.35 | 61.23     | 74.27 | 73.12 |
-| W4G64       | 6.49 | 10.35 | 81.28 | 86.24 | 59.30 | 60.40     | 75.30 | 72.50 |
-| W3G64       | 7.06 | 11.14 | 80.52 | 83.16 | 55.46 | 58.28     | 72.69 | 70.02 |
+| NFL W4G64       | 6.49 | 10.35 | 81.28 | 86.24 | 59.30 | 60.40     | 75.30 | 72.50 |
+| NFL W3G64       | 7.06 | 11.14 | 80.52 | 83.16 | 55.46 | 58.28     | 72.69 | 70.02 |
 
 
 ### [Gemma-2 (27B)](https://huggingface.co/radi-cho/gemma-2-27b-FLUTE)
@@ -274,21 +274,21 @@ flute.integrations.base.prepare_model_flute(
 |             | Wiki | C4   | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
 | ----------- | ---- | ---- | ----- | ----- | ----- | --------- | ----- | ----- |
 | Unquantized | 5.70 | 8.98 | 83.24 | 87.84 | 62.88 | 65.35     | 79.24 | 75.71 |
-| W4G64       | 5.69 | 9.31 | 82.53 | 86.45 | 59.22 | 64.13     | 78.21 | 74.11 |
+| NFL W4G64       | 5.69 | 9.31 | 82.53 | 86.45 | 59.22 | 64.13     | 78.21 | 74.11 |
 
 
 ### [Gemma-2 Instruct (9B)](https://huggingface.co/radi-cho/gemma-2-9b-it-FLUTE)
 
 |             | Wiki | C4    |
 | ----------- | ---- | ----- |
-| W4G64       | 6.88 | 11.02 |
-| W3G64       | 7.35 | 11.72 |
+| NFL W4G64       | 6.88 | 11.02 |
+| NFL W3G64       | 7.35 | 11.72 |
 
 ### [Gemma-2 Instruct (27B)](https://huggingface.co/radi-cho/gemma-2-27b-it-FLUTE)
 
 |       | Wiki | C4    |
 | ----- | ---- | ----- |
-| W4G64 | 5.91 | 9.71  |
+| NFL W4G64 | 5.91 | 9.71  |
 
 
 ## Quantizing Your Own Models
