@@ -360,8 +360,9 @@ pip install -e .
 **Note:** the build process requires having the local CUDA version (`nvcc --version`) match PyTorch's CUDA. In situations in which the build process throws an error related to CUDA version mismatch, try adding `--no-build-isolation`.
 
 
-# Citation
-If you find any of the models or code in this repo useful, please feel free to cite:
+# Acknowledgement and Citation
+
+Special thanks to Dmytro Ivchenko, Yijie Bei, and the Fireworks AI team for helpful discussion. If you find any of the models or code in this repo useful, please feel free to cite:
 
 ```bibtex
 @article{flute2024,
