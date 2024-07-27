@@ -214,8 +214,9 @@ flute.integrations.base.prepare_model_flute(
 
 | Model      | Single GPU / Pipeline Parallel | Tensor Parallel |
 | ----------- | ----------- | ----------- |
-| LLaMA-3 (8B) | ✅ | |
-| LLaMA-3 (70B) | ✅ | 2 or 4 GPUs  |
+| LLaMA-3/3.1 (8B) | ✅ | |
+| LLaMA-3/3.1 (70B) | ✅ | 2 or 4 GPUs  |
+| LLaMA-3.1 (405B) | ✅ | 4 or 8 GPUs  |
 | Gemma-2 (9B) | ✅ |  |
 | Gemma-2 (27B) | ✅ | 2 or 4 GPUs  |
 
