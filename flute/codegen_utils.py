@@ -1,6 +1,6 @@
 # 2/4
 import os
-import json
+import copy
 import torch
 import argparse
 from collections import defaultdict, Counter
@@ -116,7 +116,17 @@ def codegen_tuned(no_M_specialization: bool = False) -> None:
     for keys, template_id in templates.items():
         NumBits = keys[1]
         config = configs[(NumBits, template_id)]
-        cases[keys] = (
+
+        # https://www.w3schools.com/python/gloss_python_change_tuple_item.asp
+        new_keys = list(copy.deepcopy(keys))
+        if new_keys[-1] == "torch.float16":
+            new_keys[-1] = "cute::half_t"
+        elif new_keys[-1] == "torch.bfloat16":
+            new_keys[-1] = "cute::bfloat16_t"
+        else:
+            raise ValueError(f"Unsupported dtype: {new_keys[-1]}")
+
+        cases[tuple(new_keys)] = (
             f'RUN_QGEMM('
             f'T, TQ, T2, '
             f'{config["Slices"]}, '
@@ -136,11 +146,11 @@ def codegen_tuned(no_M_specialization: bool = False) -> None:
         )
 
     if no_M_specialization is False:
-        names      = ["SMs", "NumBits", "GroupSize", "M"  , "N"  , "K"]
-        constexprs = [True , True     , True       , False, False, False]
+        names      = ["SMs", "NumBits", "GroupSize", "M"  , "N"  , "K"  , "T"]
+        constexprs = [True , True     , True       , False, False, False, True]
     else:
-        names      = ["SMs", "NumBits", "GroupSize"       , "N"  , "K"]
-        constexprs = [True , True     , True              , False, False]
+        names      = ["SMs", "NumBits", "GroupSize"       , "N"  , "K"  , "T"]
+        constexprs = [True , True     , True              , False, False, True]
 
     code_append = generate_nested_switch(
         names=names,

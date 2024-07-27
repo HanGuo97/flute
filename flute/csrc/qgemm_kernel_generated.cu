@@ -103,10 +103,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -116,10 +138,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -129,7 +187,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -139,10 +222,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -152,16 +257,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -171,22 +320,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -196,7 +411,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -206,7 +446,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -216,7 +467,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -226,28 +488,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -257,7 +607,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -267,13 +649,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 256, 32, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 256, 32, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -283,7 +789,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 256, 32, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 256, 32, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 256, 32, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -293,13 +852,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -309,7 +901,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 256, 32, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 256, 32, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -319,7 +943,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 256, 32, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 256, 32, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 256, 32, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -329,7 +964,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 256, 32, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 256, 32, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -347,10 +1014,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -360,10 +1049,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -373,7 +1098,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -383,10 +1133,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -396,16 +1168,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -415,22 +1231,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -440,7 +1322,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -450,7 +1357,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -460,7 +1378,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -470,28 +1399,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -501,7 +1518,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -511,13 +1560,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -527,7 +1700,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -537,13 +1763,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -553,7 +1812,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -563,7 +1854,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -573,7 +1875,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -591,10 +1925,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -604,10 +1960,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -617,7 +2009,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -627,10 +2044,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -640,16 +2079,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -659,22 +2142,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -684,7 +2233,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -694,7 +2268,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -704,7 +2289,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -714,28 +2310,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -745,7 +2429,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -755,13 +2471,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -771,7 +2611,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -781,13 +2674,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -797,7 +2723,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -807,7 +2765,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -817,7 +2786,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -835,10 +2836,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -848,10 +2871,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -861,7 +2920,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -871,10 +2955,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -884,16 +2990,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -903,22 +3053,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -928,7 +3144,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -938,7 +3179,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -948,7 +3200,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -958,28 +3221,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -989,7 +3340,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -999,13 +3382,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1015,7 +3522,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1025,13 +3585,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1041,7 +3634,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1051,7 +3676,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1061,7 +3697,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1086,10 +3754,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1099,10 +3789,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1112,7 +3838,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1122,10 +3873,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1135,16 +3908,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1154,22 +3971,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1179,7 +4062,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1189,7 +4097,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1199,7 +4118,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1209,28 +4139,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1240,7 +4258,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1250,13 +4300,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1266,7 +4440,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1276,13 +4503,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1292,7 +4552,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1302,7 +4594,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1312,7 +4615,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1330,10 +4665,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1343,10 +4700,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1356,7 +4749,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1366,10 +4784,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1379,16 +4819,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1398,22 +4882,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1423,7 +4973,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1433,7 +5008,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1443,7 +5029,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1453,28 +5050,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1484,7 +5169,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1494,13 +5211,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1510,7 +5351,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1520,13 +5414,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1536,7 +5463,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1546,7 +5505,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1556,7 +5526,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1574,10 +5576,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1587,10 +5611,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1600,7 +5660,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1610,10 +5695,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1623,16 +5730,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1642,22 +5793,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1667,7 +5884,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1677,7 +5919,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1687,7 +5940,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1697,28 +5961,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1728,7 +6080,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1738,13 +6122,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1754,7 +6262,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1764,13 +6325,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1780,7 +6374,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1790,7 +6416,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1800,7 +6437,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1818,10 +6487,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1831,10 +6522,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1844,7 +6571,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1854,10 +6606,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1867,16 +6641,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1886,22 +6704,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1911,7 +6795,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1921,7 +6830,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1931,7 +6851,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1941,28 +6872,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1972,7 +6991,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1982,13 +7033,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -1998,7 +7173,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2008,13 +7236,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2024,7 +7285,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2034,7 +7327,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2044,7 +7348,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2076,10 +7412,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2089,10 +7447,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2102,7 +7496,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2112,10 +7531,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2125,16 +7566,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2144,22 +7629,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2169,7 +7720,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2179,7 +7755,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2189,7 +7776,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2199,28 +7797,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2230,7 +7916,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2240,13 +7958,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2256,7 +8098,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2266,13 +8161,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2282,7 +8210,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2292,7 +8252,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2302,7 +8273,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2320,10 +8323,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2333,10 +8358,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2346,7 +8407,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2356,10 +8442,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2369,16 +8477,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2388,22 +8540,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2413,7 +8631,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2423,7 +8666,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2433,7 +8687,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2443,28 +8708,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2474,7 +8827,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2484,13 +8869,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2500,7 +9009,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2510,13 +9072,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2526,7 +9121,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2536,7 +9163,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2546,7 +9184,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2564,10 +9234,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2577,10 +9269,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2590,7 +9318,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2600,10 +9353,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2613,16 +9388,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2632,22 +9451,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2657,7 +9542,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2667,7 +9577,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2677,7 +9598,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2687,28 +9619,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2718,7 +9738,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2728,13 +9780,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2744,7 +9920,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2754,13 +9983,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2770,7 +10032,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2780,7 +10074,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2790,7 +10095,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2808,10 +10145,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2821,10 +10180,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2834,7 +10229,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2844,10 +10264,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2857,16 +10299,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2876,22 +10362,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2901,7 +10453,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2911,7 +10488,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2921,7 +10509,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2931,28 +10530,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2962,7 +10649,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2972,13 +10691,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2988,7 +10831,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -2998,13 +10894,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3014,7 +10943,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3024,7 +10985,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3034,7 +11006,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3059,10 +11063,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3072,10 +11098,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3085,7 +11147,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3095,10 +11182,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3108,16 +11217,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3127,22 +11280,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3152,7 +11371,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3162,7 +11406,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3172,7 +11427,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3182,28 +11448,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3213,7 +11567,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3223,13 +11609,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3239,7 +11749,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3249,13 +11812,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3265,7 +11861,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3275,7 +11903,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3285,7 +11924,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 2, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3303,10 +11974,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3316,10 +12009,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3329,7 +12058,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3339,10 +12093,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3352,16 +12128,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3371,22 +12191,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3396,7 +12282,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3406,7 +12317,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3416,7 +12338,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3426,28 +12359,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3457,7 +12478,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3467,13 +12520,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3483,7 +12660,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3493,13 +12723,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3509,7 +12772,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3519,7 +12814,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3529,7 +12835,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3547,10 +12885,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3560,10 +12920,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3573,7 +12969,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3583,10 +13004,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3596,16 +13039,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3615,22 +13102,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3640,7 +13193,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3650,7 +13228,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3660,7 +13249,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_32, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3670,28 +13270,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3701,7 +13389,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3711,13 +13431,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3727,7 +13571,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3737,13 +13634,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3753,7 +13683,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3763,7 +13725,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3773,7 +13746,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3791,10 +13796,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3804,10 +13831,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3817,7 +13880,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3827,10 +13915,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3840,16 +13950,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3859,22 +14013,88 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 1024:
-                        RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 1 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 9216:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 18432:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 36864:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3884,7 +14104,32 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3894,7 +14139,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3904,7 +14160,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3914,28 +14181,116 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 2048:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_8 , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 7168:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 14336:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 28672:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3945,7 +14300,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 13312:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3955,13 +14342,137 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 16384:
+                    switch (K)
+                    {
+                    case 2048:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 4096:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 6656:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 13312:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    case 53248:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3971,7 +14482,60 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 20480:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 26624:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3981,13 +14545,46 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 3584:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 2 * SMs::value, 128, 16, 64, 32, 4, NumBits::value, GroupSize::value, kVectorized_16, kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 4096:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -3997,7 +14594,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 53248:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -4007,7 +14636,18 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 8192:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");
@@ -4017,7 +14657,39 @@ _qgemm(int M,
                     switch (K)
                     {
                     case 4608:
-                        RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
+                        break;
+                    default:
+                        AT_ERROR("Unsupported K value");
+                    }
+                    break;
+                case 106496:
+                    switch (K)
+                    {
+                    case 16384:
+                        if constexpr (cute::is_same_v<T, cute::bfloat16_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 5, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else if constexpr (cute::is_same_v<T, cute::half_t>)
+                        {
+                            RUN_QGEMM(T, TQ, T2, 0, 4 * SMs::value, 128, 16, 64, 32, 3, NumBits::value, GroupSize::value, kVectorized   , kMixed, kStreamK, 2, 1);
+                        }
+                        else
+                        {
+                            AT_ERROR("Unsupported T value");
+                        }
                         break;
                     default:
                         AT_ERROR("Unsupported K value");

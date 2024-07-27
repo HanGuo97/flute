@@ -96,6 +96,7 @@ class FluteConfig(QuantizationConfig):
     def get_quant_method(
         self,
         layer: torch.nn.Module,
+        prefix: str,
     ) -> Optional["FluteLinearMethod"]:
         if isinstance(layer, LinearBase):
             return FluteLinearMethod(self)
@@ -217,12 +218,12 @@ class FluteLinearMethod(LinearMethodBase):
         layer.register_parameter("tables2", tables2)
 
         layer.needs_repacking = True
-        layer.input_size = input_size
-        layer.output_size = output_size
-        layer.output_partition_sizes = output_partition_sizes
-        layer.input_size_per_partition = input_size_per_partition
-        layer.is_K_partitioned = (input_size_per_partition != input_size)
-        layer.is_N_partitioned = (sum(output_partition_sizes) != output_size)
+        layer.flute_input_size = input_size
+        layer.flute_output_size = output_size
+        layer.flute_output_partition_sizes = output_partition_sizes
+        layer.flute_input_size_per_partition = input_size_per_partition
+        layer.flute_is_K_partitioned = (input_size_per_partition != input_size)
+        layer.flute_is_N_partitioned = (sum(output_partition_sizes) != output_size)
 
     def _maybe_tensor_all_gather(self, tensor: torch.Tensor, shard_dim: Optional[int]) -> torch.Tensor:
         if shard_dim is None:
@@ -268,19 +269,19 @@ class FluteLinearMethod(LinearMethodBase):
         if (not hasattr(layer, "needs_repacking") or not layer.needs_repacking):
             return
 
-        if (layer.is_K_partitioned is False) and (layer.is_N_partitioned is False):
+        if (layer.flute_is_K_partitioned is False) and (layer.flute_is_N_partitioned is False):
             shard_dim = None
-        if (layer.is_K_partitioned is True ) and (layer.is_N_partitioned is False):
+        if (layer.flute_is_K_partitioned is True ) and (layer.flute_is_N_partitioned is False):
             shard_dim = 1
-        if (layer.is_K_partitioned is False) and (layer.is_N_partitioned is True ):
+        if (layer.flute_is_K_partitioned is False) and (layer.flute_is_N_partitioned is True ):
             shard_dim = 0
-        if (layer.is_K_partitioned is True ) and (layer.is_N_partitioned is True ):
+        if (layer.flute_is_K_partitioned is True ) and (layer.flute_is_N_partitioned is True ):
             raise NotImplementedError
 
         # split the combined tensors into individual tensors
         # weight: [P, K]
         # scales: [N, G]
-        Ns = layer.output_partition_sizes
+        Ns = layer.flute_output_partition_sizes
         Ps = [int(N / 16 * layer.num_bits) for N in Ns]
         Qs = torch.split(layer.weight, Ps, dim=0)
         Ss = torch.split(layer.scales, Ns, dim=0)
