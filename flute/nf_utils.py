@@ -1,5 +1,5 @@
 import torch
-from typing import Tuple
+from typing import Tuple, Optional
 
 DTYPE = torch.float32
 
@@ -53,10 +53,12 @@ def nf_quantize(
     W: torch.Tensor,
     num_bits: int,
     group_size: int,
+    custom_scales: Optional[torch.Tensor] = None,
 ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
     values, pivots = get_values_pivots(num_bits, False)
     W_dequantized, W_quantized, absmax = manual_nf4(
         W,
+        absmax=custom_scales,
         bits=num_bits,
         blocksize=group_size,
         values=values,

@@ -10,7 +10,7 @@ from transformers import (
 from accelerate.hooks import (
     ModelHook,
     add_hook_to_module)
-from typing import Optional
+from typing import Optional, Dict
 
 import flute
 import flute.utils
@@ -36,17 +36,22 @@ def get_accelerate_hook(name: str, module: torch.nn.Module, allow: bool) -> Opti
 # 2/4
 @torch.no_grad()
 def prepare_model_flute(
+    name: str,
     module: torch.nn.Module,
     num_bits: int,
     group_size: int,
     fake: bool,
     handle_hooks: bool = False,
+    custom_scales_dict: Optional[Dict[str, torch.Tensor]] = None,
 ) -> None:
 
     warnings.warn(f"Quantization always happen on 1st GPU")
 
-    def _replace_linear(_module: torch.nn.Module) -> None:
-        for name, child in _module.named_children():
+    def _replace_linear(_name: str, _module: torch.nn.Module) -> None:
+        for child_name, child in _module.named_children():
+
+            child_full_name = f"{_name}.{child_name}"
+
             if isinstance(child, torch.nn.Linear):
 
                 if child.weight.dtype not in [torch.float16, torch.bfloat16]:
@@ -78,11 +83,11 @@ def prepare_model_flute(
                         raise NotImplementedError
 
                     # the replacement will remove the accelerate hooks
-                    maybe_hook = get_accelerate_hook(name, child, allow=True)
+                    maybe_hook = get_accelerate_hook(child_name, child, allow=True)
 
                 setattr(
                     _module,
-                    name,
+                    child_name,
                     FluteLinear(
                         in_features=child.in_features,
                         out_features=child.out_features,
@@ -92,22 +97,22 @@ def prepare_model_flute(
                         device=child.weight.device,
                         dtype=child.weight.dtype))
 
-                template_id = flute.TEMPLATE_TUNED_WITHOUT_M_CONFIGS[(
-                    flute.NUM_SMS,
-                    num_bits,
-                    group_size,
-                    child.out_features,  # N
-                    child.in_features)]  # K
-                new_child = getattr(_module, name)
+                if custom_scales_dict is not None:
+                    custom_scales = custom_scales_dict[child_full_name]
+                else:
+                    custom_scales = None
+
                 _, _Q, scales, qmap = flute.nf_utils.nf_quantize(
                     W=child.weight.to(device="cuda"),
                     num_bits=num_bits,
-                    group_size=group_size)
+                    group_size=group_size,
+                    custom_scales=custom_scales)
                 Q  = flute.utils.pack(
                     _Q.T.contiguous(),
                     num_bits=num_bits,
-                    template_ids=[template_id])
+                    group_size=group_size)
 
+                new_child = getattr(_module, child_name)
                 scales = scales.view(new_child.scales.shape)
                 scales = scales.to(dtype=new_child.scales.dtype)
                 qmap = qmap.to(dtype=new_child.tables.dtype)
@@ -126,9 +131,9 @@ def prepare_model_flute(
                             hook=maybe_hook)
 
             else:
-                _replace_linear(child)
+                _replace_linear(child_full_name, child)
 
-    _replace_linear(module)
+    _replace_linear(name, module)
 
 
 class FluteLinear(torch.nn.Module):
@@ -221,6 +226,7 @@ def quantize_hf_model(
 
     if isinstance(model, (LlamaForCausalLM, Gemma2ForCausalLM)):
         prepare_model_flute(
+            name="model.model.layers",
             module=model.model.layers,
             num_bits=num_bits,
             group_size=group_size,
@@ -233,6 +239,7 @@ def quantize_hf_model(
 
     # save the config
     config = {
+        "version": flute.__version__,
         "num_sms": flute.NUM_SMS,
         "num_bits": num_bits,
         "group_size": group_size,

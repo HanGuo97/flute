@@ -1,3 +1,4 @@
+import copy
 import click
 import torch
 import argparse
@@ -161,9 +162,28 @@ def run_tests(num: int) -> None:
                                     identity=False)
 
 
+def test_configs() -> None:
+    for k0 in flute.TEMPLATE_TUNED_WITHOUT_M_CONFIGS.keys():
+        if k0[-1] == "torch.bfloat16":
+            continue
+        if k0[-1] != "torch.float16":
+            raise ValueError
+        k1 = list(copy.deepcopy(k0))
+        k1[-1] = "torch.bfloat16"
+        k1 = tuple(k1)
+
+        tid0 = flute.TEMPLATE_TUNED_WITHOUT_M_CONFIGS[k0]
+        tid1 = flute.TEMPLATE_TUNED_WITHOUT_M_CONFIGS[k1]
+        c0 = flute.utils.get_template_config(num_bits=k0[1], template_id=tid0)
+        c1 = flute.utils.get_template_config(num_bits=k1[1], template_id=tid1)
+        if c0["tileP"] != c1["tileP"]:
+            raise ValueError
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--num", type=int, default=10)
     args = parser.parse_args()
 
+    test_configs()
     run_tests(num=args.num)

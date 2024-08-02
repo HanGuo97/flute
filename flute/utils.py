@@ -269,12 +269,15 @@ def pack(
             raise ValueError("Either `group_size` or `template_ids` must be provided")
 
         K, N = W.shape
-        template_id = TEMPLATE_TUNED_WITHOUT_M_CONFIGS[(
-            NUM_SMS,
-            num_bits,
-            group_size,
-            N, K)]
-        template_ids = [template_id]
+        template_ids = []
+        for dtype in [torch.float16, torch.bfloat16]:
+            template_id = TEMPLATE_TUNED_WITHOUT_M_CONFIGS[(
+                NUM_SMS,
+                num_bits,
+                group_size,
+                N, K,
+                str(dtype))]
+            template_ids.append(template_id)
 
     # the packing is specialized to `tile_P`, which could
     # be different for different templates. We check that

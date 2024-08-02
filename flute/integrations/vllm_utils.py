@@ -311,16 +311,10 @@ class FluteLinearMethod(LinearMethodBase):
         Q_unpacked = torch.cat(Qs_unpacked, dim=0)
 
         # re-pack the tensors
-        template_id = flute.TEMPLATE_TUNED_WITHOUT_M_CONFIGS[(
-            flute.NUM_SMS,
-            layer.num_bits,
-            layer.group_size,
-            Q_unpacked.shape[0],   # N
-            Q_unpacked.shape[1])]  # K
         Q_repacked = flute.utils.pack(
             Q_unpacked.T.contiguous().to(device="cpu"),
             num_bits=layer.num_bits,
-            template_ids=[template_id]).to(device=layer.weight.device)
+            group_size=layer.group_size).to(device=layer.weight.device)
 
         if not all([
             Q_repacked.shape == layer.weight.shape,
