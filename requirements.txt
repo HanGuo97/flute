@@ -1,4 +1,5 @@
 ninja
+wheel
 jaxtyping
 matplotlib
 transformers
