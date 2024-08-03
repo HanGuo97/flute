@@ -20,6 +20,7 @@
 </div>
 
 # Update
+- **August 2, 2024.** Added support for RTX4090.
 - **July 27, 2024.** Added support for LLaMA-3.1 (405B) and tuned BF16 performance. FP16 is still the recommended data type, especially for 3-bit settings.
 
 # Installation
@@ -181,6 +182,7 @@ The following example performs simple quantization to the dense model. After thi
 ```python
 import flute.integrations.base
 flute.integrations.base.prepare_model_flute(
+    name="model.model.layers",
     module=model.model.layers,  # for LLaMA-3 and Gemma-2
     num_bits=num_bits,
     group_size=group_size,
@@ -199,7 +201,7 @@ flute.integrations.base.prepare_model_flute(
 | Input dtypes   | `torch.float16` `torch.bfloat16` |  |
 | Bits | `4bit` `3bit` | `2bit` |
 | Group Sizes | `32` `64` `128` `256` | ❓ |
-| GPUs | `A100` `A6000` | `RTX 4090` `H100` (unoptimized) |
+| GPUs | `A100` `A6000` `RTX 4090` | `H100` (unoptimized) |
 
 > [!WARNING]
 > In the current release, we noticed `torch.bfloat16` is slower than `torch.float16`. This likely because of lack of tuning, and that Ampere GPUs lack a hardware acceleration for `bfloat16` [vectorized atomic-add](https://github.com/HanGuo97/flute/blob/main/flute/csrc/cutlass_extensions_bf16.h#L27).
@@ -324,6 +326,7 @@ model = AutoModelForCausalLM.from_pretrained(
 
 if isinstance(model, (LlamaForCausalLM, Gemma2ForCausalLM)):
     flute.integrations.base.prepare_model_flute(
+        name="model.model.layers",
         module=model.model.layers,
         num_bits=num_bits,
         group_size=group_size,
