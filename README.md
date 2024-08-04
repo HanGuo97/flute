@@ -207,7 +207,7 @@ flute.integrations.base.prepare_model_flute(
 > In the current release, we noticed `torch.bfloat16` is slower than `torch.float16`. This likely because of lack of tuning, and that Ampere GPUs lack a hardware acceleration for `bfloat16` [vectorized atomic-add](https://github.com/HanGuo97/flute/blob/main/flute/csrc/cutlass_extensions_bf16.h#L27).
 
 > [!WARNING]
-> We noticed several numerically unstable situations using `bits=4, group-size=256, GPU=A100`, though this is relatively rare (8 of 9360 test cases failed). We also noticed correctness issues in some situations with `bits=4, group-size=256, dtype=bfloat16, GPU=RTX4090`. We will be looking into this, but we suggest avoiding these particular use cases for now. 
+> We noticed several numerically unstable situations using `bits=4, group-size=256, GPU=A100`, though this is relatively rare (8 of 9360 test cases failed). We also noticed correctness issues in some situations with `bits=4, group-size=256, dtype=bfloat16, GPU=RTX4090` (1 of 52 test cases failed). We will be looking into this, but we suggest avoiding these particular use cases for now. 
 
 ## Models
 
