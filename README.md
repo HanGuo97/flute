@@ -233,7 +233,7 @@ flute.integrations.base.prepare_model_flute(
 > The HuggingFace Hub links are for `NFL W4G64` quantization by default. To use the `NFL W3G64` quantization, add `--revision nfl_w3g64`.
 
 
-### [LLaMA-3 (8B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-8B-FLUTE)
+### [LLaMA-3.1 (8B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-8B-FLUTE)
 
 |             | Wiki | C4    | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
 | ----------- | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
@@ -242,7 +242,7 @@ flute.integrations.base.prepare_model_flute(
 | NFL W3G64       | 7.23 | 11.83 | 77.91 | 76.98 | 46.33 | 56.74     | 70.32 | 65.66 |
 
 
-### [LLaMA-3 (70B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-70B-FLUTE)
+### [LLaMA-3.1 (70B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-70B-FLUTE)
 
 |             | Wiki | C4    | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
 | ----------- | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
@@ -251,7 +251,7 @@ flute.integrations.base.prepare_model_flute(
 | NFL W3G64       | 4.29 | 8.91  | 82.04 | 83.29 | 54.78 | 64.99     | 78.14 | 72.65 |
 
 
-### [LLaMA-3 Instruct (8B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-8B-Instruct-FLUTE)
+### [LLaMA-3.1 Instruct (8B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-8B-Instruct-FLUTE)
 
 |             | Wiki | C4    |
 | ----------- | ---- | ----- |
@@ -259,7 +259,7 @@ flute.integrations.base.prepare_model_flute(
 | NFL W3G64       | 7.73 | 12.83 |
 
 
-### [LLaMA-3 Instruct (70B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-70B-Instruct-FLUTE)
+### [LLaMA-3.1 Instruct (70B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-70B-Instruct-FLUTE)
 
 |             | Wiki | C4    |
 | ----------- | ---- | ----- |
