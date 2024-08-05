@@ -20,6 +20,7 @@
 </div>
 
 # Update
+- **August 5, 2024.** Added quantized LLaMA-3.1 (8B/70B) models.
 - **August 2, 2024.** Added support for RTX4090.
 - **July 27, 2024.** Added support for LLaMA-3.1 (405B) and tuned BF16 performance. FP16 is still the recommended data type, especially for 3-bit settings.
 
@@ -125,12 +126,12 @@ For additional benchmarks, detailed breakdowns, and corresponding instruction-tu
 </p>
 
 
-### LLaMA-3
+### LLaMA-3.1
 |               | Wiki PPL | C4 PPL    | LLM Eval Avg.  |               | Wiki PPL | C4 PPL   | LLM Eval Avg.  |
 | -----------   | ---- | ----- | -----          | -----------   | ---- | ---- | -----          |
-| LLaMA-3 (8B)  | 6.1  | 9.2   | 68.6           | LLaMA-3 (70B) | 2.9  | 6.9  | 75.3           |
-| + NFL W4G64       | 6.11 | 9.38  | 68.41          | + NFL W4G64       | 3.03 | 7.03 | 74.39          |
-| + NFL W3G64       | 7.13 | 11.06 | 65.28          | + NFL W3G64       | 4.15 | 8.10 | 72.45          |
+| LLaMA-3.1 (8B)  | 6.31 | 9.60  | 69.75          | LLaMA-3.1 (70B) | 2.82 | 7.18 | 75.45          |
+| + NFL W4G64       | 6.24 | 10.06 | 69.13          | + NFL W4G64       | 3.09 | 7.53 | 74.84          |
+| + NFL W3G64       | 7.23 | 11.83 | 65.66          | + NFL W3G64       | 4.29 | 8.91 | 72.65          |
 
 
 ### Gemma-2
@@ -154,11 +155,11 @@ FLUTE-quantized models ([Model Zoo](#models)) can be directly served using exisi
 +   --quantization flute
 ```
 
-For example, the following commmand runs the FLUTE-quantized LLaMA-3 (8B) on a single GPU.
+For example, the following commmand runs the FLUTE-quantized LLaMA-3.1 (8B) on a single GPU.
 
 ```bash
 python -m flute.integrations.vllm vllm.entrypoints.openai.api_server \
-    --model radi-cho/Meta-Llama-3-8B-FLUTE \
+    --model radi-cho/Meta-Llama-3.1-8B-FLUTE \
     --quantization flute
 ```
 
@@ -167,7 +168,7 @@ We can then query the vLLM server as usual.
 curl http://localhost:8000/v1/completions \
     -H "Content-Type: application/json" \
     -d '{
-        "model": "radi-cho/Meta-Llama-3-8B-FLUTE",
+        "model": "radi-cho/Meta-Llama-3.1-8B-FLUTE",
         "prompt": "San Francisco is a",
         "max_tokens": 7,
         "temperature": 0
@@ -230,6 +231,42 @@ flute.integrations.base.prepare_model_flute(
 
 > [!TIP]
 > The HuggingFace Hub links are for `NFL W4G64` quantization by default. To use the `NFL W3G64` quantization, add `--revision nfl_w3g64`.
+
+
+### [LLaMA-3 (8B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-8B-FLUTE)
+
+|             | Wiki | C4    | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
+| ----------- | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
+| Unquantized | 6.31 | 9.60  | 79.16 | 82.20 | 52.65 | 60.71     | 74.03 | 69.75 |
+| NFL W4G64       | 6.24 | 10.06 | 79.38 | 81.61 | 51.54 | 59.57     | 73.56 | 69.13 |
+| NFL W3G64       | 7.23 | 11.83 | 77.91 | 76.98 | 46.33 | 56.74     | 70.32 | 65.66 |
+
+
+### [LLaMA-3 (70B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-70B-FLUTE)
+
+|             | Wiki | C4    | PIQA  | ARC-E | ARC-C | HellaSwag | Wino  | Avg.  |
+| ----------- | ---- | ----- | ----- | ----- | ----- | --------- | ----- | ----- |
+| Unquantized | 2.82 | 7.18  | 82.81 | 85.31 | 59.64 | 67.49     | 82.00 | 75.45 |
+| NFL W4G64       | 3.09 | 7.53  | 83.03 | 85.52 | 58.19 | 67.04     | 80.43 | 74.84 |
+| NFL W3G64       | 4.29 | 8.91  | 82.04 | 83.29 | 54.78 | 64.99     | 78.14 | 72.65 |
+
+
+### [LLaMA-3 Instruct (8B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-8B-Instruct-FLUTE)
+
+|             | Wiki | C4    |
+| ----------- | ---- | ----- |
+| NFL W4G64       | 6.78 | 11.11 |
+| NFL W3G64       | 7.73 | 12.83 |
+
+
+### [LLaMA-3 Instruct (70B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-70B-Instruct-FLUTE)
+
+|             | Wiki | C4    |
+| ----------- | ---- | ----- |
+| NFL W4G64       | 4.15 | 9.18  |
+| NFL W3G64       | 4.74 | 9.48  |
+
+
 
 ### [LLaMA-3 (8B)](https://huggingface.co/radi-cho/Meta-Llama-3-8B-FLUTE)
 
