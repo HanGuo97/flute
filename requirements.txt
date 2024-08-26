@@ -5,3 +5,4 @@ matplotlib
 transformers
 accelerate
 vllm >= 0.5.3.post1
+bitsandbytes
