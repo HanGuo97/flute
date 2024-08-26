@@ -20,6 +20,7 @@
 </div>
 
 # Update
+- **August 26, 2024.** `flute.integrations.base.prepare_model_flute` could now convert `bitsandbytes` model into FLUTE model.
 - **August 5, 2024.** Added quantized LLaMA-3.1 (8B/70B) models.
 - **August 2, 2024.** Added support for RTX4090.
 - **July 27, 2024.** Added support for LLaMA-3.1 (405B) and tuned BF16 performance. FP16 is still the recommended data type, especially for 3-bit settings.
