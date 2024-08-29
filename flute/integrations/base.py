@@ -3,6 +3,7 @@ import json
 import torch
 import warnings
 import argparse
+
 from transformers import (
     LlamaForCausalLM,
     Gemma2ForCausalLM,
@@ -18,7 +19,9 @@ import flute
 import flute.utils
 import flute.nf_utils
 import flute.integrations.bitsandbytes
+import flute.integrations.learnable
 
+from flute.integrations.learnable import LearnableQuantizedLinear
 
 def get_accelerate_hook(name: str, module: torch.nn.Module, allow: bool) -> Optional[ModelHook]:
 
@@ -62,7 +65,7 @@ def prepare_model_flute(
 
             child_full_name = f"{_name}.{child_name}"
 
-            if isinstance(child, torch.nn.Linear):
+            if isinstance(child, torch.nn.Linear) or isinstance(child, LearnableQuantizedLinear):
 
                 if isinstance(child, BNBLinear4bit):
                     if child.weight.dtype not in [torch.uint8]:
@@ -130,7 +133,10 @@ def prepare_model_flute(
                 if custom_scales_dict is not None:
                     custom_scales = custom_scales_dict[child_full_name]
                 else:
-                    custom_scales = None
+                    if isinstance(child, LearnableQuantizedLinear):
+                        custom_scales = child.scales
+                    else:
+                        custom_scales = None
 
                 if not isinstance(child, BNBLinear4bit):
                     _, _Q, scales, qmap = flute.nf_utils.nf_quantize(

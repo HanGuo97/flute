@@ -3,6 +3,7 @@ wheel
 jaxtyping
 matplotlib
 transformers
+datasets
 accelerate
 vllm >= 0.5.3.post1
 bitsandbytes
