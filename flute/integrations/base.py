@@ -143,8 +143,14 @@ def prepare_model_flute(
                         bnb_module=child,
                         verify=True)
 
+                # use a smaller data type to save memory and
+                # make sure this is a lossless conversion
+                _Q_uint8 = _Q.to(dtype=torch.uint8)
+                if not (_Q_uint8 == _Q).all():
+                    raise ValueError
+
                 Q  = flute.utils.pack(
-                    _Q.T.contiguous(),
+                    _Q_uint8.T.contiguous(),
                     num_bits=num_bits,
                     group_size=group_size)
 
