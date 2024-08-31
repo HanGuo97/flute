@@ -3,7 +3,6 @@ import json
 import torch
 import warnings
 import argparse
-
 from transformers import (
     LlamaForCausalLM,
     Gemma2ForCausalLM,
@@ -19,9 +18,8 @@ import flute
 import flute.utils
 import flute.nf_utils
 import flute.integrations.bitsandbytes
-import flute.integrations.learnable
-
 from flute.integrations.learnable import LearnableQuantizedLinear
+
 
 def get_accelerate_hook(name: str, module: torch.nn.Module, allow: bool) -> Optional[ModelHook]:
 
@@ -82,6 +80,8 @@ def prepare_model_flute(
 
                 if fake is True:
                     if isinstance(child, BNBLinear4bit):
+                        raise NotImplementedError
+                    if isinstance(child, LearnableQuantizedLinear):
                         raise NotImplementedError
                     # we primarily use the fake quantization to
                     # check the outputs of the quantized model
@@ -151,12 +151,11 @@ def prepare_model_flute(
 
                 # use a smaller data type to save memory and
                 # make sure this is a lossless conversion
-                _Q_uint8 = _Q.to(dtype=torch.uint8)
-                if not (_Q_uint8 == _Q).all():
+                if not (_Q.to(dtype=torch.uint8) == _Q).all():
                     raise ValueError
 
                 Q  = flute.utils.pack(
-                    _Q_uint8.T.contiguous(),
+                    _Q.to(dtype=torch.uint8).T.contiguous(),
                     num_bits=num_bits,
                     group_size=group_size)
 
