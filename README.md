@@ -380,15 +380,15 @@ else:
 While FLUTE has its own Normal Float (NF) implementation, we could convert an existing HuggingFace model quantized via `bitsandbytes` into FLUTE format. To do so, just add two lines to the Python API,
 
 ```diff
-  flute.integrations.base.prepare_model_flute(
-      name="model.model.layers",
-      module=model.model.layers,
-      num_bits=num_bits,
-      group_size=group_size,
-      fake=False,
-+     prepare_bnb_layers=True,
-+     default_bnb_dtype=torch.float16,
-  )
+flute.integrations.base.prepare_model_flute(
+    name="model.model.layers",
+    module=model.model.layers,
+    num_bits=num_bits,
+    group_size=group_size,
+    fake=False,
++   prepare_bnb_layers=True,
++   default_bnb_dtype=torch.float16,
+)
 ```
 
 It's worth noting that we do not support double quantization, and the conversion will materialize the first-level scales.
