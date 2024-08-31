@@ -20,7 +20,8 @@
 </div>
 
 # Update
-- **August 26, 2024.** `flute.integrations.base.prepare_model_flute` could now convert `bitsandbytes` model into FLUTE model.
+- **August 31, 2024.** Added [support](#learned-normal-float-quantization-nfl) and [example](https://github.com/HanGuo97/flute/blob/main/examples/learnable_scales_eval.ipynb) for the Learned Normal Float (NFL) quantization.
+- **August 26, 2024.** Added [support](#converting-bitsandbytes-model-into-flute-model) for converting `bitsandbytes` model into FLUTE model.
 - **August 5, 2024.** Added quantized LLaMA-3.1 (8B/70B) models.
 - **August 2, 2024.** Added support for RTX4090.
 - **July 27, 2024.** Added support for LLaMA-3.1 (405B) and tuned BF16 performance. FP16 is still the recommended data type, especially for 3-bit settings.
@@ -374,9 +375,42 @@ else:
     raise NotImplementedError
 ```
 
-### Learned Normal Float Quantization
+### Converting `bitsandbytes` Model into FLUTE Model
 
-Soon!
+While FLUTE has its own Normal Float (NF) implementation, we could convert an existing HuggingFace model quantized via `bitsandbytes` into FLUTE format. To do so, just add two lines to the Python API,
+
+```diff
+  flute.integrations.base.prepare_model_flute(
+      name="model.model.layers",
+      module=model.model.layers,
+      num_bits=num_bits,
+      group_size=group_size,
+      fake=False,
++     prepare_bnb_layers=True,
++     default_bnb_dtype=torch.float16,
+  )
+```
+
+It's worth noting that we do not support double quantization, and the conversion will materialize the first-level scales.
+
+### Learned Normal Float Quantization (NFL)
+
+NFL initialized the lookup table and the scales with those from NF quantization. Then, it uses calibration data to learn the scales via straight through estimation for for the gradient with respect to the scales.
+
+To use NFL quantization, call the following function before `prepare_model_flute`. We also provide an [example jupyter notebook](https://github.com/HanGuo97/flute/blob/main/examples/learnable_scales_eval.ipynb) to illustrate the entire process.
+
+```python
+import flute.integrations.learnable
+
+flute.integrations.learnable.learn_scales(
+    model=model,
+    tokenizer=tokenizer,
+    num_bits=num_bits,
+    group_size=group_size,
+    custom_corpora=list_of_corpora,
+    samples=num_samples,
+)
+```
 
 # Build From Source
 
