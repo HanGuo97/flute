@@ -20,6 +20,7 @@
 </div>
 
 # Update
+- **September 6, 2024.** Added (unlearned) NF-quantized LLaMA-3.1 (405B) models: [[base](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-FLUTE/tree/nf_w4g64)][[instruction](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-Instruct-FLUTE/tree/nf_w4g64)]. Please add `--revision nf_w4g64` since these are not on the default branch.
 - **August 31, 2024.** Added [support](#learned-normal-float-quantization-nfl) and [example](https://github.com/HanGuo97/flute/blob/main/examples/learnable_scales_eval.ipynb) for the Learned Normal Float (NFL) quantization.
 - **August 26, 2024.** Added [support](#converting-bitsandbytes-model-into-flute-model) for converting `bitsandbytes` model into FLUTE model.
 - **August 5, 2024.** Added quantized LLaMA-3.1 (8B/70B) models.
