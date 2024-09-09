@@ -20,7 +20,7 @@
 </div>
 
 # Update
-- **September 6, 2024.** Added (unlearned) NF-quantized LLaMA-3.1 (405B) models: [[base](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-FLUTE/tree/nf_w4g64)][[instruction](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-Instruct-FLUTE/tree/nf_w4g64)]. Please add `--revision nf_w4g64` since these are not on the default branch.
+- **September 6, 2024.** Added (unlearned) NF-quantized LLaMA-3.1 (405B) models: [base](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-FLUTE/tree/nf_w4g64) and [instruction tuned](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-Instruct-FLUTE/tree/nf_w4g64).
 - **August 31, 2024.** Added [support](#learned-normal-float-quantization-nfl) and [example](https://github.com/HanGuo97/flute/blob/main/examples/learnable_scales_eval.ipynb) for the Learned Normal Float (NFL) quantization.
 - **August 26, 2024.** Added [support](#converting-bitsandbytes-model-into-flute-model) for converting `bitsandbytes` model into FLUTE model.
 - **August 5, 2024.** Added quantized LLaMA-3.1 (8B/70B) models.
@@ -253,6 +253,8 @@ flute.integrations.base.prepare_model_flute(
 | NFL W4G64       | 3.09 | 7.53  | 83.03 | 85.52 | 58.19 | 67.04     | 80.43 | 74.84 |
 | NFL W3G64       | 4.29 | 8.91  | 82.04 | 83.29 | 54.78 | 64.99     | 78.14 | 72.65 |
 
+### [LLaMA-3.1 (405B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-FLUTE)
+Note that the weights are in the branch `nf_w4g64` and thus `--revision nf_w4g64` is needed since these are not on the default branch.
 
 ### [LLaMA-3.1 Instruct (8B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-8B-Instruct-FLUTE)
 
@@ -269,6 +271,8 @@ flute.integrations.base.prepare_model_flute(
 | NFL W4G64       | 4.15 | 9.18  |
 | NFL W3G64       | 4.74 | 9.48  |
 
+### [LLaMA-3.1 Instruct (405B)](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-Instruct-FLUTE)
+Note that the weights are in the branch `nf_w4g64` and thus `--revision nf_w4g64` is needed since these are not on the default branch.
 
 
 ### [LLaMA-3 (8B)](https://huggingface.co/radi-cho/Meta-Llama-3-8B-FLUTE)
