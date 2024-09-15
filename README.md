@@ -20,6 +20,7 @@
 </div>
 
 # Update
+- **September 6, 2024.** Added [experimental support] for loading pre-quantized FLUTE models in HuggingFace.
 - **September 6, 2024.** Added (unlearned) NF-quantized LLaMA-3.1 (405B) models: [base](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-FLUTE/tree/nf_w4g64) and [instruction tuned](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-Instruct-FLUTE/tree/nf_w4g64).
 - **August 31, 2024.** Added [support](#learned-normal-float-quantization-nfl) and [example](https://github.com/HanGuo97/flute/blob/main/examples/learnable_scales_eval.ipynb) for the Learned Normal Float (NFL) quantization.
 - **August 26, 2024.** Added [support](#converting-bitsandbytes-model-into-flute-model) for converting `bitsandbytes` model into FLUTE model.
@@ -181,7 +182,19 @@ curl http://localhost:8000/v1/completions \
 ## FLUTE + HuggingFace
 FLUTE also runs out of the box with HuggingFace and its `accelerate` extension. This integration is mostly experimental and not optimized. Users sensitive to performance considerations should use the `vLLM` integration instead.
 
-The following example performs simple quantization to the dense model. After this, the model can be used as normal. (Support for loading pre-quantized model is coming soon!)
+1. Loading a pre-quantized FLUTE model.
+
+```diff
+import flute.integrations.huggingface
+
+- model = AutoModelForCausalLM.from_pretrained(
++ model = flute.integrations.huggingface.from_pretrained(
+    "radi-cho/Meta-Llama-3.1-8B-FLUTE",
+    # all of your favoriate HF flags will be forwarded
+    device_map="auto")
+```
+
+2. Loading and quantizing a dense model.
 
 ```python
 import flute.integrations.base
@@ -193,6 +206,8 @@ flute.integrations.base.prepare_model_flute(
     fake=False,
     handle_hooks=True)  # for `accelerate` hooks
 ```
+
+After this, the model can be used as normal. Please checkout the quantization [guide](https://github.com/HanGuo97/flute/edit/main/README.md#quantizing-your-own-models) for more information.
 
 
 
