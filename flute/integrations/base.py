@@ -20,6 +20,8 @@ import flute.nf_utils
 import flute.integrations.bitsandbytes
 from flute.integrations.learnable import LearnableQuantizedLinear
 
+FLUTE_CONFIG_FILE_NAME = "flute_config.json"
+
 
 def get_accelerate_hook(name: str, module: torch.nn.Module, allow: bool) -> Optional[ModelHook]:
 
@@ -126,6 +128,7 @@ def prepare_model_flute(
                         out_features=child.out_features,
                         num_bits=num_bits,
                         group_size=group_size,
+                        workspace_lazy_init=False,
                         bias=(child.bias is not None),
                         device=child.weight.device,
                         dtype=flute_dtype))
@@ -186,7 +189,7 @@ def prepare_model_flute(
 
 
 class FluteLinear(torch.nn.Module):
-    __constants__ = ["in_features", "out_features", "num_bits", "group_size"]
+    __constants__ = ["in_features", "out_features", "num_bits", "group_size", "workspace_lazy_init"]
     in_features : int
     out_features: int
     dtype       : torch.dtype
@@ -198,12 +201,15 @@ class FluteLinear(torch.nn.Module):
     tables      : torch.Tensor
     tables2     : torch.Tensor
 
+    workspace_lazy_init: bool
+
     def __init__(
         self,
         in_features: int,
         out_features: int,
         num_bits: int,
         group_size: int,
+        workspace_lazy_init: bool = False,
         bias: bool = False,
         device: Optional[torch.device] = None,
         dtype: Optional[torch.dtype] = None,
@@ -230,6 +236,7 @@ class FluteLinear(torch.nn.Module):
         self.out_features = out_features
         self.num_bits = num_bits
         self.group_size = group_size
+        self.workspace_lazy_init = workspace_lazy_init
         # scratch space used by the kernel
         self.workspace = flute.utils.get_workspace_streamk(device)
 
@@ -243,13 +250,19 @@ class FluteLinear(torch.nn.Module):
             self.register_parameter("bias", None)
 
     def forward(self, inputs: torch.Tensor) -> torch.Tensor:
+
+        if self.workspace_lazy_init is True:
+            workspace = flute.utils.get_workspace_streamk(inputs.device)
+        else:
+            workspace = self.workspace
+
         output = flute.qgemm_simple(
             inputs,
             self.weight,
             self.scales,
             self.tables,
             self.tables2,
-            self.workspace,
+            workspace,
             self.num_bits,
             self.group_size,
         )
@@ -302,7 +315,7 @@ def quantize_hf_model(
     }
     config_path = os.path.join(
         save_directory,
-        "flute_config.json")
+        FLUTE_CONFIG_FILE_NAME)
     with open(config_path, "w") as f:
         json.dump(config, f)
 
