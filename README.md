@@ -207,7 +207,7 @@ flute.integrations.base.prepare_model_flute(
     handle_hooks=True)  # for `accelerate` hooks
 ```
 
-After this, the model can be used as normal. Please checkout the quantization [guide](https://github.com/HanGuo97/flute/edit/main/README.md#quantizing-your-own-models) for more information.
+After this, the model can be used as normal. Please checkout the quantization [guide](#quantizing-your-own-models) for more information.
 
 
 
