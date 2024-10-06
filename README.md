@@ -20,7 +20,7 @@
 </div>
 
 # Update
-- **October 5** FLUTE will appear in EMNLP 2024 (Findings).
+- **October 5, 2024.** FLUTE will appear in EMNLP 2024 (Findings).
 - **September 15, 2024.** Added [experimental support](#flute--huggingface) for loading pre-quantized FLUTE models in HuggingFace.
 - **September 6, 2024.** Added (unlearned) NF-quantized LLaMA-3.1 (405B) models: [base](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-FLUTE/tree/nf_w4g64) and [instruction tuned](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-Instruct-FLUTE/tree/nf_w4g64).
 - **August 31, 2024.** Added [support](#learned-normal-float-quantization-nfl) and [example](https://github.com/HanGuo97/flute/blob/main/examples/learnable_scales_eval.ipynb) for the Learned Normal Float (NFL) quantization.
