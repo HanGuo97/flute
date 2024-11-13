@@ -11,10 +11,9 @@ def _qgemm_simple_abstract(
     num_bits: int,
     group_size: int,
 ) -> torch.Tensor:
-    M = input.shape[0]
     N = scales.shape[0]
     return torch.empty(
-        (M, N),
+        input.shape[:-1] + (N,),
         dtype=input.dtype,
         device=input.device)
 
