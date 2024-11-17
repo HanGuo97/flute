@@ -75,13 +75,12 @@ def test_vector_dequantize() -> None:
                     dtype=dtype,
                     device=device)
                 grid = torch.randn(
-                    num_codes,
-                    vector_size,
+                    (num_codes, vector_size),
                     dtype=dtype,
                     device=device)
 
                 outputs = vector_dequantize(
-                    weight_higgs=weight_higgs.int(),
+                    weight_higgs=weight_higgs,
                     scales_higgs=scales_higgs,
                     grid=grid,
                     num_bits=num_bits,
@@ -91,10 +90,9 @@ def test_vector_dequantize() -> None:
                     device=device)
 
                 outputs_higgs = vector_dequantize_higgs(
-                    weight_higgs=weight_higgs,
+                    weight_higgs=weight_higgs.int(),
                     scales_higgs=scales_higgs,
                     grid=grid)
 
                 if not (outputs == outputs_higgs.T).all():
                     raise ValueError
-
