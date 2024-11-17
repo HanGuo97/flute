@@ -167,8 +167,11 @@ template <
     // types
     typename T_,
     typename TQ_,
-    // threads and tile sizes
+    // threads and slices
+    typename Slices_,
+    typename Blocks_,
     typename Threads_,
+    // tile sizes
     typename TileM_,
     typename TileK_,
     typename TileP_,
@@ -202,8 +205,10 @@ struct GemmConfig {
     CUTE_STATIC_ASSERT(sizeof(TQ) == 2);
     CUTE_STATIC_ASSERT(is_same_v<T, half_t> == true || is_same_v<T, bfloat16_t> == true);
 
-    // threads configuration
+    // threads and slices configuration
     using Warps   = _32;  // using compile-time constant instead of runtime `warpSize`
+    using Slices  = Slices_;
+    using Blocks  = Blocks_;
     using Threads = Threads_;
     CUTE_STATIC_ASSERT_V(Threads{} % _128{} == _0{});
 
