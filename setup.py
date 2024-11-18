@@ -6,7 +6,6 @@
 import os
 import re
 import glob
-import torch
 import subprocess
 from typing import List
 from setuptools import find_packages, setup

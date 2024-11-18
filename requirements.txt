@@ -5,5 +5,5 @@ matplotlib
 transformers
 datasets
 accelerate
-vllm >= 0.5.3.post1
+vllm == 0.5.4
 bitsandbytes

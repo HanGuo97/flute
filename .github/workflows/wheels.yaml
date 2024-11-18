@@ -16,8 +16,8 @@ jobs:
     strategy:
       matrix:
           os: ['ubuntu-20.04']
-          python-version: ['3.9', '3.10', '3.11']
-          pytorch-version: ['2.5.1']
+          python-version: ['3.8', '3.9', '3.10', '3.11']
+          pytorch-version: ['2.4.0']
           cuda-version: ['11.8', '12.1']
 
     steps:
