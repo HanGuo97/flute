@@ -29,6 +29,11 @@ jobs:
         run: |
           bash -x .github/workflows/scripts/env.sh
 
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 10
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
