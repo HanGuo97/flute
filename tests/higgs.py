@@ -38,7 +38,7 @@ def vector_dequantize(
         device=device)
 
     I = torch.eye(
-        scales_higgs.shape[0],
+        Q.shape[1],
         dtype=dtype,
         device=device)
     workspace = flute.utils.make_workspace_streamk(device=device)
