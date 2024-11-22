@@ -467,7 +467,7 @@ INSTANTIATE_TEMPLATE(NUM_SMs, DTYPE, cute::uint16_t, __half2, BITS, GROUP_SIZE);
 3. Remove settings _not tuned_ in `flute/csrc/qgemm.cpp`, `flute/__init__.py`, and `flute/ops.py`
 
 > [!NOTE]
-> Although including other settings could still build, it could break the linking process and requires re-compiling the library.
+> Although including other settings could still build, it could break the linking process and require re-compiling the library.
 
 <details>
 <summary> Example for W4G64 on A100 </summary>
