@@ -184,7 +184,7 @@ def get_template_key(
             M,
             N,
             K,
-            dtype)
+            str(dtype))
     else:
         # M < 16 dispatches to the same template
         return (
