@@ -433,7 +433,7 @@ flute.integrations.learnable.learn_scales(
 )
 ```
 
-# Extending to New Models
+# Extending to New Models (Experimental)
 
 At the moment, FLUTE kernel is specialized to the combination of GPU, matrix shapes, data types, bits, and group sizes. This means adding supporting new models requires tuning the kernel configurations for the corresponding use cases. We are hoping to add support for just-in-time tuning, but in the meantime, here are the ways to tune the kernel ahead-of-time.
 
@@ -611,11 +611,12 @@ index 3a11549..9d9c5d8 100644
 
 4. Build from source (see instructions below).
 
-Depending on the number of configurations to tune, this could take time from 30 minutes to hours.
+Depending on the number of configurations to tune, this could take time from 30 minutes to hours. Also, it might be useful to include `--no-build-isolation`
 
 ### Step 2: Tune FLUTE on the new matrix shapes.
 
 ```python
+import torch
 from flute.tune import TuneTask, tune_tasks_legacy
 
 tasks = [
@@ -639,15 +640,22 @@ After this step is complete, artifacts will be saved in `flute/data/`.
 ### Step 3: Build the newly-tuned kernel
 
 ```bash
-# Reset previously generated files
-git checkout -- flute/csrc/qgemm_kernel_generated.cu
-git checkout -- flute/csrc/qgemm_kernel_raw_generated.cu
+# Reset
+git checkout -- \
+    flute/csrc/qgemm.cpp \
+    flute/csrc/qgemm_kernel_generated.cu \
+    flute/csrc/qgemm_kernel_raw_generated.cu
 
 # generating new dispatching logic based on tuning artifacts
-python -m flute.codegen_utils --tuned-no-M
+bash scripts/codegen_tuned.sh
 
+# Reset
+git checkout -- \
+    flute/ops.py \
+    flute/__init__.py
+    
 # Build
-pip install -e .
+pip install -e . --no-build-isolation
 ```
 
 Finally, please follow the examples in `tests/` to verify that the kernel is working correctly.
