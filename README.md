@@ -466,6 +466,9 @@ INSTANTIATE_TEMPLATE(NUM_SMs, DTYPE, cute::uint16_t, __half2, BITS, GROUP_SIZE);
 
 3. Remove settings _not tuned_ in `flute/csrc/qgemm.cpp`, `flute/__init__.py`, and `flute/ops.py`
 
+> [!NOTE]
+> Although including other settings could still build, it could break the linking process and requires re-compiling the library.
+
 <details>
 <summary> Example for W4G64 on A100 </summary>
 
@@ -536,7 +539,11 @@ index 9fd91a2..80782ea 100644
 
 4. Build from source (see instructions below).
 
-Depending on the number of configurations to tune, this could take time from 30 minutes to hours. Also, it might be useful to include `--no-build-isolation`
+```bash
+pip install -e . --no-build-isolation  # `--no-build-isolation` is optional
+```
+
+Depending on the number of configurations to tune, this could take time in the order of hours.
 
 ### Step 2: Tune FLUTE on the new matrix shapes.
 
