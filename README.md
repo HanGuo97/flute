@@ -503,10 +503,24 @@ int num_bits, int group_size, int template_id) -> ()");
 +    m.impl("qgemm_raw_simple_80", &qgemm_raw_simple<cute::Int<108>>);
 ```
 
-</details>
-
-<details>
-<summary> __init__.py </summary>
+```diff
+diff --git a/flute/__init__.py b/flute/__init__.py
+index 34b1a26..f524841 100644
+--- a/flute/__init__.py
++++ b/flute/__init__.py
+@@ -69 +69 @@ QGEMM_SIMPLE_DICT = {
+-# QGEMM_RAW_SIMPLE_DICT = {
++QGEMM_RAW_SIMPLE_DICT = {
+@@ -71 +71 @@ QGEMM_SIMPLE_DICT = {
+-#     108: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_80),
++    108: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_80),
+@@ -73 +73 @@ QGEMM_SIMPLE_DICT = {
+-# }
++}
+@@ -76 +76 @@ qgemm_simple     = QGEMM_SIMPLE_DICT[NUM_SMS]
+-qgemm_raw_simple = None  # QGEMM_RAW_SIMPLE_DICT[NUM_SMS]
++qgemm_raw_simple = QGEMM_RAW_SIMPLE_DICT[NUM_SMS]
+```
 
 ```diff
  QGEMM_SIMPLE_DICT = {
