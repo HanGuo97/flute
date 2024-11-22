@@ -433,6 +433,173 @@ flute.integrations.learnable.learn_scales(
 )
 ```
 
+# Extending to New Models
+
+At the moment, FLUTE kernel is specialized to the combination of GPU, matrix shapes, data types, bits, and group sizes. This means adding supporting new models requires tuning the kernel configurations for the corresponding use cases. We are hoping to add support for just-in-time tuning, but in the meantime, here are the ways to tune the kernel ahead-of-time.
+
+### Step 1: Build the `raw` version of the library that exposes all templates.
+
+1. Reset the previously tuned kernel,
+
+```bash
+cp flute/csrc/qgemm_kernel_generated.template.cu flute/csrc/qgemm_kernel_generated.cu
+```
+
+2. Un-comment the combination to tune in `flute/csrc/qgemm_kernel_raw_generated.cu`,
+
+```cpp
+INSTANTIATE_TEMPLATE(NUM_SMs, DTYPE, cute::uint16_t, __half2, BITS, GROUP_SIZE);
+```
+
+3. Remove settings _not tuned_ in `flute/csrc/qgemm.cpp` and `flute/__init__.py`
+
+For example, if you are only tuning the combination `A100, FP16, W4G128`, then remove the following lines
+
+<details>
+<summary> qgemm.cpp </summary>
+
+
+```diff
+diff --git a/flute/csrc/qgemm.cpp b/flute/csrc/qgemm.cpp
+index 80d90fc..82ddf11 100644
+--- a/flute/csrc/qgemm.cpp
++++ b/flute/csrc/qgemm.cpp
+@@ -311,18 +311,9 @@ qgemm_raw_simple(const at::Tensor& input,
+     do {                                              \
+         switch (group_size)                           \
+         {                                             \
+-        case 32:                                      \
+-            RUN_QGEMM_RAW(T, NUM_BITS, 32);           \
+-            break;                                    \
+-        case 64:                                      \
+-            RUN_QGEMM_RAW(T, NUM_BITS, 64);           \
+-            break;                                    \
+         case 128:                                     \
+             RUN_QGEMM_RAW(T, NUM_BITS, 128);          \
+             break;                                    \
+-        case 256:                                     \
+-            RUN_QGEMM_RAW(T, NUM_BITS, 256);          \
+-            break;                                    \
+         default:                                      \
+             AT_ERROR("Unsupported `group_size`");     \
+         }                                             \
+@@ -332,12 +323,6 @@ qgemm_raw_simple(const at::Tensor& input,
+     do {                                                 \
+         switch (num_bits)                                \
+         {                                                \
+-        case 2:                                          \
+-            RUN_QGEMM_RAW_SWITCH_GROUP_SIZE(T, 2);       \
+-            break;                                       \
+-        case 3:                                          \
+-            RUN_QGEMM_RAW_SWITCH_GROUP_SIZE(T, 3);       \
+-            break;                                       \
+         case 4:                                          \
+             RUN_QGEMM_RAW_SWITCH_GROUP_SIZE(T, 4);       \
+             break;                                       \
+@@ -357,13 +342,6 @@ qgemm_raw_simple(const at::Tensor& input,
+                 return;
+             }
+         )
+-        AT_DISPATCH_CASE(
+-            at::ScalarType::BFloat16,
+-            [&]() {
+-                RUN_QGEMM_RAW_SWITCH_NUM_BITS_AND_GROUP_SIZE(cute::bfloat16_t);
+-                return;
+-            }
+-        )
+     );
+ 
+ }
+@@ -375,20 +353,10 @@ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {}
+ // Defines the operators
+ TORCH_LIBRARY(flute, m) {
+     m.impl_abstract_pystub("flute.ops");
+-    m.def("qgemm_simple_80(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size) -> Tensor");
+-    m.def("qgemm_simple_86(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size) -> Tensor");
+-    m.def("qgemm_simple_89(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size) -> Tensor");
+     m.def("qgemm_raw_simple_80(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int te
+mplate_id) -> ()");
+-    m.def("qgemm_raw_simple_86(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, in
+t template_id) -> ()");
+-    m.def("qgemm_raw_simple_89(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, in
+t template_id) -> ()");
+ }
+ 
+ 
+ TORCH_LIBRARY_IMPL(flute, CUDA, m) {
+-    m.impl("qgemm_simple_80", &qgemm_simple<cute::Int<108>>);
+-    m.impl("qgemm_simple_86", &qgemm_simple<cute::Int<84>>);
+-    m.impl("qgemm_simple_89", &qgemm_simple<cute::Int<128>>);
+     m.impl("qgemm_raw_simple_80", &qgemm_raw_simple<cute::Int<108>>);
+-    m.impl("qgemm_raw_simple_86", &qgemm_raw_simple<cute::Int<84>>);
+-    m.impl("qgemm_raw_simple_89", &qgemm_raw_simple<cute::Int<128>>);
+ }
+```
+
+</details>
+
+<details>
+<summary> __init__.py </summary>
+
+```diff
+ QGEMM_SIMPLE_DICT = {
+-    84 : cast(QGEMM_SIMPLE_TYPE, torch.ops.flute.qgemm_simple_86),
+-    108: cast(QGEMM_SIMPLE_TYPE, torch.ops.flute.qgemm_simple_80),
+-    128: cast(QGEMM_SIMPLE_TYPE, torch.ops.flute.qgemm_simple_89),
+ }
+ 
+ QGEMM_RAW_SIMPLE_DICT = {
+-    84 : cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_86),
+     108: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_80),
+-    128: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_89),
+ }
+```
+
+</details>
+
+4. Build from source (see instructions below).
+
+Depending on the number of configurations to tune, this could take time from 30 minutes to hours.
+
+### Step 2: Tune FLUTE on the new matrix shapes.
+
+```python
+from flute.tune import TuneTask, tune_tasks_legacy
+
+tasks = [
+    TuneTask(
+        M=1,                  # batch size (x sequence length, usually 1 for token-by-token generation)
+        N=1024,               # parameter dimension (note when using tensor-parallelism, this could change)
+        K=4096,               # parameter dimension (note when using tensor-parallelism, this could change)
+        num_bits=4,           # number of bits
+        group_size=128,       # group size
+        num_sms=108,          # number of streaming multiprocessors of the GPU
+        dtype=torch.float16,  # data type
+        device=torch.device("cuda:0")
+    ),
+]
+
+tune_tasks_legacy(tasks)
+```
+
+After this step is complete, artifacts will be saved in `flute/data/`.
+
+### Step 3: Build the newly-tuned kernel
+
+```bash
+# Reset previously generated files
+git checkout -- flute/csrc/qgemm_kernel_generated.cu
+git checkout -- flute/csrc/qgemm_kernel_raw_generated.cu
+
+# generating new dispatching logic based on tuning artifacts
+python -m flute.codegen_utils --tuned-no-M
+
+# Build
+pip install -e .
+```
+
+Finally, please follow the examples in `tests/` to verify that the kernel is working correctly.
+
 # Build From Source
 
 1. Clone the CUTLASS library.
