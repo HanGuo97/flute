@@ -523,69 +523,13 @@ index 34b1a26..f524841 100644
 ```
 
 ```diff
- QGEMM_SIMPLE_DICT = {
--    84 : cast(QGEMM_SIMPLE_TYPE, torch.ops.flute.qgemm_simple_86),
--    108: cast(QGEMM_SIMPLE_TYPE, torch.ops.flute.qgemm_simple_80),
--    128: cast(QGEMM_SIMPLE_TYPE, torch.ops.flute.qgemm_simple_89),
- }
- 
- QGEMM_RAW_SIMPLE_DICT = {
--    84 : cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_86),
-     108: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_80),
--    128: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_89),
- }
-```
-
-</details>
-
-<details>
-<summary> ops.py </summary>
-
-```diff
 diff --git a/flute/ops.py b/flute/ops.py
-index 3a11549..9d9c5d8 100644
+index 9fd91a2..80782ea 100644
 --- a/flute/ops.py
 +++ b/flute/ops.py
-@@ -52,7 +52,6 @@ def _qgemm_simple_abstract(
-         device=input.device)
- 
- 
--@torch.library.impl_abstract("flute::qgemm_simple_80")
- def _qgemm_simple_80_abstract(
-     input: torch.Tensor,
-     weight: torch.Tensor,
-@@ -75,7 +74,6 @@ def _qgemm_simple_80_abstract(
-     )
- 
- 
--@torch.library.impl_abstract("flute::qgemm_simple_86")
- def _qgemm_simple_86_abstract(
-     input: torch.Tensor,
-     weight: torch.Tensor,
-@@ -98,7 +96,6 @@ def _qgemm_simple_86_abstract(
-     )
- 
- 
--@torch.library.impl_abstract("flute::qgemm_simple_89")
- def _qgemm_simple_89_abstract(
-     input: torch.Tensor,
-     weight: torch.Tensor,
-@@ -137,7 +134,6 @@ def _qgemm_raw_simple_80_abstract(
-     pass
- 
- 
--@torch.library.impl_abstract("flute::qgemm_raw_simple_86")
- def _qgemm_raw_simple_86_abstract(
-     input: torch.Tensor,
-     weight: torch.Tensor,
-@@ -153,7 +149,6 @@ def _qgemm_raw_simple_86_abstract(
-     pass
- 
- 
--@torch.library.impl_abstract("flute::qgemm_raw_simple_89")
- def _qgemm_raw_simple_89_abstract(
-     input: torch.Tensor,
-     weight: torch.Tensor,
+@@ -124 +124 @@ def _qgemm_simple_89_abstract(
+-# @torch.library.impl_abstract("flute::qgemm_raw_simple_80")
++@torch.library.impl_abstract("flute::qgemm_raw_simple_80")
 ```
 
 </details>
