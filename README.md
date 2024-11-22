@@ -466,87 +466,41 @@ INSTANTIATE_TEMPLATE(NUM_SMs, DTYPE, cute::uint16_t, __half2, BITS, GROUP_SIZE);
 
 3. Remove settings _not tuned_ in `flute/csrc/qgemm.cpp`, `flute/__init__.py`, and `flute/ops.py`
 
-For example, if you are only tuning the combination `A100, FP16, W4G128`, then remove the following lines
-
 <details>
-<summary> qgemm.cpp </summary>
+<summary> Example for W4G64 on A100 </summary>
 
 
 ```diff
 diff --git a/flute/csrc/qgemm.cpp b/flute/csrc/qgemm.cpp
-index 80d90fc..82ddf11 100644
+index 84bae95..c4a0236 100644
 --- a/flute/csrc/qgemm.cpp
 +++ b/flute/csrc/qgemm.cpp
-@@ -311,18 +311,9 @@ qgemm_raw_simple(const at::Tensor& input,
-     do {                                              \
-         switch (group_size)                           \
-         {                                             \
+@@ -314,3 +313,0 @@ qgemm_raw_simple(const at::Tensor& input,
 -        case 32:                                      \
 -            RUN_QGEMM_RAW(T, NUM_BITS, 32);           \
 -            break;                                    \
--        case 64:                                      \
--            RUN_QGEMM_RAW(T, NUM_BITS, 64);           \
+@@ -320,6 +316,0 @@ qgemm_raw_simple(const at::Tensor& input,
+-        case 128:                                     \
+-            RUN_QGEMM_RAW(T, NUM_BITS, 128);          \
 -            break;                                    \
-         case 128:                                     \
-             RUN_QGEMM_RAW(T, NUM_BITS, 128);          \
-             break;                                    \
 -        case 256:                                     \
 -            RUN_QGEMM_RAW(T, NUM_BITS, 256);          \
 -            break;                                    \
-         default:                                      \
-             AT_ERROR("Unsupported `group_size`");     \
-         }                                             \
-@@ -332,12 +323,6 @@ qgemm_raw_simple(const at::Tensor& input,
-     do {                                                 \
-         switch (num_bits)                                \
-         {                                                \
+@@ -335,6 +325,0 @@ qgemm_raw_simple(const at::Tensor& input,
 -        case 2:                                          \
 -            RUN_QGEMM_RAW_SWITCH_GROUP_SIZE(T, 2);       \
 -            break;                                       \
 -        case 3:                                          \
 -            RUN_QGEMM_RAW_SWITCH_GROUP_SIZE(T, 3);       \
 -            break;                                       \
-         case 4:                                          \
-             RUN_QGEMM_RAW_SWITCH_GROUP_SIZE(T, 4);       \
-             break;                                       \
-@@ -357,13 +342,6 @@ qgemm_raw_simple(const at::Tensor& input,
-                 return;
-             }
-         )
--        AT_DISPATCH_CASE(
--            at::ScalarType::BFloat16,
--            [&]() {
--                RUN_QGEMM_RAW_SWITCH_NUM_BITS_AND_GROUP_SIZE(cute::bfloat16_t);
--                return;
--            }
--        )
-     );
- 
- }
-@@ -375,20 +353,10 @@ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {}
- // Defines the operators
- TORCH_LIBRARY(flute, m) {
-     m.impl_abstract_pystub("flute.ops");
--    m.def("qgemm_simple_80(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size) -> Tensor");
--    m.def("qgemm_simple_86(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size) -> Tensor");
--    m.def("qgemm_simple_89(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size) -> Tensor");
-     m.def("qgemm_raw_simple_80(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int te
-mplate_id) -> ()");
--    m.def("qgemm_raw_simple_86(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, in
-t template_id) -> ()");
--    m.def("qgemm_raw_simple_89(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, in
-t template_id) -> ()");
- }
- 
- 
- TORCH_LIBRARY_IMPL(flute, CUDA, m) {
--    m.impl("qgemm_simple_80", &qgemm_simple<cute::Int<108>>);
--    m.impl("qgemm_simple_86", &qgemm_simple<cute::Int<84>>);
--    m.impl("qgemm_simple_89", &qgemm_simple<cute::Int<128>>);
-     m.impl("qgemm_raw_simple_80", &qgemm_raw_simple<cute::Int<108>>);
--    m.impl("qgemm_raw_simple_86", &qgemm_raw_simple<cute::Int<84>>);
--    m.impl("qgemm_raw_simple_89", &qgemm_raw_simple<cute::Int<128>>);
- }
+@@ -381 +366 @@ TORCH_LIBRARY(flute, m) {
+-    // m.def("qgemm_raw_simple_80(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int
+ num_bits, int group_size, int template_id) -> ()");
++    m.def("qgemm_raw_simple_80(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, 
+int num_bits, int group_size, int template_id) -> ()");
+@@ -391 +376 @@ TORCH_LIBRARY_IMPL(flute, CUDA, m) {
+-    // m.impl("qgemm_raw_simple_80", &qgemm_raw_simple<cute::Int<108>>);
++    m.impl("qgemm_raw_simple_80", &qgemm_raw_simple<cute::Int<108>>);
 ```
 
 </details>
