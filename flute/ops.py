@@ -121,7 +121,7 @@ def _qgemm_simple_89_abstract(
     )
 
 
-@torch.library.impl_abstract("flute::qgemm_raw_simple_80")
+# @torch.library.impl_abstract("flute::qgemm_raw_simple_80")
 def _qgemm_raw_simple_80_abstract(
     input: torch.Tensor,
     weight: torch.Tensor,
@@ -137,7 +137,7 @@ def _qgemm_raw_simple_80_abstract(
     pass
 
 
-@torch.library.impl_abstract("flute::qgemm_raw_simple_86")
+# @torch.library.impl_abstract("flute::qgemm_raw_simple_86")
 def _qgemm_raw_simple_86_abstract(
     input: torch.Tensor,
     weight: torch.Tensor,
@@ -153,7 +153,7 @@ def _qgemm_raw_simple_86_abstract(
     pass
 
 
-@torch.library.impl_abstract("flute::qgemm_raw_simple_89")
+# @torch.library.impl_abstract("flute::qgemm_raw_simple_89")
 def _qgemm_raw_simple_89_abstract(
     input: torch.Tensor,
     weight: torch.Tensor,

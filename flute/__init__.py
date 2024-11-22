@@ -66,14 +66,14 @@ QGEMM_SIMPLE_DICT = {
     128: cast(QGEMM_SIMPLE_TYPE, torch.ops.flute.qgemm_simple_89),
 }
 
-QGEMM_RAW_SIMPLE_DICT = {
-    84 : cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_86),
-    108: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_80),
-    128: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_89),
-}
+# QGEMM_RAW_SIMPLE_DICT = {
+#     84 : cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_86),
+#     108: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_80),
+#     128: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_89),
+# }
 
 qgemm_simple     = QGEMM_SIMPLE_DICT[NUM_SMS]
-qgemm_raw_simple = QGEMM_RAW_SIMPLE_DICT[NUM_SMS]
+qgemm_raw_simple = None  # QGEMM_RAW_SIMPLE_DICT[NUM_SMS]
 
 
 # Load the template configs

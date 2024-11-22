@@ -378,9 +378,9 @@ TORCH_LIBRARY(flute, m) {
     m.def("qgemm_simple_80(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size) -> Tensor");
     m.def("qgemm_simple_86(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size) -> Tensor");
     m.def("qgemm_simple_89(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size) -> Tensor");
-    m.def("qgemm_raw_simple_80(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int template_id) -> ()");
-    m.def("qgemm_raw_simple_86(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int template_id) -> ()");
-    m.def("qgemm_raw_simple_89(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int template_id) -> ()");
+    // m.def("qgemm_raw_simple_80(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int template_id) -> ()");
+    // m.def("qgemm_raw_simple_86(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int template_id) -> ()");
+    // m.def("qgemm_raw_simple_89(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int template_id) -> ()");
 }
 
 
@@ -388,7 +388,7 @@ TORCH_LIBRARY_IMPL(flute, CUDA, m) {
     m.impl("qgemm_simple_80", &qgemm_simple<cute::Int<108>>);
     m.impl("qgemm_simple_86", &qgemm_simple<cute::Int<84>>);
     m.impl("qgemm_simple_89", &qgemm_simple<cute::Int<128>>);
-    m.impl("qgemm_raw_simple_80", &qgemm_raw_simple<cute::Int<108>>);
-    m.impl("qgemm_raw_simple_86", &qgemm_raw_simple<cute::Int<84>>);
-    m.impl("qgemm_raw_simple_89", &qgemm_raw_simple<cute::Int<128>>);
+    // m.impl("qgemm_raw_simple_80", &qgemm_raw_simple<cute::Int<108>>);
+    // m.impl("qgemm_raw_simple_86", &qgemm_raw_simple<cute::Int<84>>);
+    // m.impl("qgemm_raw_simple_89", &qgemm_raw_simple<cute::Int<128>>);
 }
