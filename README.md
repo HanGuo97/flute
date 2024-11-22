@@ -445,11 +445,24 @@ At the moment, FLUTE kernel is specialized to the combination of GPU, matrix sha
 cp flute/csrc/qgemm_kernel_generated.template.cu flute/csrc/qgemm_kernel_generated.cu
 ```
 
-2. Un-comment the combination to tune in `flute/csrc/qgemm_kernel_raw_generated.cu`,
+2. Un-comment the combination(s) to tune in `flute/csrc/qgemm_kernel_raw_generated.cu`,
 
 ```cpp
 INSTANTIATE_TEMPLATE(NUM_SMs, DTYPE, cute::uint16_t, __half2, BITS, GROUP_SIZE);
 ```
+
+<details>
+<summary> Example for W4G64 on A100 </summary>
+
+```diff
+-// INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 4, 64);
++INSTANTIATE_TEMPLATE(108, cute::half_t    , cute::uint16_t, __half2       , 4, 64);
+
+-// INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 64);
++INSTANTIATE_TEMPLATE(108, cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 64);
+```
+
+</details>
 
 3. Remove settings _not tuned_ in `flute/csrc/qgemm.cpp`, `flute/__init__.py`, and `flute/ops.py`
 
