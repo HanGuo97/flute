@@ -587,7 +587,6 @@ git checkout -- \
 pip install -e . --no-build-isolation
 ```
 
-Finally, please follow the examples in `tests/` to verify that the kernel is working correctly.
 
 Note that if only one data type is tuned, you will also need to edit `flute/utils.py`.
 
@@ -611,6 +610,9 @@ index 5add543..13f49c0 100644
 ```
 
 </details>
+
+
+Finally, please follow the examples in `tests/` to verify that the kernel is working correctly.
 
 # Build From Source
 
