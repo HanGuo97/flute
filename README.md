@@ -543,7 +543,7 @@ index 9fd91a2..80782ea 100644
 pip install -e . --no-build-isolation  # `--no-build-isolation` is optional
 ```
 
-Depending on the number of configurations to tune, this could take time in the order of hours.
+Depending on the number of configurations to tune, this could take time in the order of tens of minutes to hours.
 
 ### Step 2: Tune FLUTE on the new matrix shapes.
 
@@ -557,7 +557,7 @@ tasks = [
         N=1024,               # parameter dimension (note when using tensor-parallelism, this could change)
         K=4096,               # parameter dimension (note when using tensor-parallelism, this could change)
         num_bits=4,           # number of bits
-        group_size=64,       # group size
+        group_size=64,        # group size
         num_sms=108,          # number of streaming multiprocessors of the GPU
         dtype=torch.float16,  # data type
         device=torch.device("cuda:0")
@@ -572,25 +572,45 @@ After this step is complete, artifacts will be saved in `flute/data/`.
 ### Step 3: Build the newly-tuned kernel
 
 ```bash
-# Reset
-git checkout -- \
-    flute/csrc/qgemm.cpp \
-    flute/csrc/qgemm_kernel_generated.cu \
-    flute/csrc/qgemm_kernel_raw_generated.cu
+# remove changes
+git checkout -- flute/csrc/
 
 # generating new dispatching logic based on tuning artifacts
 bash scripts/codegen_tuned.sh
 
-# Reset
+# remove changes
 git checkout -- \
     flute/ops.py \
     flute/__init__.py
-    
+
 # Build
 pip install -e . --no-build-isolation
 ```
 
 Finally, please follow the examples in `tests/` to verify that the kernel is working correctly.
+
+Note that if only one data type is tuned, you will also need to edit `flute/utils.py`.
+
+<details>
+<summary> Example </summary>
+
+```diff
+diff --git a/flute/utils.py b/flute/utils.py
+index 5add543..13f49c0 100644
+--- a/flute/utils.py
++++ b/flute/utils.py
+@@ -270,7 +270,7 @@ def pack(
+ 
+         K, N = W.shape
+         template_ids = []
+-        for dtype in [torch.float16, torch.bfloat16]:
++        for dtype in [torch.float16]:
+             template_id = TEMPLATE_TUNED_WITHOUT_M_CONFIGS[(
+                 NUM_SMS,
+                 num_bits,
+```
+
+</details>
 
 # Build From Source
 
