@@ -645,7 +645,7 @@ pip install -e .
 Special thanks to Dmytro Ivchenko, Yijie Bei, and the Fireworks AI team for helpful discussion. If you find any of the models or code in this repo useful, please feel free to cite:
 
 ```bibtex
-@inproceedings{guo2024fast,
+@inproceedings{flute2024,
   title={Fast Matrix Multiplications for Lookup Table-Quantized LLMs},
   author={Guo, Han and Brandon, William and Cholakov, Radostin and Ragan-Kelley, Jonathan and Xing, Eric and Kim, Yoon},
   booktitle={Findings of the Association for Computational Linguistics: EMNLP 2024},
