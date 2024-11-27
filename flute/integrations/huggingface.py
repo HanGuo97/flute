@@ -171,6 +171,7 @@ def _repack_flute_linear(model: torch.nn.Module, quantization_config: FluteConfi
                 Q_repacked.device == module.weight.device]):
                 raise ValueError
             module.weight = Q_repacked
+            module.tables2 = flute.utils.make_qmap2_from_qmap(module.tables)
 
         if len(list(module.children())) > 0:
             _repack_flute_linear(module, quantization_config=quantization_config)
