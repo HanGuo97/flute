@@ -170,8 +170,19 @@ def _repack_flute_linear(model: torch.nn.Module, quantization_config: FluteConfi
                 Q_repacked.dtype == module.weight.dtype,
                 Q_repacked.device == module.weight.device]):
                 raise ValueError
+
+            # sometimes the loading process will cast the `tables2`,
+            # hence we might need to re-generate it
+            tables2 = flute.utils.make_qmap2_from_qmap(module.tables)
+            if not (tables2 == module.tables2).all():
+                tables2_casted = tables2.to(dtype=module.tables.dtype).to(dtype=module.tables2.dtype)
+                if not (tables2_casted == module.tables2).all():
+                    raise ValueError
+                logger.warning("The quantization `tables2` are not the same as the "
+                               "original ones. Using the newly generated one instead.")
+
             module.weight = Q_repacked
-            module.tables2 = flute.utils.make_qmap2_from_qmap(module.tables)
+            module.tables2 = tables2
 
         if len(list(module.children())) > 0:
             _repack_flute_linear(module, quantization_config=quantization_config)
@@ -202,8 +213,7 @@ class FluteHfQuantizer(HfQuantizer):
 
     def update_torch_dtype(self, torch_dtype: Optional[torch.dtype]) -> torch.dtype:
         if torch_dtype is None:
-            logger.info("You did not specify `torch_dtype` in `from_pretrained`. Setting it to `torch.float16`.")
-            torch_dtype = torch.float16
+            raise TypeError("You did not specify `torch_dtype` in `from_pretrained`.")
 
         if torch_dtype != torch.float16:
             logger.warning("We suggest you to set `torch_dtype=torch.float16` for better efficiency.")
