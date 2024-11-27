@@ -206,7 +206,7 @@ class FluteHfQuantizer(HfQuantizer):
             torch_dtype = torch.float16
 
         if torch_dtype != torch.float16:
-            logger.warning("We suggest you to set `torch_dtype=torch.float16` for better efficiency with AWQ.")
+            logger.warning("We suggest you to set `torch_dtype=torch.float16` for better efficiency.")
 
         return torch_dtype
 
