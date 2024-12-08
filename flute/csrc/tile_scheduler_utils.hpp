@@ -219,8 +219,6 @@ private:
 
     using Config         = Config_;
     using FixupHelperT   = FixupHelper<Config>;
-    using Slices         = typename Config::Slices;
-    using Blocks         = typename Config::Blocks;
     using Threads        = typename Config::Threads;
     using TileM          = typename Config::TileM;
     using TileN          = typename Config::TileN;
@@ -233,12 +231,15 @@ private:
     using TileKsPerTileG = typename Config::TileKsPerTileG;
     static constexpr int kSmemSize = Config::kSmemSize;
     static constexpr DecompositionModeEnum DecompositionMode = Config::DecompositionMode;
-    CUTE_STATIC_ASSERT(((DecompositionMode == DecompositionModeEnum::SplitK ) && decltype(Blocks{} == _0{})::value) ||
-                       ((DecompositionMode == DecompositionModeEnum::StreamK) && decltype(Slices{} == _0{})::value));
+    // CUTE_STATIC_ASSERT(((DecompositionMode == DecompositionModeEnum::SplitK ) && decltype(Blocks{} == _0{})::value) ||
+    //                    ((DecompositionMode == DecompositionModeEnum::StreamK) && decltype(Slices{} == _0{})::value));
 
     //
     // Member state
     //
+
+    int m_slices;
+    int m_blocks;
 
     int m_M;
     int m_N;
@@ -266,7 +267,7 @@ private:
     get_block_index_streamk() const
     {
 #if BACKWARDS
-        return Blocks{} - blockIdx.x - 1;
+        return m_blocks - blockIdx.x - 1;
 #else
         return blockIdx.x;
 #endif
@@ -423,8 +424,12 @@ public:
         int const M_,
         int const N_,
         int const K_,
-        int const P_)
+        int const P_,
+        int const slices_,
+        int const blocks_)
     :
+        m_slices(slices_),
+        m_blocks(blocks_),
         m_M(M_),
         m_N(N_),
         m_K(K_),
@@ -463,15 +468,15 @@ public:
         if constexpr (DecompositionMode == DecompositionModeEnum::SplitK)
         {
             // we assume that K is divisible by TileK * Slices
-            m_tiles_per_block = m_tiles_K / Slices{};
+            m_tiles_per_block = m_tiles_K / m_slices;
         }
         else
         {
             // the last `m_tiles_remaining` logical blocks will have one extra tile,
             // while the rest will have `m_tiles_per_block` tiles
-            m_tiles_per_block        = m_tiles / Blocks{};
-            m_blocks_special_streamk = m_tiles - m_tiles_per_block * Blocks{};
-            m_blocks_typical_streamk = Blocks{} - m_blocks_special_streamk;
+            m_tiles_per_block        = m_tiles / m_blocks;
+            m_blocks_special_streamk = m_tiles - m_tiles_per_block * m_blocks;
+            m_blocks_typical_streamk = m_blocks - m_blocks_special_streamk;
             m_tiles_typical_streamk  = m_blocks_typical_streamk * (m_tiles_per_block);
             m_tiles_special_streamk  = m_blocks_special_streamk * (m_tiles_per_block + 1);
         }
@@ -753,11 +758,11 @@ public:
         if constexpr (DecompositionMode == DecompositionModeEnum::SplitK)
         {
             // tiles_N == tiles_P == tiles_P2 (3-bit case)
-            return dim3(m_tiles_N, m_tiles_M, Slices{});
+            return dim3(m_tiles_N, m_tiles_M, m_slices);
         }
         else
         {
-            return dim3(Blocks{});
+            return dim3(m_blocks);
         }
     }
 
@@ -782,11 +787,11 @@ public:
         int blocks;
         if constexpr (DecompositionMode == DecompositionModeEnum::SplitK)
         {
-            blocks = m_tiles_N * m_tiles_M * Slices{};
+            blocks = m_tiles_N * m_tiles_M * m_slices;
         }
         else
         {
-            blocks = Blocks{};
+            blocks = m_blocks;
         }
 
         return get_workspace_size_barriers(blocks);
@@ -909,13 +914,14 @@ public:
         auto block_started_output_tile  = started_output_tile(m_tile_index);
         auto block_finished_output_tile = finished_output_tile(m_tile_index);
 
-        if constexpr (DecompositionMode == DecompositionModeEnum::SplitK && Slices{} == _1{})
+        if constexpr (DecompositionMode == DecompositionModeEnum::SplitK)
         {
-            // Slice-K does not require fixup
-            return;
-        }
-        else if constexpr (DecompositionMode == DecompositionModeEnum::SplitK)
-        {
+            if (m_slices == 1)
+            {
+                // Slice-K does not require fixup
+                return;
+            }
+
             // Split-K
             block_index       = blockIdx.x * gridDim.y * gridDim.z + blockIdx.y * gridDim.z + blockIdx.z;
             block_index_first = blockIdx.x * gridDim.y * gridDim.z + blockIdx.y * gridDim.z;
