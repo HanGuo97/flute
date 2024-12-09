@@ -1,0 +1,4 @@
+[submodule "fast-hadamard-transform"]
+	path = fast-hadamard-transform
+	url = https://github.com/Dao-AILab/fast-hadamard-transform
+	tag = v1.0.4
