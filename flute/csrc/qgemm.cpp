@@ -201,7 +201,6 @@ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {}
 
 // Defines the operators
 TORCH_LIBRARY(flute, m) {
-    m.impl_abstract_pystub("flute.ops");
     m.def("qgemm_raw_simple(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size, int template_id, int num_sms) -> Tensor");
 }
 
