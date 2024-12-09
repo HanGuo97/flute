@@ -46,7 +46,6 @@ qgemm_device(const T * const __restrict__ A,
   CUTE_STATIC_ASSERT(is_same_v<T2, typename Config::T2> == true);
 
   using Warps              = typename Config::Warps;
-  using Slices             = typename Config::Slices;
   using Threads            = typename Config::Threads;
   using TileM              = typename Config::TileM;
   using TileN              = typename Config::TileN;
@@ -128,7 +127,6 @@ qgemm_device(const T * const __restrict__ A,
     print("TileP2 = "); print(TileP2{}); print("\n");
     print("TileG  = "); print(TileG{}) ; print("\n");
     print("Stages = "); print(Stages{}); print("\n");
-    print("Slices = "); print(Slices{}); print("\n");
   }
 #endif
 
@@ -827,8 +825,6 @@ template <
   typename T,
   typename TQ,
   typename T2,
-  typename Slices,
-  typename Blocks,
   typename Threads,
   typename TileM,
   typename TileK,
@@ -854,6 +850,7 @@ qgemm_host(int M,
            const T * const __restrict__ QM,
            const T2* const __restrict__ QM2,
                void*       __restrict__ workspace,
+           const int                    blocks,
            const cudaStream_t           stream)
 {
     using namespace cute;
@@ -863,8 +860,6 @@ qgemm_host(int M,
 
     using Config = config::GemmConfig<T,
                                       TQ,
-                                      Slices,
-                                      Blocks,
                                       Threads,
                                       TileM,
                                       TileK,
@@ -880,7 +875,8 @@ qgemm_host(int M,
     using TileScheduler = config::TileScheduler<Config>;
     auto qgemm_device_func = qgemm_device<Config, TileScheduler, T, TQ, T2>;
 
-    TileScheduler scheduler(M, N, K, P);
+    // assume `slices = 0` since it is deprecated
+    TileScheduler scheduler(M, N, K, P, 0, blocks);
     dim3 grid     = scheduler.grid();
     dim3 block    = scheduler.block();
     int smem_size = scheduler.smem_size();
