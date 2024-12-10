@@ -5,7 +5,7 @@
 #include <c10/cuda/CUDAGuard.h>
 #include <pybind11/stl.h>
 #include "cute/numeric/integral_constant.hpp"
-#include <fast_hadamard_transform.h>
+#include <hadamard.h>
 
 
 template <

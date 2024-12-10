@@ -5,7 +5,7 @@
 #include <torch/extension.h>
 #include <vector>
 
-#include "fast_hadamard_transform.h"
+#include "hadamard.h"
 
 #define CHECK_SHAPE(x, ...) TORCH_CHECK(x.sizes() == torch::IntArrayRef({__VA_ARGS__}), #x " must have shape (" #__VA_ARGS__ ")")
 
