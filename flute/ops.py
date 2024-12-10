@@ -179,6 +179,7 @@ def _qgemm_hadamard_80_abstract(
     workspace: torch.Tensor,
     num_bits: int,
     group_size: int,
+    hadamard_size: int,
 ) -> torch.Tensor:
     return _qgemm_simple_abstract(
         input=input,
@@ -202,6 +203,7 @@ def _qgemm_hadamard_86_abstract(
     workspace: torch.Tensor,
     num_bits: int,
     group_size: int,
+    hadamard_size: int,
 ) -> torch.Tensor:
     return _qgemm_simple_abstract(
         input=input,
@@ -225,6 +227,7 @@ def _qgemm_hadamard_89_abstract(
     workspace: torch.Tensor,
     num_bits: int,
     group_size: int,
+    hadamard_size: int,
 ) -> torch.Tensor:
     return _qgemm_simple_abstract(
         input=input,
