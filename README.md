@@ -531,8 +531,8 @@ index 9fd91a2..80782ea 100644
 --- a/flute/ops.py
 +++ b/flute/ops.py
 @@ -124 +124 @@ def _qgemm_simple_89_abstract(
--# @torch.library.impl_abstract("flute::qgemm_raw_simple_80")
-+@torch.library.impl_abstract("flute::qgemm_raw_simple_80")
+-# @torch.library.register_fake("flute::qgemm_raw_simple_80")
++@torch.library.register_fake("flute::qgemm_raw_simple_80")
 ```
 
 </details>

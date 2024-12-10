@@ -52,7 +52,7 @@ def _qgemm_simple_abstract(
         device=input.device)
 
 
-@torch.library.impl_abstract("flute::qgemm_simple_80")
+@torch.library.register_fake("flute::qgemm_simple_80")
 def _qgemm_simple_80_abstract(
     input: torch.Tensor,
     weight: torch.Tensor,
@@ -75,7 +75,7 @@ def _qgemm_simple_80_abstract(
     )
 
 
-@torch.library.impl_abstract("flute::qgemm_simple_86")
+@torch.library.register_fake("flute::qgemm_simple_86")
 def _qgemm_simple_86_abstract(
     input: torch.Tensor,
     weight: torch.Tensor,
@@ -98,7 +98,7 @@ def _qgemm_simple_86_abstract(
     )
 
 
-@torch.library.impl_abstract("flute::qgemm_simple_89")
+@torch.library.register_fake("flute::qgemm_simple_89")
 def _qgemm_simple_89_abstract(
     input: torch.Tensor,
     weight: torch.Tensor,
@@ -121,7 +121,7 @@ def _qgemm_simple_89_abstract(
     )
 
 
-# @torch.library.impl_abstract("flute::qgemm_raw_simple_80")
+# @torch.library.register_fake("flute::qgemm_raw_simple_80")
 def _qgemm_raw_simple_80_abstract(
     input: torch.Tensor,
     weight: torch.Tensor,
@@ -137,7 +137,7 @@ def _qgemm_raw_simple_80_abstract(
     pass
 
 
-# @torch.library.impl_abstract("flute::qgemm_raw_simple_86")
+# @torch.library.register_fake("flute::qgemm_raw_simple_86")
 def _qgemm_raw_simple_86_abstract(
     input: torch.Tensor,
     weight: torch.Tensor,
@@ -153,7 +153,7 @@ def _qgemm_raw_simple_86_abstract(
     pass
 
 
-# @torch.library.impl_abstract("flute::qgemm_raw_simple_89")
+# @torch.library.register_fake("flute::qgemm_raw_simple_89")
 def _qgemm_raw_simple_89_abstract(
     input: torch.Tensor,
     weight: torch.Tensor,
@@ -167,3 +167,75 @@ def _qgemm_raw_simple_89_abstract(
     template_id: int,
 ) -> None:
     pass
+
+
+@torch.library.register_fake("flute::qgemm_hadamard_80")
+def _qgemm_hadamard_80_abstract(
+    input: torch.Tensor,
+    weight: torch.Tensor,
+    scales: torch.Tensor,
+    tables: torch.Tensor,
+    tables2: torch.Tensor,
+    workspace: torch.Tensor,
+    num_bits: int,
+    group_size: int,
+    hadamard_size: int,
+) -> torch.Tensor:
+    return _qgemm_simple_abstract(
+        input=input,
+        weight=weight,
+        scales=scales,
+        tables=tables,
+        tables2=tables2,
+        workspace=workspace,
+        num_bits=num_bits,
+        group_size=group_size,
+    )
+
+
+@torch.library.register_fake("flute::qgemm_hadamard_86")
+def _qgemm_hadamard_86_abstract(
+    input: torch.Tensor,
+    weight: torch.Tensor,
+    scales: torch.Tensor,
+    tables: torch.Tensor,
+    tables2: torch.Tensor,
+    workspace: torch.Tensor,
+    num_bits: int,
+    group_size: int,
+    hadamard_size: int,
+) -> torch.Tensor:
+    return _qgemm_simple_abstract(
+        input=input,
+        weight=weight,
+        scales=scales,
+        tables=tables,
+        tables2=tables2,
+        workspace=workspace,
+        num_bits=num_bits,
+        group_size=group_size,
+    )
+
+
+@torch.library.register_fake("flute::qgemm_hadamard_89")
+def _qgemm_hadamard_89_abstract(
+    input: torch.Tensor,
+    weight: torch.Tensor,
+    scales: torch.Tensor,
+    tables: torch.Tensor,
+    tables2: torch.Tensor,
+    workspace: torch.Tensor,
+    num_bits: int,
+    group_size: int,
+    hadamard_size: int,
+) -> torch.Tensor:
+    return _qgemm_simple_abstract(
+        input=input,
+        weight=weight,
+        scales=scales,
+        tables=tables,
+        tables2=tables2,
+        workspace=workspace,
+        num_bits=num_bits,
+        group_size=group_size,
+    )
