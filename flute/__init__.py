@@ -39,6 +39,21 @@ QGEMM_RAW_SIMPLE_TYPE = Callable[
     None,
 ]
 
+QGEMM_HADAMARD_TYPE = Callable[
+    [
+        torch.Tensor,
+        torch.Tensor,
+        torch.Tensor,
+        torch.Tensor,
+        torch.Tensor,
+        torch.Tensor,
+        int,
+        int,
+        int,
+    ],
+    torch.Tensor,
+]
+
 
 # we use this instead of `torch.cuda.get_device_capability()` so that
 # it works better with multiprocessing (which vLLM uses)
@@ -72,8 +87,15 @@ QGEMM_SIMPLE_DICT = {
 #     128: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_89),
 # }
 
+QGEMM_HADAMARD_DICT = {
+    84 : cast(QGEMM_HADAMARD_TYPE, torch.ops.flute.qgemm_hadamard_86),
+    108: cast(QGEMM_HADAMARD_TYPE, torch.ops.flute.qgemm_hadamard_80),
+    128: cast(QGEMM_HADAMARD_TYPE, torch.ops.flute.qgemm_hadamard_89),
+}
+
 qgemm_simple     = QGEMM_SIMPLE_DICT[NUM_SMS]
 qgemm_raw_simple = None  # QGEMM_RAW_SIMPLE_DICT[NUM_SMS]
+qgemm_hadamard   = QGEMM_HADAMARD_DICT[NUM_SMS]
 
 
 # Load the template configs

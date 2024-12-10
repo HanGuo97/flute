@@ -89,6 +89,12 @@ def get_extensions() -> List:
     sources = (
         list(glob.glob(os.path.join(extensions_dir, "*.cpp"))) +
         list(glob.glob(os.path.join(extensions_dir, "*.cu"))))
+    
+    fht_dir = os.path.join(this_dir, "fast-hadamard-transform", "csrc")
+    include_dirs.append(fht_dir)
+    sources += (
+        list(glob.glob(os.path.join(fht_dir, "*.cu"))) +
+        list(glob.glob(os.path.join(fht_dir, "*.cpp"))))
 
     ext_modules = [
         CUDAExtension(
