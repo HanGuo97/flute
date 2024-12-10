@@ -5,7 +5,9 @@
 #include <c10/cuda/CUDAGuard.h>
 #include <pybind11/stl.h>
 #include "cute/numeric/integral_constant.hpp"
-#include <hadamard.h>
+
+
+at::Tensor fast_hadamard_transform(at::Tensor &x, float scale);
 
 
 template <
@@ -370,7 +372,7 @@ qgemm_raw_simple(const at::Tensor& input,
 }
 
 
-at::Tensor apply_hadamard(const at::Tensor& input, int hadamard_size) {
+at::Tensor apply_hadamard(const at::Tensor& input, const cute::int64_t hadamard_size) {
     auto input_sizes = input.sizes();
     auto flat_input = input.reshape({-1, hadamard_size}).contiguous();
     return fast_hadamard_transform(
@@ -392,7 +394,7 @@ qgemm_hadamard(const at::Tensor& input,
                    at::Tensor& workspace,
              const cute::int64_t num_bits,
              const cute::int64_t group_size,
-             int hadamard_size)
+             const cute::int64_t hadamard_size)
 {
     auto had_input = apply_hadamard(input, hadamard_size);
 
