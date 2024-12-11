@@ -377,6 +377,7 @@ def tune_and_pack(
     group_size: int,
     num_seeds: int = 3,
     check_correctness: bool = True,
+    check_num_seeds: int = 3,
 ) -> Tuple[torch.Tensor, TuneMetaData]:
     if inputs.ndim != 2:
         raise ValueError
@@ -422,12 +423,14 @@ def tune_and_pack(
     if check_correctness is True:
         for uniform in [True, False]:
             for identity in [True, False]:
-                check(
-                    weight=weight,
-                    weight_packed=weight_packed,
-                    metadata=metadata,
-                    uniform=uniform,
-                    identity=identity)
+                for seed in range(check_num_seeds):
+                    torch.manual_seed(seed)
+                    check(
+                        weight=weight,
+                        weight_packed=weight_packed,
+                        metadata=metadata,
+                        uniform=uniform,
+                        identity=identity)
 
     return weight_packed, metadata
 
