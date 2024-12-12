@@ -9,9 +9,9 @@
 #include "cute/numeric/integral_constant.hpp"
 
 
-at::Tensor
-fast_hadamard_transform(at::Tensor &x,
-                        float scale);
+torch::Tensor
+hadamard_transform(at::Tensor& in,
+                   bool inplace);
 
 
 template <
@@ -381,35 +381,10 @@ apply_hadamard(      at::Tensor& input,
                const cute::int64_t hadamard_size)
 {
     auto input_sizes = input.sizes();
-
-    std::cout << "input_sizes: [";
-    for (size_t i = 0; i < input_sizes.size(); ++i) {
-        std::cout << input_sizes[i];
-        if (i != input_sizes.size() - 1) std::cout << ", ";
-    }
-    std::cout << "]" << std::endl;
-
     auto flat_input = input.reshape({-1, hadamard_size});
-
-    std::cout << "flat_input shape: [";
-    for (size_t i = 0; i < flat_input.dim(); ++i) {
-        std::cout << flat_input.size(i);
-        if (i != flat_input.dim() - 1) std::cout << ", ";
-    }
-    std::cout << "]" << std::endl;
-
-    auto had_input = fast_hadamard_transform(
-        flat_input,
-        1.0 / sqrt(static_cast<float>(hadamard_size))
+    auto had_input = hadamard_transform(
+        flat_input, true
     );
-
-    std::cout << "had_input shape: [";
-    for (size_t i = 0; i < had_input.dim(); ++i) {
-        std::cout << had_input.size(i);
-        if (i != had_input.dim() - 1) std::cout << ", ";
-    }
-    std::cout << "]" << std::endl;
-
     return had_input.reshape(input_sizes);
 }
 
