@@ -1,13 +1,12 @@
 import math
 import torch
 import warnings
+from functools import lru_cache
 from typing import List, Dict, Optional
+
+from . import qgemm
 from . import packbits_utils
-from . import NUM_SMS
 from . import TEMPLATE_CONFIGS
-from . import TEMPLATE_TUNED_WITHOUT_M_CONFIGS
-from . import QGEMM_SIMPLE_DICT
-from . import qgemm_simple
 
 _WORKSPACES = {}
 
@@ -36,7 +35,8 @@ def make_qmap2_from_qmap(qmap: torch.Tensor) -> torch.Tensor:
 
 def make_workspace_streamk(device: torch.device) -> torch.Tensor:
     # currently, this function over-allocates the workspace for convenience
-    blocks_max     = NUM_SMS * 4
+    num_sms        = get_device_num_sms(device)
+    blocks_max     = num_sms * 4
     threads_max    = 256
     barrier_size   = 4
     accum_size_max = 4 * 64 * 8
@@ -84,7 +84,7 @@ def _pack_4bit(W: torch.Tensor, tile_P: int) -> torch.Tensor:
     W_chunks_[:, 1, :, :, 3] = W_chunks[:, 0, :, :, 3]
     Q = W_chunks_.reshape(W.shape)
     Q = packbits_utils.pack_integer_tensors(
-        Q.to(dtype=torch.uint8),
+        tensor=safe_cast(Q, dtype=torch.uint8),
         num_bits=num_bits)
     Q = Q.view(W.shape[0], -1)  # W.shape[1] // (16 // b)
     Q = Q.T.contiguous()
@@ -127,7 +127,7 @@ def _pack_2bit(W: torch.Tensor, tile_P: int) -> torch.Tensor:
     W_chunks_[:, 1, :, :, 7] = W_chunks[:, 0, :, :, 7]
     Q = W_chunks_.reshape(W.shape)
     Q = packbits_utils.pack_integer_tensors(
-        Q.to(dtype=torch.uint8),
+        tensor=safe_cast(Q, dtype=torch.uint8),
         num_bits=num_bits)
     Q = Q.view(W.shape[0], -1)  # W.shape[1] // (16 // b)
     Q = Q.T.contiguous()
@@ -197,7 +197,7 @@ def _pack_3bit(W: torch.Tensor, tile_P: int) -> torch.Tensor:
     W_chunks_[:, 0, :, :, 31] = W_chunks[:, 0, :, :, 15]
 
     binary_tensor = packbits_utils.to_binary(
-        tensor=W_chunks_.to(dtype=torch.uint8),
+        tensor=safe_cast(W_chunks_, dtype=torch.uint8),
         num_bits=num_bits,
         legacy=False)
 
@@ -254,30 +254,27 @@ def _pack_3bit(W: torch.Tensor, tile_P: int) -> torch.Tensor:
 
 
 # (this and later) 4/4
+def safe_cast(
+    tensor: torch.Tensor,
+    dtype: torch.dtype,
+) -> torch.Tensor:
+    if tensor.dtype == dtype:
+        return tensor
+    tensor_casted = tensor.to(dtype=dtype)
+    if not (tensor_casted == tensor).all():
+        raise ValueError
+    return tensor_casted
+
+
 def pack(
     W: torch.Tensor,
     num_bits: int,
-    group_size: Optional[int] = None,
-    template_ids: Optional[List[int]] = None,
+    template_ids: List[int],
+    num_sms: int,
 ) -> torch.Tensor:
 
     if W.ndim != 2:
         raise NotImplementedError
-
-    if template_ids is None:
-        if group_size is None:
-            raise ValueError("Either `group_size` or `template_ids` must be provided")
-
-        K, N = W.shape
-        template_ids = []
-        for dtype in [torch.float16, torch.bfloat16]:
-            template_id = TEMPLATE_TUNED_WITHOUT_M_CONFIGS[(
-                NUM_SMS,
-                num_bits,
-                group_size,
-                N, K,
-                str(dtype))]
-            template_ids.append(template_id)
 
     # the packing is specialized to `tile_P`, which could
     # be different for different templates. We check that
@@ -286,7 +283,8 @@ def pack(
     for template_id in template_ids:
         template_config = get_template_config(
             num_bits=num_bits,
-            template_id=template_id)
+            template_id=template_id,
+            num_sms=num_sms)
         tile_Ps.append(template_config["tileP"])
     if len(set(tile_Ps)) != 1:
         raise ValueError
@@ -301,13 +299,13 @@ def pack(
     raise ValueError
 
 
-def get_template_config(num_bits: int, template_id: int) -> Dict:
+def get_template_config(num_bits: int, template_id: int, num_sms: int) -> Dict:
     config = TEMPLATE_CONFIGS[(num_bits, template_id)]
     return {
         "tileM": config["TileM"],
         "tileK": config["TileK"],
         "tileP": config["TileP"],
-        "blocks": config["SMs"] * NUM_SMS,
+        "blocks": config["SMs_Multiple"] * num_sms,
     }
 
 
@@ -325,11 +323,13 @@ def is_template_supported(
     K: int,
     num_bits: int,
     template_id: int,
+    num_sms: int,
 ) -> bool:
 
     template_config = get_template_config(
         num_bits=num_bits,
-        template_id=template_id)
+        template_id=template_id,
+        num_sms=num_sms)
 
     P = math.ceil(N / 16) * num_bits
     tiles_M = math.ceil(M / template_config["tileM"])
@@ -405,3 +405,8 @@ def unpack(
         num_bits=num_bits,
         group_size=group_size,
         num_sms=num_sms_packed)
+
+
+@lru_cache(maxsize=8)
+def get_device_num_sms(device: torch.device) -> int:
+    return torch.cuda.get_device_properties(device).multi_processor_count

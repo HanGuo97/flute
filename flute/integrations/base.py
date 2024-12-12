@@ -15,6 +15,7 @@ from bitsandbytes.nn import (
 from typing import Optional, Dict
 
 import flute
+import flute.tune
 import flute.utils
 import flute.nf_utils
 import flute.integrations.bitsandbytes
@@ -46,7 +47,8 @@ def prepare_model_flute(
     module: torch.nn.Module,
     num_bits: int,
     group_size: int,
-    fake: bool,
+    example_batch_size: int,
+    fake: bool = False,
     handle_hooks: bool = False,
     prepare_bnb_layers: bool = True,
     default_bnb_dtype: Optional[torch.dtype] = None,
@@ -120,19 +122,6 @@ def prepare_model_flute(
                         flute_dtype = default_bnb_dtype
                         warnings.warn(f"BNB's `dtype` is `torch.float32`, changed to `{flute_dtype}`")
 
-                setattr(
-                    _module,
-                    child_name,
-                    FluteLinear(
-                        in_features=child.in_features,
-                        out_features=child.out_features,
-                        num_bits=num_bits,
-                        group_size=group_size,
-                        workspace_lazy_init=False,
-                        bias=(child.bias is not None),
-                        device=child.weight.device,
-                        dtype=flute_dtype))
-
                 if custom_scales_dict is not None:
                     custom_scales = custom_scales_dict[child_full_name]
                 else:
@@ -157,10 +146,33 @@ def prepare_model_flute(
                 if not (_Q.to(dtype=torch.uint8) == _Q).all():
                     raise ValueError
 
-                Q  = flute.utils.pack(
-                    _Q.to(dtype=torch.uint8).T.contiguous(),
+                if _Q.device.type != "cuda":
+                    raise ValueError
+
+                example_inputs = torch.randn(
+                    example_batch_size,
+                    child.in_features,
+                    dtype=flute_dtype,
+                    device=_Q.device)
+                Q, tune_metadata = flute.tune.tune_and_pack(
+                    inputs=example_inputs,
+                    weight=_Q.to(dtype=torch.uint8).T.contiguous(),
                     num_bits=num_bits,
                     group_size=group_size)
+
+                setattr(
+                    _module,
+                    child_name,
+                    FluteLinear(
+                        in_features=child.in_features,
+                        out_features=child.out_features,
+                        num_bits=num_bits,
+                        group_size=group_size,
+                        template_id=tune_metadata.template_id,
+                        workspace_lazy_init=False,
+                        bias=(child.bias is not None),
+                        device=child.weight.device,
+                        dtype=flute_dtype))
 
                 new_child = getattr(_module, child_name)
                 scales = scales.view(new_child.scales.shape)
@@ -189,7 +201,7 @@ def prepare_model_flute(
 
 
 class FluteLinear(torch.nn.Module):
-    __constants__ = ["in_features", "out_features", "num_bits", "group_size", "workspace_lazy_init"]
+    __constants__ = ["in_features", "out_features", "num_bits", "group_size", "template_id", "num_sms", "workspace_lazy_init"]
     in_features : int
     out_features: int
     dtype       : torch.dtype
@@ -200,6 +212,8 @@ class FluteLinear(torch.nn.Module):
     scales      : torch.Tensor
     tables      : torch.Tensor
     tables2     : torch.Tensor
+    template_id : int
+    num_sms     : int
 
     workspace_lazy_init: bool
 
@@ -209,6 +223,7 @@ class FluteLinear(torch.nn.Module):
         out_features: int,
         num_bits: int,
         group_size: int,
+        template_id: int,
         workspace_lazy_init: bool = False,
         bias: bool = False,
         device: Optional[torch.device] = None,
@@ -232,13 +247,23 @@ class FluteLinear(torch.nn.Module):
             dtype=dtype,
             device=device)
 
+        if workspace_lazy_init is True:
+            num_sms = None
+            workspace = None
+        else:
+            num_sms = flute.utils.get_device_num_sms(device)
+            workspace = flute.utils.get_workspace_streamk(device)
+
         self.in_features = in_features
         self.out_features = out_features
         self.num_bits = num_bits
         self.group_size = group_size
+        self.template_id = template_id
+
+        # SM count and scratch space used by the kernel
+        self.num_sms = num_sms
+        self.workspace = workspace
         self.workspace_lazy_init = workspace_lazy_init
-        # scratch space used by the kernel
-        self.workspace = flute.utils.get_workspace_streamk(device)
 
         self.register_buffer("weight", torch.empty((P, K), dtype=torch.int16, device=device))
         self.register_buffer("scales", torch.ones((N, G), dtype=dtype, device=device))
@@ -252,11 +277,13 @@ class FluteLinear(torch.nn.Module):
     def forward(self, inputs: torch.Tensor) -> torch.Tensor:
 
         if self.workspace_lazy_init is True:
+            num_sms = flute.utils.get_device_num_sms(inputs.device)
             workspace = flute.utils.get_workspace_streamk(inputs.device)
         else:
+            num_sms = self.num_sms
             workspace = self.workspace
 
-        output = flute.qgemm_simple(
+        output = flute.qgemm(
             inputs,
             self.weight,
             self.scales,
@@ -265,7 +292,8 @@ class FluteLinear(torch.nn.Module):
             workspace,
             self.num_bits,
             self.group_size,
-        )
+            self.template_id,
+            num_sms)
 
         if self.bias is not None:
             output.add_(self.bias)  # In-place add
@@ -279,6 +307,24 @@ class FluteLinear(torch.nn.Module):
                 f"num_bits={self.num_bits}, "
                 f"group_size={self.group_size}")
 
+    def get_extra_state(self) -> Dict:
+        return {
+            "num_bits": self.num_bits,
+            "group_size": self.group_size,
+            "template_id": self.template_id,
+        }
+
+    def set_extra_state(self, state: Dict) -> None:
+        if self.num_bits != state["num_bits"]:
+            raise ValueError
+        if self.group_size != state["group_size"]:
+            raise ValueError
+
+        if self.template_id is None:
+            self.template_id = state["template_id"]
+        if self.template_id != state["template_id"]:
+            raise ValueError
+
 
 def quantize_hf_model(
     pretrained_model_name_or_path: str,
@@ -286,7 +332,8 @@ def quantize_hf_model(
     num_bits: int,
     group_size: int,
     torch_dtype: str,
-    fake: bool,
+    example_batch_size: int,
+    fake: bool = False,
 ) -> None:
     model = AutoModelForCausalLM.from_pretrained(
         pretrained_model_name_or_path,
@@ -299,6 +346,7 @@ def quantize_hf_model(
             module=model.model.layers,
             num_bits=num_bits,
             group_size=group_size,
+            example_batch_size=example_batch_size,
             fake=fake)
     else:
         raise NotImplementedError
@@ -309,7 +357,6 @@ def quantize_hf_model(
     # save the config
     config = {
         "version": flute.__version__,
-        "num_sms": flute.NUM_SMS,
         "num_bits": num_bits,
         "group_size": group_size,
     }
@@ -327,6 +374,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_bits", type=int)
     parser.add_argument("--group_size", type=int)
     parser.add_argument("--torch_dtype", type=str, default="auto")
+    parser.add_argument("--example_batch_size", type=int)
     parser.add_argument("--fake", action="store_true")
     args = parser.parse_args()
 
@@ -336,4 +384,5 @@ if __name__ == "__main__":
         num_bits=args.num_bits,
         group_size=args.group_size,
         torch_dtype=args.torch_dtype,
+        example_batch_size=args.example_batch_size,
         fake=args.fake)
