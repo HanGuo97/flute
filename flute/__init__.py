@@ -7,7 +7,7 @@ from vllm.platforms import current_platform
 from . import _C
 from . import ops
 
-__version__ = "0.2.7"
+__version__ = "0.3.0"
 
 QGEMM_SIMPLE_TYPE = Callable[
     [
