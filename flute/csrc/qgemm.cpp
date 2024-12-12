@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <cuda_runtime.h>
 #include <torch/library.h>
 #include <torch/extension.h>
@@ -379,11 +381,36 @@ apply_hadamard(      at::Tensor& input,
                const cute::int64_t hadamard_size)
 {
     auto input_sizes = input.sizes();
-    auto flat_input = input.reshape({-1, hadamard_size}).contiguous();
-    return fast_hadamard_transform(
+
+    std::cout << "input_sizes: [";
+    for (size_t i = 0; i < input_sizes.size(); ++i) {
+        std::cout << input_sizes[i];
+        if (i != input_sizes.size() - 1) std::cout << ", ";
+    }
+    std::cout << "]" << std::endl;
+
+    auto flat_input = input.reshape({-1, hadamard_size});
+
+    std::cout << "flat_input shape: [";
+    for (size_t i = 0; i < flat_input.dim(); ++i) {
+        std::cout << flat_input.size(i);
+        if (i != flat_input.dim() - 1) std::cout << ", ";
+    }
+    std::cout << "]" << std::endl;
+
+    auto had_input = fast_hadamard_transform(
         flat_input,
         1.0 / sqrt(static_cast<float>(hadamard_size))
-    ).reshape(input_sizes).contiguous();
+    );
+
+    std::cout << "had_input shape: [";
+    for (size_t i = 0; i < had_input.dim(); ++i) {
+        std::cout << had_input.size(i);
+        if (i != had_input.dim() - 1) std::cout << ", ";
+    }
+    std::cout << "]" << std::endl;
+
+    return had_input.reshape(input_sizes);
 }
 
 
@@ -401,7 +428,7 @@ qgemm_hadamard(      at::Tensor& input,
                const cute::int64_t group_size,
                const cute::int64_t hadamard_size)
 {
-    input = apply_hadamard(input, hadamard_size);
+    auto had_input = apply_hadamard(input, hadamard_size);
 
     return qgemm_simple<SMs>(
         had_input,
