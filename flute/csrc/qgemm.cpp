@@ -377,13 +377,13 @@ qgemm_raw_simple(const at::Tensor& input,
 
 
 at::Tensor
-apply_hadamard(      at::Tensor& input,
+apply_hadamard(const at::Tensor& input,
                const cute::int64_t hadamard_size)
 {
     auto input_sizes = input.sizes();
     auto flat_input = input.reshape({-1, hadamard_size});
     auto had_input = hadamard_transform(
-        flat_input, true
+        flat_input, false
     );
     return had_input.reshape(input_sizes);
 }
@@ -393,7 +393,7 @@ template <
   typename SMs
 >
 at::Tensor
-qgemm_hadamard(      at::Tensor& input,
+qgemm_hadamard(const at::Tensor& input,
                const at::Tensor& weight,
                const at::Tensor& scales,
                const at::Tensor& table,
@@ -430,9 +430,9 @@ TORCH_LIBRARY(flute, m) {
     // m.def("qgemm_raw_simple_80(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int template_id) -> ()");
     // m.def("qgemm_raw_simple_86(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int template_id) -> ()");
     // m.def("qgemm_raw_simple_89(Tensor input, Tensor weight, Tensor(a!) output, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int template_id) -> ()");
-    m.def("qgemm_hadamard_80(Tensor(a!) input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int hadamard_size) -> Tensor");
-    m.def("qgemm_hadamard_86(Tensor(a!) input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int hadamard_size) -> Tensor");
-    m.def("qgemm_hadamard_89(Tensor(a!) input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(b!) workspace, int num_bits, int group_size, int hadamard_size) -> Tensor");
+    m.def("qgemm_hadamard_80(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size, int hadamard_size) -> Tensor");
+    m.def("qgemm_hadamard_86(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size, int hadamard_size) -> Tensor");
+    m.def("qgemm_hadamard_89(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size, int hadamard_size) -> Tensor");
 }
 
 
