@@ -39,6 +39,21 @@ QGEMM_RAW_SIMPLE_TYPE = Callable[
     None,
 ]
 
+QGEMM_HADAMARD_TYPE = Callable[
+    [
+        torch.Tensor,
+        torch.Tensor,
+        torch.Tensor,
+        torch.Tensor,
+        torch.Tensor,
+        torch.Tensor,
+        int,
+        int,
+        int,
+    ],
+    torch.Tensor,
+]
+
 
 # we use this instead of `torch.cuda.get_device_capability()` so that
 # it works better with multiprocessing (which vLLM uses)
@@ -72,8 +87,15 @@ QGEMM_SIMPLE_DICT = {
 #     128: cast(QGEMM_RAW_SIMPLE_TYPE, torch.ops.flute.qgemm_raw_simple_89),
 # }
 
+QGEMM_HADAMARD_DICT = {
+    84 : cast(QGEMM_HADAMARD_TYPE, torch.ops.flute.qgemm_hadamard_86),
+    108: cast(QGEMM_HADAMARD_TYPE, torch.ops.flute.qgemm_hadamard_80),
+    128: cast(QGEMM_HADAMARD_TYPE, torch.ops.flute.qgemm_hadamard_89),
+}
+
 qgemm_simple     = QGEMM_SIMPLE_DICT[NUM_SMS]
 qgemm_raw_simple = None  # QGEMM_RAW_SIMPLE_DICT[NUM_SMS]
+qgemm_hadamard   = QGEMM_HADAMARD_DICT[NUM_SMS]
 
 
 # Load the template configs
@@ -88,7 +110,7 @@ else:
         "data/qgemm_kernel_raw_generated_configs.pth")
 
 if os.path.exists(TEMPLATE_CONFIGS_PATH):
-    TEMPLATE_CONFIGS = torch.load(TEMPLATE_CONFIGS_PATH)
+    TEMPLATE_CONFIGS = torch.load(TEMPLATE_CONFIGS_PATH, weights_only=True)
     click.secho(f"[FLUTE]: Template configs loaded from {TEMPLATE_CONFIGS_PATH}", fg="green")
 else:
     TEMPLATE_CONFIGS = None
@@ -104,14 +126,14 @@ TEMPLATE_TUNED_WITHOUT_M_CONFIGS_PATH = os.path.join(
     "data/qgemm_kernel_raw_tuned_configs.no-M.pth")
 
 if os.path.exists(TEMPLATE_TUNED_WITH_M_CONFIGS_PATH):
-    TEMPLATE_TUNED_WITH_M_CONFIGS = torch.load(TEMPLATE_TUNED_WITH_M_CONFIGS_PATH)
+    TEMPLATE_TUNED_WITH_M_CONFIGS = torch.load(TEMPLATE_TUNED_WITH_M_CONFIGS_PATH, weights_only=True)
     click.secho(f"[FLUTE]: Template (tuned, with M) configs loaded from {TEMPLATE_TUNED_WITH_M_CONFIGS_PATH}", fg="green")
 else:
     TEMPLATE_TUNED_WITH_M_CONFIGS = None
     click.secho(f"[FLUTE]: Template (tuned, with M) configs not found at {TEMPLATE_TUNED_WITH_M_CONFIGS_PATH}", fg="red")
 
 if os.path.exists(TEMPLATE_TUNED_WITHOUT_M_CONFIGS_PATH):
-    TEMPLATE_TUNED_WITHOUT_M_CONFIGS = torch.load(TEMPLATE_TUNED_WITHOUT_M_CONFIGS_PATH)
+    TEMPLATE_TUNED_WITHOUT_M_CONFIGS = torch.load(TEMPLATE_TUNED_WITHOUT_M_CONFIGS_PATH, weights_only=True)
     click.secho(f"[FLUTE]: Template (tuned, without M) configs loaded from {TEMPLATE_TUNED_WITHOUT_M_CONFIGS_PATH}", fg="green")
 else:
     TEMPLATE_TUNED_WITHOUT_M_CONFIGS = None
