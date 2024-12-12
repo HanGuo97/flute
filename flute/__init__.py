@@ -110,7 +110,7 @@ else:
         "data/qgemm_kernel_raw_generated_configs.pth")
 
 if os.path.exists(TEMPLATE_CONFIGS_PATH):
-    TEMPLATE_CONFIGS = torch.load(TEMPLATE_CONFIGS_PATH)
+    TEMPLATE_CONFIGS = torch.load(TEMPLATE_CONFIGS_PATH, weights_only=True)
     click.secho(f"[FLUTE]: Template configs loaded from {TEMPLATE_CONFIGS_PATH}", fg="green")
 else:
     TEMPLATE_CONFIGS = None
@@ -126,14 +126,14 @@ TEMPLATE_TUNED_WITHOUT_M_CONFIGS_PATH = os.path.join(
     "data/qgemm_kernel_raw_tuned_configs.no-M.pth")
 
 if os.path.exists(TEMPLATE_TUNED_WITH_M_CONFIGS_PATH):
-    TEMPLATE_TUNED_WITH_M_CONFIGS = torch.load(TEMPLATE_TUNED_WITH_M_CONFIGS_PATH)
+    TEMPLATE_TUNED_WITH_M_CONFIGS = torch.load(TEMPLATE_TUNED_WITH_M_CONFIGS_PATH, weights_only=True)
     click.secho(f"[FLUTE]: Template (tuned, with M) configs loaded from {TEMPLATE_TUNED_WITH_M_CONFIGS_PATH}", fg="green")
 else:
     TEMPLATE_TUNED_WITH_M_CONFIGS = None
     click.secho(f"[FLUTE]: Template (tuned, with M) configs not found at {TEMPLATE_TUNED_WITH_M_CONFIGS_PATH}", fg="red")
 
 if os.path.exists(TEMPLATE_TUNED_WITHOUT_M_CONFIGS_PATH):
-    TEMPLATE_TUNED_WITHOUT_M_CONFIGS = torch.load(TEMPLATE_TUNED_WITHOUT_M_CONFIGS_PATH)
+    TEMPLATE_TUNED_WITHOUT_M_CONFIGS = torch.load(TEMPLATE_TUNED_WITHOUT_M_CONFIGS_PATH, weights_only=True)
     click.secho(f"[FLUTE]: Template (tuned, without M) configs loaded from {TEMPLATE_TUNED_WITHOUT_M_CONFIGS_PATH}", fg="green")
 else:
     TEMPLATE_TUNED_WITHOUT_M_CONFIGS = None
