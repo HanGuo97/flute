@@ -21,7 +21,7 @@
 
 # Update
 - **December 12, 2024.** Added support for Hadamard Transform (via [HadaCore](https://pytorch.org/blog/hadacore/)).
-- **November 26, 2024.** Added support for [vector (de)quantization](flute/integrations/higgs.py) (limited to `vector_size=2`), as part of [HIGGS](https://arxiv.org/abs/2411.17525).
+- **November 26, 2024.** Added support for [vector (de)quantization](flute/integrations/higgs.py) (`vector_size=2`), as part of [HIGGS](https://arxiv.org/abs/2411.17525).
 - **October 5, 2024.** FLUTE will appear in EMNLP 2024 (Findings).
 - **September 15, 2024.** Added [experimental support](#flute--huggingface) for loading pre-quantized FLUTE models in HuggingFace.
 - **September 6, 2024.** Added (unlearned) NF-quantized LLaMA-3.1 (405B) models: [base](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-FLUTE/tree/nf_w4g64) and [instruction tuned](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-Instruct-FLUTE/tree/nf_w4g64).
