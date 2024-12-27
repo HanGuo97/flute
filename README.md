@@ -20,6 +20,8 @@
 </div>
 
 # Update
+- **December 12, 2024.** Added support for Hadamard Transform (via [HadaCore](https://pytorch.org/blog/hadacore/)).
+- **November 26, 2024.** Added support for [vector (de)quantization](flute/integrations/higgs.py) (`vector_size=2`), as part of [HIGGS](https://arxiv.org/abs/2411.17525).
 - **October 5, 2024.** FLUTE will appear in EMNLP 2024 (Findings).
 - **September 15, 2024.** Added [experimental support](#flute--huggingface) for loading pre-quantized FLUTE models in HuggingFace.
 - **September 6, 2024.** Added (unlearned) NF-quantized LLaMA-3.1 (405B) models: [base](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-FLUTE/tree/nf_w4g64) and [instruction tuned](https://huggingface.co/radi-cho/Meta-Llama-3.1-405B-Instruct-FLUTE/tree/nf_w4g64).
@@ -531,8 +533,8 @@ index 9fd91a2..80782ea 100644
 --- a/flute/ops.py
 +++ b/flute/ops.py
 @@ -124 +124 @@ def _qgemm_simple_89_abstract(
--# @torch.library.impl_abstract("flute::qgemm_raw_simple_80")
-+@torch.library.impl_abstract("flute::qgemm_raw_simple_80")
+-# @torch.library.register_fake("flute::qgemm_raw_simple_80")
++@torch.library.register_fake("flute::qgemm_raw_simple_80")
 ```
 
 </details>
@@ -650,6 +652,13 @@ Special thanks to Dmytro Ivchenko, Yijie Bei, and the Fireworks AI team for help
   author={Guo, Han and Brandon, William and Cholakov, Radostin and Ragan-Kelley, Jonathan and Xing, Eric and Kim, Yoon},
   booktitle={Findings of the Association for Computational Linguistics: EMNLP 2024},
   pages={12419--12433},
+  year={2024}
+}
+
+@article{higgs2024,
+  title={Pushing the Limits of Large Language Model Quantization via the Linearity Theorem},
+  author={Malinovskii, Vladimir and Panferov, Andrei and Ilin, Ivan and Guo, Han and Richt{\'a}rik, Peter and Alistarh, Dan},
+  journal={arXiv preprint arXiv:2411.17525},
   year={2024}
 }
 ```

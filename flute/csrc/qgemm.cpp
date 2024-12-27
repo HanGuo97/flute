@@ -7,6 +7,11 @@
 #include "cute/numeric/integral_constant.hpp"
 
 
+torch::Tensor
+hadamard_transform(at::Tensor& in,
+                   bool inplace);
+
+
 template <
   typename T,
   typename TQ,
@@ -196,15 +201,63 @@ qgemm_raw_simple(const at::Tensor&   input,
 }
 
 
+at::Tensor
+apply_hadamard(const at::Tensor&   input,
+               const cute::int64_t hadamard_size)
+{
+    auto input_sizes = input.sizes();
+    auto flat_input = input.reshape({-1, hadamard_size});
+    auto had_input = hadamard_transform(
+        flat_input, false
+    );
+    return had_input.reshape(input_sizes);
+}
+
+
+at::Tensor
+qgemm_raw_simple_hadamard(const at::Tensor&   input,
+                          const at::Tensor&   weight,
+                          const at::Tensor&   scales,
+                          const at::Tensor&   table,
+                          const at::Tensor&   table2,
+                                at::Tensor&   workspace,
+                          const cute::int64_t num_bits,
+                          const cute::int64_t group_size,
+                          const cute::int64_t hadamard_size,
+                          const cute::int64_t template_id,
+                          const cute::int64_t num_sms)
+{
+    auto had_input = apply_hadamard(
+        input,
+        hadamard_size
+    );
+
+    return qgemm_raw_simple(
+        had_input,
+        weight,
+        scales,
+        table,
+        table2,
+        workspace,
+        num_bits,
+        group_size,
+        template_id,
+        num_sms
+    );
+}
+
+
 // Registers _C as an extension module.
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {}
 
 // Defines the operators
 TORCH_LIBRARY(flute, m) {
     m.def("qgemm_raw_simple(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size, int template_id, int num_sms) -> Tensor");
+    m.def("qgemm_raw_simple_hadamard(Tensor input, Tensor weight, Tensor scales, Tensor table, Tensor table2, Tensor(a!) workspace, int num_bits, int group_size, int hadamard_size, int template_id, int num_sms) -> Tensor");
 }
 
 
 TORCH_LIBRARY_IMPL(flute, CUDA, m) {
     m.impl("qgemm_raw_simple", &qgemm_raw_simple);
+    m.impl("qgemm_raw_simple_hadamard", &qgemm_raw_simple_hadamard);
 }

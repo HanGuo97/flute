@@ -53,3 +53,31 @@ def _qgemm_raw_simple_abstract(
         input.shape[:-1] + (N,),
         dtype=input.dtype,
         device=input.device)
+
+
+@torch.library.register_fake("flute::qgemm_raw_simple_hadamard")
+def _qgemm_raw_simple_hadamard_abstract(
+    input: torch.Tensor,
+    weight: torch.Tensor,
+    scales: torch.Tensor,
+    tables: torch.Tensor,
+    tables2: torch.Tensor,
+    workspace: torch.Tensor,
+    num_bits: int,
+    group_size: int,
+    hadamard_size: int,
+    template_id: int,
+    num_sms: int,
+) -> torch.Tensor:
+    return _qgemm_raw_simple_abstract(
+        input=input,
+        weight=weight,
+        scales=scales,
+        tables=tables,
+        tables2=tables2,
+        workspace=workspace,
+        num_bits=num_bits,
+        group_size=group_size,
+        template_id=template_id,
+        num_sms=num_sms,
+    )
