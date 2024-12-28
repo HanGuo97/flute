@@ -6,7 +6,7 @@ from typing import Callable, cast
 from . import _C
 from . import ops
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 
 qgemm = cast(
