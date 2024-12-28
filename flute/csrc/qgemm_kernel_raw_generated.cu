@@ -798,28 +798,28 @@ _qgemm_raw(int M,
         const cudaStream_t           stream)
 
 
-INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 2, 32);
+// INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 2, 32);
 INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 2, 64);
 INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 2, 128);
 INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 2, 256);
-INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 3, 32);
+// INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 3, 32);
 INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 3, 64);
 INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 3, 128);
 INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 3, 256);
-INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 4, 32);
+// INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 4, 32);
 INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 4, 64);
 INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 4, 128);
 INSTANTIATE_TEMPLATE(cute::half_t    , cute::uint16_t, __half2       , 4, 256);
 
-INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 32);
+// INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 32);
 INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 64);
 INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 128);
 INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 2, 256);
-INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 32);
+// INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 32);
 INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 64);
 INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 128);
 INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 3, 256);
-INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 32);
+// INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 32);
 INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 64);
 INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 128);
 INSTANTIATE_TEMPLATE(cute::bfloat16_t, cute::uint16_t, __nv_bfloat162, 4, 256);

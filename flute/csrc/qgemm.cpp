@@ -140,9 +140,6 @@ qgemm_raw_simple(const at::Tensor&   input,
     do {                                              \
         switch (group_size)                           \
         {                                             \
-        case 32:                                      \
-            RUN_QGEMM_RAW(T, NUM_BITS, 32);           \
-            break;                                    \
         case 64:                                      \
             RUN_QGEMM_RAW(T, NUM_BITS, 64);           \
             break;                                    \
