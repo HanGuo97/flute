@@ -1,5 +1,7 @@
+import os
 import enum
 import json
+import click
 import torch
 from dataclasses import dataclass
 from typing import Tuple, List, Optional
@@ -48,6 +50,36 @@ class FluteConfig(QuantizationConfigMixin):
         self.num_sms_packed = num_sms_packed
         self.modules_to_not_convert = modules_to_not_convert
 
+        legacy_template_id_dict_file_name = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "../data/qgemm_kernel_raw_tuned_configs.no-M.pth")
+
+        if os.path.exists(legacy_template_id_dict_file_name):
+            self.legacy_template_id_dict = torch.load(
+                legacy_template_id_dict_file_name,
+                weights_only=True)
+            click.secho(
+                f"[FLUTE]: Template (tuned, without M) configs "
+                f"loaded from {legacy_template_id_dict_file_name}",
+                fg="green")
+        else:
+            raise ValueError
+
+    def get_legacy_template_id(
+        self,
+        N: int,
+        K: int,
+        dtype: torch.dtype,
+    ) -> int:
+        return self.legacy_template_id_dict[(
+            self.num_sms_packed,
+            self.num_bits,
+            self.group_size,
+            N,
+            K,
+            str(dtype),
+        )]
+
 
 def _replace_with_flute_linear(
     model: torch.nn.Module,
@@ -78,6 +110,10 @@ def _replace_with_flute_linear(
                         out_features=module.out_features,
                         num_bits=quantization_config.num_bits,
                         group_size=quantization_config.group_size,
+                        template_id=quantization_config.get_legacy_template_id(
+                            N=module.out_features,
+                            K=module.in_features,
+                            dtype=module.weight.dtype),
                         workspace_lazy_init=True,
                         bias=module.bias is not None,
                         device=module.weight.device,
@@ -267,9 +303,13 @@ def from_pretrained(pretrained_model_name_or_path: str, **kwargs) -> PreTrainedM
         repo_id=pretrained_model_name_or_path,
         filename=FLUTE_CONFIG_FILE_NAME,
         revision=kwargs.get("revision", None))
+
     with open(config_filename) as f:
         flute_config = json.load(f)
-        flute_config["num_sms_packed"] = flute_config.pop("num_sms")
+        if "num_sms" not in flute_config.keys():
+            raise NotImplementedError("Only legacy models are supported for now.")
+        else:
+            flute_config["num_sms_packed"] = flute_config.pop("num_sms")
 
     # load and monkey-patch the model config
     config = AutoConfig.from_pretrained(
