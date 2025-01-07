@@ -352,7 +352,8 @@ def reconstruct(
     workspace: torch.Tensor,
     num_bits: int,
     group_size: int,
-    num_sms: Optional[int] = None,
+    template_id: int,
+    num_sms: int,
 ) -> torch.Tensor:
     # we reconstruct the tensor using the fact that
     # `W.T = I @ W.T` and thus using the `qgemm` routine
@@ -361,12 +362,7 @@ def reconstruct(
         dtype=scales.dtype,
         device=scales.device)
 
-    if num_sms is None:
-        _qgemm = qgemm_simple
-    else:
-        _qgemm = QGEMM_SIMPLE_DICT[num_sms]
-
-    weight_reconstructed = _qgemm(
+    weight_reconstructed = qgemm(
         inputs,
         weight,
         scales,
@@ -374,7 +370,9 @@ def reconstruct(
         tables2,
         workspace,
         num_bits,
-        group_size)
+        group_size,
+        template_id,
+        num_sms)
     return weight_reconstructed.T
 
 
@@ -384,7 +382,8 @@ def unpack(
     workspace: torch.Tensor,
     num_bits: int,
     group_size: int,
-    num_sms_packed: Optional[int] = None,
+    template_id_packed: int,
+    num_sms_packed: int,
 ) -> torch.Tensor:
 
     # the scales needs to be just ones
@@ -404,6 +403,7 @@ def unpack(
         workspace=workspace,
         num_bits=num_bits,
         group_size=group_size,
+        template_id=template_id_packed,
         num_sms=num_sms_packed)
 
 

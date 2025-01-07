@@ -169,6 +169,7 @@ def replace_with_flute_linear(
 
 
 def _repack_flute_linear(model: torch.nn.Module, quantization_config: FluteConfig) -> None:
+    import flute.tune
     import flute.utils
     from flute.integrations.base import FluteLinear
 
@@ -190,10 +191,11 @@ def _repack_flute_linear(model: torch.nn.Module, quantization_config: FluteConfi
                 workspace=flute.utils.get_workspace_streamk(device),
                 num_bits=module.num_bits,
                 group_size=module.group_size,
+                template_id_packed=module.template_id,
                 num_sms_packed=quantization_config.num_sms_packed)
 
             # re-pack the tensors
-            Q_repacked = flute.utils.pack(
+            Q_repacked, tune_metadata = flute.tune.tune_and_pack(
                 Q_unpacked.T.contiguous().to(device="cpu"),
                 num_bits=module.num_bits,
                 group_size=module.group_size).to(device=module.weight.device)
@@ -219,6 +221,7 @@ def _repack_flute_linear(model: torch.nn.Module, quantization_config: FluteConfi
 
             module.weight = Q_repacked
             module.tables2 = tables2
+            module.template_id = tune_metadata.template_id
 
         if len(list(module.children())) > 0:
             _repack_flute_linear(module, quantization_config=quantization_config)
@@ -283,6 +286,20 @@ class FluteHfQuantizer(HfQuantizer):
 
     def _process_model_after_weight_loading(self, model: PreTrainedModel, **kwargs) -> None:
         return _repack_flute_linear(model, quantization_config=self.quantization_config)
+
+    def update_missing_keys(self, model, missing_keys: List[str], prefix: str) -> List[str]:
+        from flute.integrations.base import FluteLinear
+
+        not_missing_keys = []
+        for name, module in model.named_modules():
+            if isinstance(module, FluteLinear):
+                for missing in missing_keys:
+                    if (
+                        (name in missing or name in f"{prefix}.{missing}")
+                        and missing.endswith(torch.nn.modules.module._EXTRA_STATE_KEY_SUFFIX)
+                    ):
+                        not_missing_keys.append(missing)
+        return [k for k in missing_keys if k not in not_missing_keys]
 
     @property
     def is_trainable(self) -> bool:
