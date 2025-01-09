@@ -37,6 +37,7 @@ class FluteConfig(QuantizationConfigMixin):
         num_bits: int,
         group_size: int,
         num_sms_packed: int,
+        example_batch_size: int,
         modules_to_not_convert: Optional[List[str]] = None,
         **kwargs,
     ) -> None:
@@ -48,6 +49,7 @@ class FluteConfig(QuantizationConfigMixin):
         self.num_bits = num_bits
         self.group_size = group_size
         self.num_sms_packed = num_sms_packed
+        self.example_batch_size = example_batch_size
         self.modules_to_not_convert = modules_to_not_convert
 
         legacy_template_id_dict_file_name = os.path.join(
@@ -195,8 +197,14 @@ def _repack_flute_linear(model: torch.nn.Module, quantization_config: FluteConfi
                 num_sms_packed=quantization_config.num_sms_packed)
 
             # re-pack the tensors
+            example_inputs = torch.randn(
+                quantization_config.example_batch_size,
+                module.in_features,
+                dtype=module.scales.dtype,
+                device=device)
             Q_repacked, tune_metadata = flute.tune.tune_and_pack(
-                Q_unpacked.T.contiguous().to(device="cpu"),
+                inputs=example_inputs,
+                weight=Q_unpacked.T.contiguous().to(device="cpu"),
                 num_bits=module.num_bits,
                 group_size=module.group_size).to(device=module.weight.device)
 
@@ -323,10 +331,19 @@ def from_pretrained(pretrained_model_name_or_path: str, **kwargs) -> PreTrainedM
 
     with open(config_filename) as f:
         flute_config = json.load(f)
-        if "num_sms" not in flute_config.keys():
-            raise NotImplementedError("Only legacy models are supported for now.")
-        else:
-            flute_config["num_sms_packed"] = flute_config.pop("num_sms")
+
+    if "num_sms" not in flute_config.keys():
+        raise NotImplementedError("Only legacy models are supported for now.")
+    else:
+        flute_config["num_sms_packed"] = flute_config.pop("num_sms")
+
+    if "example_batch_size" not in kwargs.keys():
+        logger.warning(
+            "You did not specify `example_batch_size`. Using "
+            "a batch size of 1 for the kernel tuning process.")
+        flute_config["example_batch_size"] = 1
+    else:
+        flute_config["example_batch_size"] = kwargs.pop("example_batch_size")
 
     # load and monkey-patch the model config
     config = AutoConfig.from_pretrained(
