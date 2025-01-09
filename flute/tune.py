@@ -421,6 +421,12 @@ def tune_and_pack(
         template_id=template_id)
 
     if check_correctness is True:
+        # sometimes the `weight` passed in can be on CPU, this is fine
+        # since we don't really use `weight` during tuning, but for
+        # checking we need to make sure they are on the proper device
+        weight = weight.to(device=device)
+        weight_packed = weight_packed.to(device=device)
+
         for uniform in [True, False]:
             for identity in [True, False]:
                 for seed in range(check_num_seeds):

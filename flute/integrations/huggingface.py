@@ -206,7 +206,8 @@ def _repack_flute_linear(model: torch.nn.Module, quantization_config: FluteConfi
                 inputs=example_inputs,
                 weight=Q_unpacked.T.contiguous().to(device="cpu"),
                 num_bits=module.num_bits,
-                group_size=module.group_size).to(device=module.weight.device)
+                group_size=module.group_size)
+            Q_repacked = Q_repacked.to(device=module.weight.device)
 
             if not all([
                 not isinstance(module.weight, torch.nn.Parameter),
