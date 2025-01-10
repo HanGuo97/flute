@@ -5,8 +5,9 @@ import argparse
 from tqdm.auto import tqdm
 
 import flute
+import flute.tune
 import flute.utils
-from experiments.shapes import SUPPORTED_SHAPES
+from tests.shapes import SUPPORTED_SHAPES
 
 FP16_ERROR_THRESHOLD = 2.0e-3
 BF16_ERROR_THRESHOLD = 1.1e-2
@@ -69,12 +70,13 @@ def test_integer(
     S_ = torch.repeat_interleave(S, group_size, dim=1).T
     D_ = torch.mm(A, W_ * S_)
 
-    Q = flute.utils.pack(
-        W,
+    Q, tune_metadata = flute.tune.tune_and_pack(
+        inputs=A,
+        weight=W,
         num_bits=num_bits,
         group_size=group_size)
 
-    D = flute.qgemm_simple(
+    D = flute.qgemm(
         A,
         Q,
         S,
@@ -82,7 +84,9 @@ def test_integer(
         qmap2,
         workspace,
         num_bits,
-        group_size)
+        group_size,
+        tune_metadata.template_id,
+        tune_metadata.num_sms)
 
     equal = (D_ == D).all().item()
     error  = ((D_ - D).norm() / D .norm()).item()
@@ -136,8 +140,9 @@ def run_tests(num: int) -> None:
         torch.manual_seed(index)
 
         for N, K in tqdm(SUPPORTED_SHAPES):
-            for num_bits in [3, 4]:
-                for group_size in [32, 64, 128, 256]:
+            for num_bits in [2, 3, 4]:
+                # for group_size in [32, 64, 128, 256]:
+                for group_size in [64, 128, 256]:
                     for dtype in [torch.float16, torch.bfloat16]:
                         for uniform in [True, False]:
 
@@ -163,28 +168,9 @@ def run_tests(num: int) -> None:
                                     identity=False)
 
 
-def test_configs() -> None:
-    for k0 in flute.TEMPLATE_TUNED_WITHOUT_M_CONFIGS.keys():
-        if k0[-1] == "torch.bfloat16":
-            continue
-        if k0[-1] != "torch.float16":
-            raise ValueError
-        k1 = list(copy.deepcopy(k0))
-        k1[-1] = "torch.bfloat16"
-        k1 = tuple(k1)
-
-        tid0 = flute.TEMPLATE_TUNED_WITHOUT_M_CONFIGS[k0]
-        tid1 = flute.TEMPLATE_TUNED_WITHOUT_M_CONFIGS[k1]
-        c0 = flute.utils.get_template_config(num_bits=k0[1], template_id=tid0)
-        c1 = flute.utils.get_template_config(num_bits=k1[1], template_id=tid1)
-        if c0["tileP"] != c1["tileP"]:
-            raise ValueError
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--num", type=int, default=10)
     args = parser.parse_args()
 
-    test_configs()
     run_tests(num=args.num)

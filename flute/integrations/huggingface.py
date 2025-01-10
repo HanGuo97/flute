@@ -1,5 +1,7 @@
+import os
 import enum
 import json
+import click
 import torch
 from dataclasses import dataclass
 from typing import Tuple, List, Optional
@@ -35,6 +37,7 @@ class FluteConfig(QuantizationConfigMixin):
         num_bits: int,
         group_size: int,
         num_sms_packed: int,
+        example_batch_size: int,
         modules_to_not_convert: Optional[List[str]] = None,
         **kwargs,
     ) -> None:
@@ -46,7 +49,38 @@ class FluteConfig(QuantizationConfigMixin):
         self.num_bits = num_bits
         self.group_size = group_size
         self.num_sms_packed = num_sms_packed
+        self.example_batch_size = example_batch_size
         self.modules_to_not_convert = modules_to_not_convert
+
+        legacy_template_id_dict_file_name = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "../data/qgemm_kernel_raw_tuned_configs.no-M.pth")
+
+        if os.path.exists(legacy_template_id_dict_file_name):
+            self.legacy_template_id_dict = torch.load(
+                legacy_template_id_dict_file_name,
+                weights_only=True)
+            click.secho(
+                f"[FLUTE]: Template (tuned, without M) configs "
+                f"loaded from {legacy_template_id_dict_file_name}",
+                fg="green")
+        else:
+            raise ValueError
+
+    def get_legacy_template_id(
+        self,
+        N: int,
+        K: int,
+        dtype: torch.dtype,
+    ) -> int:
+        return self.legacy_template_id_dict[(
+            self.num_sms_packed,
+            self.num_bits,
+            self.group_size,
+            N,
+            K,
+            str(dtype),
+        )]
 
 
 def _replace_with_flute_linear(
@@ -78,6 +112,10 @@ def _replace_with_flute_linear(
                         out_features=module.out_features,
                         num_bits=quantization_config.num_bits,
                         group_size=quantization_config.group_size,
+                        template_id=quantization_config.get_legacy_template_id(
+                            N=module.out_features,
+                            K=module.in_features,
+                            dtype=module.weight.dtype),
                         workspace_lazy_init=True,
                         bias=module.bias is not None,
                         device=module.weight.device,
@@ -133,6 +171,7 @@ def replace_with_flute_linear(
 
 
 def _repack_flute_linear(model: torch.nn.Module, quantization_config: FluteConfig) -> None:
+    import flute.tune
     import flute.utils
     from flute.integrations.base import FluteLinear
 
@@ -154,13 +193,21 @@ def _repack_flute_linear(model: torch.nn.Module, quantization_config: FluteConfi
                 workspace=flute.utils.get_workspace_streamk(device),
                 num_bits=module.num_bits,
                 group_size=module.group_size,
+                template_id_packed=module.template_id,
                 num_sms_packed=quantization_config.num_sms_packed)
 
             # re-pack the tensors
-            Q_repacked = flute.utils.pack(
-                Q_unpacked.T.contiguous().to(device="cpu"),
+            example_inputs = torch.randn(
+                quantization_config.example_batch_size,
+                module.in_features,
+                dtype=module.scales.dtype,
+                device=device)
+            Q_repacked, tune_metadata = flute.tune.tune_and_pack(
+                inputs=example_inputs,
+                weight=Q_unpacked.T.contiguous().to(device="cpu"),
                 num_bits=module.num_bits,
-                group_size=module.group_size).to(device=module.weight.device)
+                group_size=module.group_size)
+            Q_repacked = Q_repacked.to(device=module.weight.device)
 
             if not all([
                 not isinstance(module.weight, torch.nn.Parameter),
@@ -183,6 +230,7 @@ def _repack_flute_linear(model: torch.nn.Module, quantization_config: FluteConfi
 
             module.weight = Q_repacked
             module.tables2 = tables2
+            module.template_id = tune_metadata.template_id
 
         if len(list(module.children())) > 0:
             _repack_flute_linear(module, quantization_config=quantization_config)
@@ -248,6 +296,20 @@ class FluteHfQuantizer(HfQuantizer):
     def _process_model_after_weight_loading(self, model: PreTrainedModel, **kwargs) -> None:
         return _repack_flute_linear(model, quantization_config=self.quantization_config)
 
+    def update_missing_keys(self, model, missing_keys: List[str], prefix: str) -> List[str]:
+        from flute.integrations.base import FluteLinear
+
+        not_missing_keys = []
+        for name, module in model.named_modules():
+            if isinstance(module, FluteLinear):
+                for missing in missing_keys:
+                    if (
+                        (name in missing or name in f"{prefix}.{missing}")
+                        and missing.endswith(torch.nn.modules.module._EXTRA_STATE_KEY_SUFFIX)
+                    ):
+                        not_missing_keys.append(missing)
+        return [k for k in missing_keys if k not in not_missing_keys]
+
     @property
     def is_trainable(self) -> bool:
         return False
@@ -267,9 +329,22 @@ def from_pretrained(pretrained_model_name_or_path: str, **kwargs) -> PreTrainedM
         repo_id=pretrained_model_name_or_path,
         filename=FLUTE_CONFIG_FILE_NAME,
         revision=kwargs.get("revision", None))
+
     with open(config_filename) as f:
         flute_config = json.load(f)
+
+    if "num_sms" not in flute_config.keys():
+        raise NotImplementedError("Only legacy models are supported for now.")
+    else:
         flute_config["num_sms_packed"] = flute_config.pop("num_sms")
+
+    if "example_batch_size" not in kwargs.keys():
+        logger.warning(
+            "You did not specify `example_batch_size`. Using "
+            "a batch size of 1 for the kernel tuning process.")
+        flute_config["example_batch_size"] = 1
+    else:
+        flute_config["example_batch_size"] = kwargs.pop("example_batch_size")
 
     # load and monkey-patch the model config
     config = AutoConfig.from_pretrained(

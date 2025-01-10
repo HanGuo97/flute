@@ -26,8 +26,9 @@ def vector_dequantize(
     vector_size: int,
     dtype: torch.dtype,
     device: torch.device,
+    example_batch_size: int,
 ) -> torch.Tensor:
-    Q, S, tables, tables2 = flute.integrations.higgs.prepare_data_transposed(
+    Q, S, tables, tables2, tune_metadata = flute.integrations.higgs.prepare_data_transposed(
         weight_original=weight_higgs,
         scales_original=scales_higgs,
         grid=grid,
@@ -35,14 +36,15 @@ def vector_dequantize(
         group_size=group_size,
         vector_size=vector_size,
         dtype=dtype,
-        device=device)
+        device=device,
+        example_batch_size=example_batch_size)
 
     I = torch.eye(
         Q.shape[1],
         dtype=dtype,
         device=device)
     workspace = flute.utils.make_workspace_streamk(device=device)
-    return flute.qgemm_simple(
+    return flute.qgemm(
         I,
         Q,
         S,
@@ -50,10 +52,13 @@ def vector_dequantize(
         tables2,
         workspace,
         num_bits,
-        group_size)
+        group_size,
+        tune_metadata.template_id,
+        tune_metadata.num_sms)
 
 
 def test_vector_dequantize() -> None:
+    M = 1
     N = 4096
     K = 4096
     group_size = 64
@@ -87,7 +92,8 @@ def test_vector_dequantize() -> None:
                     group_size=group_size,
                     vector_size=vector_size,
                     dtype=dtype,
-                    device=device)
+                    device=device,
+                    example_batch_size=M)
 
                 outputs_higgs = vector_dequantize_higgs(
                     weight_higgs=weight_higgs.int(),

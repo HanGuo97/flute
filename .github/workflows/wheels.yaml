@@ -16,13 +16,15 @@ jobs:
     strategy:
       matrix:
           os: ['ubuntu-20.04']
-          python-version: ['3.8', '3.9', '3.10', '3.11']
+          python-version: ['3.9', '3.10', '3.11']
           pytorch-version: ['2.4.0']
           cuda-version: ['11.8', '12.1']
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Set up Linux Env
         if: ${{ runner.os == 'Linux' }}
@@ -32,7 +34,7 @@ jobs:
       - name: Set Swap Space
         uses: pierotofy/set-swap-space@master
         with:
-          swap-size-gb: 10
+          swap-size-gb: 12
 
       - name: Set up Python
         uses: actions/setup-python@v5

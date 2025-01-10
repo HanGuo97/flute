@@ -9,6 +9,8 @@ import flute
 import flute.utils
 
 _TEMPLATES = {}
+FP16_ERROR_THRESHOLD = 2.0e-3
+BF16_ERROR_THRESHOLD = 1.1e-2
 
 
 def prepare_flute_data(
@@ -131,7 +133,8 @@ def run_benchmark(
                 N=N,
                 K=K,
                 num_bits=num_bits,
-                template_id=template_id) is False:
+                template_id=template_id,
+                num_sms=num_sms) is False:
                 # print(f"{m} {n} {k} does not support {template_id}")
                 continue
 
@@ -253,23 +256,142 @@ def _tune(
     return best_template_id
 
 
-def tune(
+class TuneMetaData(NamedTuple):
+    M: int
+    N: int
+    K: int
+    num_bits: int
+    group_size: int
+    num_sms: int
+    dtype: torch.dtype
+    device: torch.device
+    template_id: int
+
+
+# this 2/4
+@torch.no_grad()
+def check(
+    weight: torch.Tensor,
+    weight_packed: torch.Tensor,
+    metadata: TuneMetaData,
+    uniform: bool,
+    identity: bool,
+) -> None:
+    if identity is True:
+        inputs = torch.eye(
+            metadata.K,
+            dtype=metadata.dtype,
+            device=metadata.device)
+    else:
+        inputs = torch.randn(
+            (metadata.M, metadata.K),
+            dtype=metadata.dtype,
+            device=metadata.device) / 100.
+
+    scales = torch.randn(
+        (metadata.N, int(metadata.K / metadata.group_size)),
+        dtype=metadata.dtype,
+        device=metadata.device)
+
+    if uniform is True:
+        tables = torch.arange(
+            2 ** metadata.num_bits,
+            dtype=metadata.dtype,
+            device=metadata.device)
+    else:
+        tables = torch.randn(
+            2 ** metadata.num_bits,
+            dtype=metadata.dtype,
+            device=metadata.device)
+
+    tables2 = flute.utils.make_qmap2_from_qmap(tables)
+    workspace = flute.utils.make_workspace_streamk(device=metadata.device)
+
+    # ground truth
+    weight_ = tables[flute.utils.safe_cast(weight, dtype=torch.int64)]
+    scales_ = torch.repeat_interleave(scales, metadata.group_size, dim=1).T
+    output_ = torch.mm(inputs, weight_ * scales_)
+
+    qgemm_args = (
+        inputs,
+        weight_packed,
+        scales,
+        tables,
+        tables2,
+        workspace,
+        metadata.num_bits,
+        metadata.group_size,
+        metadata.template_id,
+        metadata.num_sms)
+    output = flute.qgemm(*qgemm_args)
+
+    if identity is True:
+        torch.library.opcheck(flute.qgemm, qgemm_args)
+    else:
+        # `qgemm` is actually non-deterministic due to
+        # how we implemented Stream-K reduction, so the
+        # `opcheck` that asserts output equality with and
+        # without compile will not pass
+        opcheck_utils = tuple(
+            c for c in torch.library._OPCHECK_DEFAULT_UTILS
+            if c not in ["test_aot_dispatch_dynamic"])
+        torch.library.opcheck(flute.qgemm, qgemm_args, test_utils=opcheck_utils)
+
+    equal = (output_ == output).all().item()
+    error  = ((output_ - output).norm() / output .norm()).item()
+    error_ = ((output_ - output).norm() / output_.norm()).item()
+    message = (
+        f"WARNING: "
+        f"M={str(metadata.M):<5} "
+        f"N={str(metadata.N):<5} "
+        f"K={str(metadata.K):<5} "
+        f"num_bits={str(metadata.num_bits):<5} "
+        f"group_size={str(metadata.group_size):<5} "
+        f"dtype={str(metadata.dtype):<15} "
+        f"uniform={str(uniform):<5} "
+        f"error={error:.3e} "
+        f"error_={error_:.3e}")
+
+    if identity is True:
+        if equal is not True:
+            click.secho(message, bg="red")
+    else:
+        if metadata.dtype == torch.float16:
+            threshold = FP16_ERROR_THRESHOLD
+        elif metadata.dtype == torch.bfloat16:
+            threshold = BF16_ERROR_THRESHOLD
+        else:
+            raise NotImplementedError
+
+        if error > threshold or error_ > threshold:
+            click.secho(message, fg="red")
+        if not (error < threshold and error_ < threshold):
+            # corner cases when error is NaN
+            click.secho(message, fg="red")
+
+
+def tune_and_pack(
     inputs: torch.Tensor,
     weight: torch.Tensor,
-    scales: torch.Tensor,
-    tables: torch.Tensor,
-    tables2: torch.Tensor,
     num_bits: int,
     group_size: int,
     num_seeds: int = 3,
-) -> int:
-    M = inputs.shape[0]  # [M, K]
-    N = scales.shape[0]  # [N, G]
-    K = weight.shape[1]  # [P, K]
+    check_correctness: bool = True,
+    check_num_seeds: int = 3,
+) -> Tuple[torch.Tensor, TuneMetaData]:
+    if inputs.ndim != 2:
+        raise ValueError
+    if weight.ndim != 2:
+        raise ValueError
+    if inputs.shape[1] != weight.shape[0]:
+        raise ValueError
+    M = inputs.shape[0]
+    K, N = weight.shape
     dtype = inputs.dtype
     device = inputs.device
     num_sms = flute.utils.get_device_num_sms(device)
-    return _tune(
+
+    template_id = _tune(
         M=M,
         N=N,
         K=K,
@@ -280,6 +402,43 @@ def tune(
         device=device,
         num_seeds=num_seeds,
         legacy=False)
+
+    weight_packed = flute.utils.pack(
+        W=weight,
+        num_bits=num_bits,
+        template_ids=[template_id],
+        num_sms=num_sms)
+
+    metadata = TuneMetaData(
+        M=M,
+        N=N,
+        K=K,
+        num_bits=num_bits,
+        group_size=group_size,
+        num_sms=num_sms,
+        dtype=dtype,
+        device=device,
+        template_id=template_id)
+
+    if check_correctness is True:
+        # sometimes the `weight` passed in can be on CPU, this is fine
+        # since we don't really use `weight` during tuning, but for
+        # checking we need to make sure they are on the proper device
+        weight = weight.to(device=device)
+        weight_packed = weight_packed.to(device=device)
+
+        for uniform in [True, False]:
+            for identity in [True, False]:
+                for seed in range(check_num_seeds):
+                    torch.manual_seed(seed)
+                    check(
+                        weight=weight,
+                        weight_packed=weight_packed,
+                        metadata=metadata,
+                        uniform=uniform,
+                        identity=identity)
+
+    return weight_packed, metadata
 
 
 class TuneTask(NamedTuple):
