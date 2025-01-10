@@ -27,7 +27,7 @@ def vector_dequantize(
     dtype: torch.dtype,
     device: torch.device,
 ) -> torch.Tensor:
-    Q, S, tables, tables2 = flute.integrations.higgs.prepare_data_transposed(
+    Q, S, tables, tables2, tune_metadata = flute.integrations.higgs.prepare_data_transposed(
         weight_original=weight_higgs,
         scales_original=scales_higgs,
         grid=grid,
@@ -42,7 +42,7 @@ def vector_dequantize(
         dtype=dtype,
         device=device)
     workspace = flute.utils.make_workspace_streamk(device=device)
-    return flute.qgemm_simple(
+    return flute.qgemm(
         I,
         Q,
         S,
@@ -50,7 +50,9 @@ def vector_dequantize(
         tables2,
         workspace,
         num_bits,
-        group_size)
+        group_size,
+        tune_metadata.template_id,
+        tune_metadata.num_sms)
 
 
 def test_vector_dequantize() -> None:
