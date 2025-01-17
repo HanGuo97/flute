@@ -1,7 +1,8 @@
 import torch
+import warnings
 import flute.tune
 import flute.utils
-from typing import Tuple
+from typing import Tuple, Optional
 
 
 def prepare_data(
@@ -13,7 +14,7 @@ def prepare_data(
     vector_size: int,
     dtype: torch.dtype,
     device: torch.device,
-    example_batch_size: int,
+    example_batch_size: Optional[int] = None,
 ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, flute.tune.TuneMetaData]:
     """Converting the HIGGS data to FLUTE format."""
     dim0 = int(weight_original.shape[0] * vector_size)
@@ -76,6 +77,10 @@ def prepare_data(
     else:
         raise NotImplementedError
 
+    if example_batch_size is None:
+        example_batch_size = 1
+        warnings.warn(f"[FLUTE]: `example_batch_size` is not set, using {example_batch_size}.")
+
     example_inputs = torch.randn(
         example_batch_size,
         dim0,
@@ -99,7 +104,7 @@ def prepare_data_transposed(
     vector_size: int,
     dtype: torch.dtype,
     device: torch.device,
-    example_batch_size: int,
+    example_batch_size: Optional[int] = None,
 ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, flute.tune.TuneMetaData]:
     if weight_original.ndim != 2:
         raise ValueError
