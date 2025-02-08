@@ -470,3 +470,40 @@ def tune_tasks_legacy(tasks: List[TuneTask], num_seeds: int = 3) -> None:
     save_path = os.path.join(file_dir, "../flute/data/qgemm_kernel_raw_tuned_configs.pth")
     torch.save(_TEMPLATES, save_path)
     click.secho(f"Saved to {save_path}", fg="green")
+
+
+def qgemm_v2(
+    inputs: torch.Tensor,
+    weight: torch.Tensor,
+    scales: torch.Tensor,
+    tables: torch.Tensor,
+    tables2: torch.Tensor,
+    workspace: torch.Tensor,
+    metadata: TuneMetaData,
+    hadamard_size: Optional[int] = None,
+) -> torch.Tensor:
+    if hadamard_size is None:
+        return flute.qgemm(
+            inputs=inputs,
+            weight=weight,
+            scales=scales,
+            tables=tables,
+            tables2=tables2,
+            workspace=workspace,
+            num_bits=metadata.num_bits,
+            group_size=metadata.group_size,
+            template_id=metadata.template_id,
+            num_sms=metadata.num_sms)
+    else:
+        return flute.qgemm_hadamard(
+            inputs=inputs,
+            weight=weight,
+            scales=scales,
+            tables=tables,
+            tables2=tables2,
+            workspace=workspace,
+            num_bits=metadata.num_bits,
+            group_size=metadata.group_size,
+            hadamard_size=hadamard_size,
+            template_id=metadata.template_id,
+            num_sms=metadata.num_sms)
