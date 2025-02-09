@@ -474,22 +474,22 @@ def tune_tasks_legacy(tasks: List[TuneTask], num_seeds: int = 3) -> None:
 
 
 def qgemm_v2(
-    inputs: torch.Tensor,
+    input: torch.Tensor,
     weight: torch.Tensor,
     scales: torch.Tensor,
-    tables: torch.Tensor,
-    tables2: torch.Tensor,
+    table: torch.Tensor,
+    table2: torch.Tensor,
     workspace: torch.Tensor,
     metadata: TuneMetaData,
     hadamard_size: Optional[int] = None,
 ) -> torch.Tensor:
     if hadamard_size is None:
         return flute.qgemm(
-            inputs=inputs,
+            input=input,
             weight=weight,
             scales=scales,
-            tables=tables,
-            tables2=tables2,
+            table=table,
+            table2=table2,
             workspace=workspace,
             num_bits=metadata.num_bits,
             group_size=metadata.group_size,
@@ -497,11 +497,11 @@ def qgemm_v2(
             num_sms=metadata.num_sms)
     else:
         return flute.qgemm_hadamard(
-            inputs=inputs,
+            input=input,
             weight=weight,
             scales=scales,
-            tables=tables,
-            tables2=tables2,
+            table=table,
+            table2=table2,
             workspace=workspace,
             num_bits=metadata.num_bits,
             group_size=metadata.group_size,
