@@ -1,6 +1,7 @@
 import os
 import click
 import torch
+import warnings
 import triton.testing as triton_benchmark
 from collections import defaultdict
 from typing import Tuple, Dict, List, Optional, NamedTuple
@@ -507,3 +508,59 @@ def qgemm_v2(
             hadamard_size=hadamard_size,
             template_id=metadata.template_id,
             num_sms=metadata.num_sms)
+
+
+def maybe_tune_and_repack(
+    weight: torch.Tensor,
+    scales: torch.Tensor,
+    metadata: TuneMetaData,
+    example_batch_size: Optional[int] = None,
+) -> Tuple[torch.Tensor, TuneMetaData]:
+
+    if weight.device.type != "cuda":
+        device = torch.device("cuda")
+        warnings.warn(f"[FLUTE]: Moving data from {weight.device} to {device}.")
+    else:
+        device = weight.device
+
+    if example_batch_size is None:
+        example_batch_size = 1
+        warnings.warn(f"[FLUTE]: `example_batch_size` is not set, using {example_batch_size}.")
+
+    num_sms = flute.utils.get_device_num_sms(device)
+    if (metadata.M == example_batch_size) and (metadata.num_sms == num_sms):
+        return weight, metadata
+
+    # reconstruct the unpacked tensor
+    Q_unpacked = flute.utils.unpack(
+        weight=weight.to(device=device),
+        scales=scales.to(device=device),
+        workspace=flute.utils.get_workspace_streamk(device),
+        num_bits=metadata.num_bits,
+        group_size=metadata.group_size,
+        template_id_packed=metadata.template_id,
+        num_sms_packed=metadata.num_sms)
+
+    # re-pack the tensors
+    example_inputs = torch.randn(
+        example_batch_size,
+        metadata.K,
+        dtype=scales.dtype,
+        device=device)
+    weight_repacked, tune_metadata = tune_and_pack(
+        inputs=example_inputs,
+        weight=Q_unpacked.T.contiguous().to(device="cpu"),
+        num_bits=metadata.num_bits,
+        group_size=metadata.group_size)
+    weight_repacked = weight_repacked.to(device=weight.device)
+
+    if not all([
+        not isinstance(weight, torch.nn.Parameter),
+        weight.requires_grad is False,
+        weight_repacked.requires_grad is False,
+        weight_repacked.shape == weight.shape,
+        weight_repacked.dtype == weight.dtype,
+        weight_repacked.device == weight.device]):
+        raise ValueError
+
+    return weight_repacked, tune_metadata
