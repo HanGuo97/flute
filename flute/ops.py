@@ -6,8 +6,8 @@ def _qgemm_raw_simple_abstract(
     input: torch.Tensor,
     weight: torch.Tensor,
     scales: torch.Tensor,
-    tables: torch.Tensor,
-    tables2: torch.Tensor,
+    table: torch.Tensor,
+    table2: torch.Tensor,
     workspace: torch.Tensor,
     num_bits: int,
     group_size: int,
@@ -18,8 +18,8 @@ def _qgemm_raw_simple_abstract(
         input.ndim >= 2,
         weight.ndim == 2,
         scales.ndim == 2,
-        tables.ndim == 1,
-        tables2.ndim == 3,
+        table.ndim == 1,
+        table2.ndim == 3,
         workspace.ndim == 1,
     ]):
         raise ValueError
@@ -31,8 +31,8 @@ def _qgemm_raw_simple_abstract(
     if not all([
         weight.dtype == torch.int16,
         scales.dtype == dtype,
-        tables.dtype == dtype,
-        tables2.dtype == torch.float32,
+        table.dtype == dtype,
+        table2.dtype == torch.float32,
         workspace.dtype == torch.uint8,
     ]):
         raise TypeError
@@ -41,10 +41,10 @@ def _qgemm_raw_simple_abstract(
         weight.shape[1] == input.shape[-1],  # K
         weight.shape[1] == scales.shape[1] * group_size,  # K
         weight.shape[0] == int(num_bits * (scales.shape[0] / 16)),  # P
-        tables.shape[0] == 2 ** num_bits,
-        tables2.shape[0] == 2 ** num_bits,
-        tables2.shape[1] == 2 ** num_bits,
-        tables2.shape[2] == 1,
+        table.shape[0] == 2 ** num_bits,
+        table2.shape[0] == 2 ** num_bits,
+        table2.shape[1] == 2 ** num_bits,
+        table2.shape[2] == 1,
     ]):
         raise ValueError
 
@@ -60,8 +60,8 @@ def _qgemm_raw_simple_hadamard_abstract(
     input: torch.Tensor,
     weight: torch.Tensor,
     scales: torch.Tensor,
-    tables: torch.Tensor,
-    tables2: torch.Tensor,
+    table: torch.Tensor,
+    table2: torch.Tensor,
     workspace: torch.Tensor,
     num_bits: int,
     group_size: int,
@@ -73,8 +73,8 @@ def _qgemm_raw_simple_hadamard_abstract(
         input=input,
         weight=weight,
         scales=scales,
-        tables=tables,
-        tables2=tables2,
+        table=table,
+        table2=table2,
         workspace=workspace,
         num_bits=num_bits,
         group_size=group_size,
