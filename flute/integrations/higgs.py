@@ -79,7 +79,7 @@ def prepare_data(
 
     if example_batch_size is None:
         example_batch_size = 1
-        warnings.warn(f"[FLUTE]: `example_batch_size` is not set, using {example_batch_size}.")
+        # warnings.warn(f"[FLUTE]: `example_batch_size` is not set, using {example_batch_size}.")
 
     example_inputs = torch.randn(
         example_batch_size,

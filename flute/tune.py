@@ -268,6 +268,27 @@ class TuneMetaData(NamedTuple):
     device: torch.device
     template_id: int
 
+    def to_dict(self) -> Dict:
+        data = self._asdict()
+        data["dtype"] = str(data["dtype"])
+        data["device"] = str(data["device"])
+        return data
+
+    @classmethod
+    def from_dict(cls, data: Dict) -> "TuneMetaData":
+        dtype_name = data.get("dtype")
+        if dtype_name == "torch.float32":
+            data["dtype"] = torch.float32
+        elif dtype_name == "torch.float16":
+            data["dtype"] = torch.float16
+        elif dtype_name == "torch.bfloat16":
+            data["dtype"] = torch.bfloat16
+        else:
+            raise ValueError(f"Invalid dtype {dtype_name}")
+
+        data["device"] = torch.device(data["device"])
+        return cls(**data)
+
 
 # this 2/4
 @torch.no_grad()
