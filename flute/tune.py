@@ -546,11 +546,15 @@ def maybe_tune_and_repack(
 
     if example_batch_size is None:
         example_batch_size = 1
-        warnings.warn(f"[FLUTE]: `example_batch_size` is not set, using {example_batch_size}.")
+        # warnings.warn(f"[FLUTE]: `example_batch_size` is not set, using {example_batch_size}.")
 
     num_sms = flute.utils.get_device_num_sms(device)
     if (metadata.M == example_batch_size) and (metadata.num_sms == num_sms):
         return weight, metadata
+
+    warnings.warn(f"[FLUTE]: Tuning and repacking with "
+                  f"batch size ({example_batch_size}) and "
+                  f"metadata ({metadata._asdict()}).")
 
     # reconstruct the unpacked tensor
     Q_unpacked = flute.utils.unpack(
