@@ -15,6 +15,7 @@ def prepare_data(
     dtype: torch.dtype,
     device: torch.device,
     example_batch_size: Optional[int] = None,
+    check_correctness: bool = True,
 ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, flute.tune.TuneMetaData]:
     """Converting the HIGGS data to FLUTE format."""
     dim0 = int(weight_original.shape[0] * vector_size)
@@ -90,7 +91,8 @@ def prepare_data(
         inputs=example_inputs,
         weight=W.contiguous(),
         num_bits=num_bits,
-        group_size=group_size)
+        group_size=group_size,
+        check_correctness=check_correctness)
     S = scales_original.T.contiguous()
     return Q, S, qmap, qmap2, tune_metadata
 
@@ -105,6 +107,7 @@ def prepare_data_transposed(
     dtype: torch.dtype,
     device: torch.device,
     example_batch_size: Optional[int] = None,
+    check_correctness: bool = True,
 ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, flute.tune.TuneMetaData]:
     if weight_original.ndim != 2:
         raise ValueError
@@ -119,4 +122,5 @@ def prepare_data_transposed(
         vector_size=vector_size,
         dtype=dtype,
         device=device,
-        example_batch_size=example_batch_size)
+        example_batch_size=example_batch_size,
+        check_correctness=check_correctness)

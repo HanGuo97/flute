@@ -84,8 +84,9 @@ def from_binary(tensor: BinaryTensorType, num_bits: int, legacy: bool = True) ->
 def pack_bools_into_integers(
     tensor: BinaryTensorType,
     packed_dtype: torch.dtype,
+    legacy: bool = False,
 ) -> Tuple[PackedBinaryTensorType, int]:
-    if tensor.ndim != 1:
+    if tensor.ndim != 1 or tensor.shape[-1] != tensor.numel():
         raise ValueError
     if tensor.dtype != torch.bool:
         raise TypeError
@@ -112,15 +113,30 @@ def pack_bools_into_integers(
         int(tensor.shape[-1] / packed_num_bits),
         packed_num_bits)
 
-    # [1, packed_num_bits]
-    bits = torch.arange(
-        packed_num_bits,
-        dtype=packed_dtype,
-        device=tensor.device)
-    bits = torch.unsqueeze(bits, dim=0)
-    packed_tensor = (tensor << bits)
-    packed_tensor = torch.sum(packed_tensor, dim=-1)
-    packed_tensor = packed_tensor.to(dtype=packed_dtype)
+    if legacy is True:
+        # [1, packed_num_bits]
+        bits = torch.arange(
+            packed_num_bits,
+            dtype=packed_dtype,
+            device=tensor.device)
+        bits = torch.unsqueeze(bits, dim=0)
+        packed_tensor = (tensor << bits)
+        packed_tensor = torch.sum(packed_tensor, dim=-1)
+        packed_tensor = packed_tensor.to(dtype=packed_dtype)
+
+    else:
+        # Allocate the output tensor in the desired dtype.
+        packed_tensor = torch.zeros(
+            tensor.shape[0],
+            dtype=packed_dtype,
+            device=tensor.device)
+
+        # Process each bit column individually.
+        for bit in range(packed_num_bits):
+            # Convert the boolean column to the target dtype and shift left by `bit`.
+            # This computes in the target dtype (e.g., int16) rather than int64.
+            packed_tensor |= tensor[:, bit].to(packed_dtype) << bit
+
     return packed_tensor, padding_length
 
 

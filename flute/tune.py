@@ -574,7 +574,7 @@ def maybe_tune_and_repack(
         device=device)
     weight_repacked, tune_metadata = tune_and_pack(
         inputs=example_inputs,
-        weight=Q_unpacked.T.contiguous().to(device="cpu"),
+        weight=Q_unpacked.T.contiguous(),
         num_bits=metadata.num_bits,
         group_size=metadata.group_size)
     weight_repacked = weight_repacked.to(device=weight.device)
