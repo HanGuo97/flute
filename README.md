@@ -40,6 +40,8 @@ Install FLUTE with pip or [from source](#build-from-source):
 pip install flute-kernel
 # For CUDA 11.8
 pip install flute-kernel -i https://flute-ai.github.io/whl/cu118
+# For CUDA 12.4
+pip install flute-kernel -i https://flute-ai.github.io/whl/cu124
 ```
 Head over to [Getting Started](#getting-started) and try it out!
 
