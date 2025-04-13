@@ -20,8 +20,8 @@
 </div>
 
 # Update
-- **Fenburary, 2024.** HIGGS will appear in NAACL 2025.
-- **Jan 9, 2025.** Added (very) experimental support for removing specialization on shapes + GPU via auto-tune.
+- **February, 2024.** HIGGS will appear in NAACL 2025.
+- **January 9, 2025.** Added (very) experimental support for removing specialization on shapes + GPU via auto-tune.
 - **December 12, 2024.** Added support for Hadamard Transform (via [HadaCore](https://pytorch.org/blog/hadacore/)).
 - **November 26, 2024.** Added support for [vector (de)quantization](flute/integrations/higgs.py) (`vector_size=2`), as part of [HIGGS](https://arxiv.org/abs/2411.17525).
 - **October 5, 2024.** FLUTE will appear in EMNLP 2024 (Findings).
